@@ -5,11 +5,14 @@ import androidx.room.Dao;
 import androidx.room.EmptyResultSetException;
 import androidx.room.Room;
 import android.content.Context;
+import android.database.sqlite.SQLiteException;
+import android.graphics.Color;
 import android.widget.TextView;
 
 import com.example.mm.Home;
 import com.example.mm.R;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class TestApp implements Runnable{
@@ -17,6 +20,7 @@ public class TestApp implements Runnable{
     QuestionDatabase db;
     Home home;
     TextView mainTextView;
+    int color;
     public TestApp(Context context, Home home, TextView mainTextView) {
         db = Room.databaseBuilder(context, QuestionDatabase.class, "Questions").build();
         qDao = db.questionDao();
@@ -25,14 +29,23 @@ public class TestApp implements Runnable{
     }
 
     public void run(){
-        //qDao.insertAll(new Question(1, "Come ti chiami?"));
-        //qDao.deleteAll();
-
         List<Question> q = null;
         StringBuilder val = new StringBuilder();
 
-        val.append("Ritorno:");
-        val.append('\n');
+        val.append("Ritorno:\n");
+
+        color = home.getResources().getColor(R.color.green);
+
+        qDao.deleteAll();
+
+        /* Room query can throw "SQLiteException" in case of errors */
+        try {
+            qDao.insertAll(new Question(1, "Come ti chiami?"));
+        }
+        catch (SQLiteException e) {
+            color = home.getResources().getColor(R.color.red);
+            val.append("Errore sulle operazioni preliminari (SQLiteException)\n");
+        }
 
         /* Room select query can throw "EmptyResultSetException" when the return is empty */
         try {
@@ -41,8 +54,7 @@ public class TestApp implements Runnable{
         catch(EmptyResultSetException e){}
 
         if(q.isEmpty()){
-            val.append("Non sono presenti elementi.");
-            val.append('\n');
+            val.append("Non sono presenti elementi.\n");
         }
 
         for (Question i : q) {
@@ -59,6 +71,7 @@ public class TestApp implements Runnable{
         home.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                mainTextView.setTextColor(color);
                 mainTextView.setText(val.toString());
             }
         });
