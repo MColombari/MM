@@ -47,11 +47,7 @@ public class TestApp implements Runnable{
             val.append("Errore sulle operazioni preliminari (SQLiteException)\n");
         }
 
-        /* Room select query can throw "EmptyResultSetException" when the return is empty */
-        try {
-            q = qDao.getAll();
-        }
-        catch(EmptyResultSetException e){}
+        q = qDao.getAll();
 
         if(q.isEmpty()){
             val.append("Non sono presenti elementi.\n");

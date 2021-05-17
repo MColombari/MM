@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface QuestionDao {
     @Query("SELECT * FROM question")
-    List<Question> getAll() throws EmptyResultSetException, SQLiteException;
+    List<Question> getAll() throws SQLiteException;
 
     @Query("SELECT * FROM question WHERE qid IN (:qIds)")
     List<Question> loadAllByIds(int[] qIds) throws EmptyResultSetException, SQLiteException;
