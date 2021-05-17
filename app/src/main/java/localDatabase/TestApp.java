@@ -29,7 +29,7 @@ public class TestApp implements Runnable{
     }
 
     public void run(){
-        List<Question> q = null;
+        List<Question> q;
         StringBuilder val = new StringBuilder();
 
         val.append("Ritorno:\n");
