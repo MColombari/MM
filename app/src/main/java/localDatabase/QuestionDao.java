@@ -17,10 +17,10 @@ public interface QuestionDao {
     List<Question> getAll() throws SQLiteException;
 
     @Query("SELECT * FROM question WHERE qid IN (:qIds)")
-    List<Question> loadAllByIds(int[] qIds) throws EmptyResultSetException, SQLiteException;
+    List<Question> loadAllByIds(int[] qIds) throws SQLiteException;
 
     @Query("SELECT * FROM question WHERE questionText IN (:values)")
-    List<Question> loadAllByValue(int[] values) throws EmptyResultSetException, SQLiteException;
+    List<Question> loadAllByValue(int[] values) throws SQLiteException;
 
     @Insert
     void insertAll(Question... question) throws SQLiteException;

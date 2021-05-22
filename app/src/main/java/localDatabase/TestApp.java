@@ -1,18 +1,14 @@
 package localDatabase;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Dao;
-import androidx.room.EmptyResultSetException;
 import androidx.room.Room;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
-import android.graphics.Color;
 import android.widget.TextView;
 
 import com.example.mm.Home;
 import com.example.mm.R;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class TestApp implements Runnable{
@@ -22,7 +18,12 @@ public class TestApp implements Runnable{
     TextView mainTextView;
     int color;
     public TestApp(Context context, Home home, TextView mainTextView) {
-        db = Room.databaseBuilder(context, QuestionDatabase.class, "Questions").build();
+        db = Room.databaseBuilder(context, QuestionDatabase.class, "Questions")
+                .fallbackToDestructiveMigration() /* Is needed to overwrite the old scheme of the
+                                                  *  local database, it will ERASE all the current
+                                                  *  data.
+                                                  * */
+                .build();
         qDao = db.questionDao();
         this.home = home;
         this.mainTextView = mainTextView;
@@ -40,7 +41,7 @@ public class TestApp implements Runnable{
 
         /* Room query can throw "SQLiteException" in case of errors */
         try {
-            qDao.insertAll(new Question(1, "Come ti chiami?"));
+            qDao.insertAll(new Question(1, "20210522","Prova","Come ti chiami?", "Come ti chiami?", "Come ti chiami?", "Come ti chiami?"));
         }
         catch (SQLiteException e) {
             color = home.getResources().getColor(R.color.red);
@@ -64,12 +65,11 @@ public class TestApp implements Runnable{
         *  want change, it runs the specified action (change the element) on the UI thread (home).
         *  The action is posted to the event queue of the UI thread.
         * */
-        home.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mainTextView.setTextColor(color);
-                mainTextView.setText(val.toString());
-            }
+
+        /* Is used lambda to delete warning in the compiler. */
+        home.runOnUiThread(() -> {
+            mainTextView.setTextColor(color);
+            mainTextView.setText(val.toString());
         });
     }
 }
