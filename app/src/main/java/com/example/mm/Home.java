@@ -3,12 +3,8 @@ package com.example.mm;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
-import java.util.List;
-
-import localDatabase.Question;
 import localDatabase.TestApp;
 
 public class Home extends AppCompatActivity {
@@ -16,7 +12,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_main);
 
         mainTextView = findViewById(R.id.mainText);
 
