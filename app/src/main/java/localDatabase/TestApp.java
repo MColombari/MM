@@ -6,7 +6,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteException;
 import android.widget.TextView;
 
-import com.example.mm.Home;
+import com.example.mm.homeActivity.Home;
 import com.example.mm.R;
 
 import java.util.List;
