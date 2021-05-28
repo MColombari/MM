@@ -8,29 +8,32 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.mm.R;
-
-import localDatabase.TestApp;
 
 public class Home extends AppCompatActivity {
     FragmentTransaction transaction;
     Fragment homeFragment;
     Fragment statisticFragment;
+    Fragment optionFragment;
     ImageView home_button;
     ImageView statistic_button;
+    ImageView option_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* Get View */
+        /* Get instance of Fragment */
         homeFragment = new HomeFragment();
         statisticFragment = new StatisticFragment();
+        optionFragment = new OptionFragment();
+
+        /* Get ImageView by id */
         home_button = findViewById(R.id.home_icon);
         statistic_button = findViewById(R.id.statistic_icon);
+        option_button = findViewById(R.id.option_icon);
 
         /* Set Home_FL (FrameLayout) as homeFragment (Fragment) */
         transaction = getSupportFragmentManager().beginTransaction();
@@ -49,7 +52,14 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.Home_FL, statisticFragment);
-                transaction.commitAllowingStateLoss();;
+                transaction.commitAllowingStateLoss();
+            }
+        });
+        option_button.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.Home_FL, optionFragment);
+                transaction.commitAllowingStateLoss();
             }
         });
 
