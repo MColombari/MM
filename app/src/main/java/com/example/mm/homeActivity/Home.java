@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.example.mm.R;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements OnClickListener{
     FragmentTransaction transaction;
     Fragment homeFragment;
     Fragment statisticFragment;
@@ -36,32 +36,12 @@ public class Home extends AppCompatActivity {
         option_button = findViewById(R.id.option_icon);
 
         /* Set Home_FL (FrameLayout) as homeFragment (Fragment) */
-        transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.Home_FL, homeFragment);
-        transaction.commitAllowingStateLoss();
+        this.onClick(home_button);
 
         /* Set OnClickListener for changing Fragment in FrameLayout */
-        home_button.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.Home_FL, homeFragment);
-                transaction.commitAllowingStateLoss();
-            }
-        });
-        statistic_button.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.Home_FL, statisticFragment);
-                transaction.commitAllowingStateLoss();
-            }
-        });
-        option_button.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.Home_FL, optionFragment);
-                transaction.commitAllowingStateLoss();
-            }
-        });
+        home_button.setOnClickListener(this);
+        statistic_button.setOnClickListener(this);
+        option_button.setOnClickListener(this);
 
 
         /*
@@ -72,5 +52,22 @@ public class Home extends AppCompatActivity {
         //TextView mainTextView = findViewById(R.id.mainText);
         //Thread t = new Thread(new TestApp(getApplicationContext(), this, mainTextView));
         //t.start();
+    }
+
+    @Override
+    public void onClick(View v) {
+        /* Vedi per eccezione (se premi troppo in fretta) = https://stackoverflow.com/questions/56539251/backstack-management-restarter-must-be-created-only-during-owners-initializat */
+        Fragment in;
+        if (home_button == v) {
+            in = homeFragment;
+        } else if (statistic_button == v) {
+            in = statisticFragment;
+        } else {
+            in = optionFragment;
+        }
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
+        transaction.replace(R.id.Home_FL, in);
+        transaction.commitAllowingStateLoss();
     }
 }
