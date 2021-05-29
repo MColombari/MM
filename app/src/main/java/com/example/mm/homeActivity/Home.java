@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import com.example.mm.R;
 
 public class Home extends AppCompatActivity implements OnClickListener{
-    FragmentTransaction transaction;
     Fragment homeFragment;
     Fragment statisticFragment;
     Fragment optionFragment;
@@ -56,7 +55,6 @@ public class Home extends AppCompatActivity implements OnClickListener{
 
     @Override
     public void onClick(View v) {
-        /* Vedi per eccezione (se premi troppo in fretta) = https://stackoverflow.com/questions/56539251/backstack-management-restarter-must-be-created-only-during-owners-initializat */
         Fragment in;
         if (home_button == v) {
             in = homeFragment;
@@ -65,9 +63,17 @@ public class Home extends AppCompatActivity implements OnClickListener{
         } else {
             in = optionFragment;
         }
-        transaction = getSupportFragmentManager().beginTransaction();
+
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.Home_FL);
+        if(fragment != null)
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setReorderingAllowed(true);
         transaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
         transaction.replace(R.id.Home_FL, in);
+        transaction.addToBackStack(null);
         transaction.commitAllowingStateLoss();
     }
 }
