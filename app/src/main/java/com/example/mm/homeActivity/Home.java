@@ -12,9 +12,6 @@ import android.widget.ImageView;
 import com.example.mm.R;
 
 public class Home extends AppCompatActivity implements OnClickListener{
-    Fragment homeFragment;
-    Fragment statisticFragment;
-    Fragment optionFragment;
     ImageView home_button;
     ImageView statistic_button;
     ImageView option_button;
@@ -23,11 +20,6 @@ public class Home extends AppCompatActivity implements OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /* Get instance of Fragment */
-        homeFragment = new HomeFragment();
-        statisticFragment = new StatisticFragment();
-        optionFragment = new OptionFragment();
 
         /* Get ImageView by id */
         home_button = findViewById(R.id.home_icon);
@@ -55,25 +47,26 @@ public class Home extends AppCompatActivity implements OnClickListener{
 
     @Override
     public void onClick(View v) {
-        Fragment in;
+        Class<? extends Fragment> newFragmentClass;
         if (home_button == v) {
-            in = homeFragment;
+            newFragmentClass = HomeFragment.class;
         } else if (statistic_button == v) {
-            in = statisticFragment;
+            newFragmentClass = StatisticFragment.class;
         } else {
-            in = optionFragment;
+            newFragmentClass = OptionFragment.class;
         }
 
 
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.Home_FL);
-        if(fragment != null)
-            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.Home_FCV);
+        if(currentFragment != null){
+            if(currentFragment.getClass() == newFragmentClass) return;
+            getSupportFragmentManager().beginTransaction().remove(currentFragment).commit();
+        }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setReorderingAllowed(true);
         transaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
-        transaction.replace(R.id.Home_FL, in);
-        transaction.addToBackStack(null);
-        transaction.commitAllowingStateLoss();
+        transaction.add(R.id.Home_FCV, newFragmentClass, null);
+        transaction.commit();
     }
 }

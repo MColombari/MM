@@ -41,8 +41,8 @@
         app:layout_constraintVertical_bias="0.96"
         app:srcCompat="@drawable/options_icon" />
 
-    <FrameLayout
-        android:id="@+id/Home_FL"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/Home_FCV"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="120dp"
