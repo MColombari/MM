@@ -1,8 +1,9 @@
 package com.example.mm.homeActivity;
 
+import androidx.annotation.AnimRes;
+import androidx.annotation.AnimatorRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,16 @@ public class Home extends AppCompatActivity implements OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /* savedInstanceState is a object containing the activity's previously saved state,
+         * is null only if the activity has never existed before */
+        if(savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
+                    .add(R.id.Home_FCV, HomeFragment.class, null)
+                    .commit();
+        }
 
         /* Get ImageView by id */
         home_button = findViewById(R.id.home_icon);
@@ -47,26 +58,39 @@ public class Home extends AppCompatActivity implements OnClickListener{
 
     @Override
     public void onClick(View v) {
+        @AnimatorRes @AnimRes int enterAnimation = R.anim.slide_in_right;
+        @AnimatorRes @AnimRes int exitAnimation = R.anim.slide_out_left;
+
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.Home_FCV);
+        if(currentFragment == null) return;
+
         Class<? extends Fragment> newFragmentClass;
         if (home_button == v) {
             newFragmentClass = HomeFragment.class;
+            enterAnimation = R.anim.slide_in_left;
+            exitAnimation = R.anim.slide_out_right;
         } else if (statistic_button == v) {
             newFragmentClass = StatisticFragment.class;
+            if(currentFragment.getClass() == OptionFragment.class){
+                enterAnimation = R.anim.slide_in_left;
+                exitAnimation = R.anim.slide_out_right;
+            }
         } else {
             newFragmentClass = OptionFragment.class;
         }
 
+        if(currentFragment.getClass() == newFragmentClass) return;
 
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.Home_FCV);
-        if(currentFragment != null){
-            if(currentFragment.getClass() == newFragmentClass) return;
-            getSupportFragmentManager().beginTransaction().remove(currentFragment).commit();
-        }
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(enterAnimation, exitAnimation)
+                .remove(currentFragment)
+                .commit();
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setReorderingAllowed(true);
-        transaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
-        transaction.add(R.id.Home_FCV, newFragmentClass, null);
-        transaction.commit();
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(enterAnimation, exitAnimation)
+                .add(R.id.Home_FCV, newFragmentClass, null)
+                .commit();
     }
 }
