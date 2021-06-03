@@ -22,6 +22,11 @@ public class Home extends AppCompatActivity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* Get ImageView by id */
+        home_button = findViewById(R.id.home_icon);
+        statistic_button = findViewById(R.id.statistic_icon);
+        option_button = findViewById(R.id.option_icon);
+
         /* savedInstanceState is a object containing the activity's previously saved state,
          * is null only if the activity has never existed before */
         if(savedInstanceState == null){
@@ -30,21 +35,14 @@ public class Home extends AppCompatActivity implements OnClickListener{
                     .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
                     .add(R.id.Home_FCV, HomeFragment.class, null)
                     .commit();
+            statistic_button.setAlpha(R.integer.opacityOfIconDefault);
+            option_button.setAlpha(R.integer.opacityOfIconDefault);
         }
-
-        /* Get ImageView by id */
-        home_button = findViewById(R.id.home_icon);
-        statistic_button = findViewById(R.id.statistic_icon);
-        option_button = findViewById(R.id.option_icon);
-
-        /* Set Home_FL (FrameLayout) as homeFragment (Fragment) */
-        this.onClick(home_button);
 
         /* Set OnClickListener for changing Fragment in FrameLayout */
         home_button.setOnClickListener(this);
         statistic_button.setOnClickListener(this);
         option_button.setOnClickListener(this);
-
 
         /*
          * La seguente parte di codice è provvisoria e serve allo scopo di testare l'utilizzo di Room (db locale).
@@ -69,14 +67,23 @@ public class Home extends AppCompatActivity implements OnClickListener{
             newFragmentClass = HomeFragment.class;
             enterAnimation = R.anim.slide_in_left;
             exitAnimation = R.anim.slide_out_right;
+            home_button.setAlpha(255);
+            statistic_button.setAlpha(R.integer.opacityOfIconDefault);
+            option_button.setAlpha(R.integer.opacityOfIconDefault);
         } else if (statistic_button == v) {
             newFragmentClass = StatisticFragment.class;
             if(currentFragment.getClass() == OptionFragment.class){
                 enterAnimation = R.anim.slide_in_left;
                 exitAnimation = R.anim.slide_out_right;
             }
+            home_button.setAlpha(R.integer.opacityOfIconDefault);
+            statistic_button.setAlpha(255);
+            option_button.setAlpha(R.integer.opacityOfIconDefault);
         } else {
             newFragmentClass = OptionFragment.class;
+            home_button.setAlpha(R.integer.opacityOfIconDefault);
+            statistic_button.setAlpha(R.integer.opacityOfIconDefault);
+            option_button.setAlpha(255);
         }
 
         if(currentFragment.getClass() == newFragmentClass) return;
