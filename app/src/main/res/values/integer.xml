@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="opacityOfIconDefault">150</integer>
+    <integer name="opacityOfIconDefault">100</integer>
     <integer name="opacityOfIconClicked">255</integer>
 </resources>

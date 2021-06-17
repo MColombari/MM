@@ -7,16 +7,26 @@
     android:background="#FFFFFF"
     tools:context=".homeActivity.HomeFragment">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="HomeFragment"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Button
+        android:id="@+id/Resume_Button"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:text="Resume"
+        app:backgroundTint="#8EBA5A"
+        app:layout_constraintBottom_toTopOf="@+id/Start_Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Start_Button"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:text="Start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Resume_Button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

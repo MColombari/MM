@@ -5,6 +5,7 @@ import androidx.annotation.AnimatorRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +18,9 @@ public class Home extends AppCompatActivity implements OnClickListener{
     ImageView statistic_button;
     ImageView option_button;
 
+    int opacityOfIconDefault;
+    int opacityOfIconClicked;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +31,10 @@ public class Home extends AppCompatActivity implements OnClickListener{
         statistic_button = findViewById(R.id.statistic_icon);
         option_button = findViewById(R.id.option_icon);
 
+        /* Get Resources */
+        opacityOfIconDefault = getResources().getInteger(R.integer.opacityOfIconDefault);
+        opacityOfIconClicked = getResources().getInteger(R.integer.opacityOfIconClicked);
+
         /* savedInstanceState is a object containing the activity's previously saved state,
          * is null only if the activity has never existed before */
         if(savedInstanceState == null){
@@ -35,8 +43,8 @@ public class Home extends AppCompatActivity implements OnClickListener{
                     .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
                     .add(R.id.Home_FCV, HomeFragment.class, null)
                     .commit();
-            statistic_button.setAlpha(R.integer.opacityOfIconDefault);
-            option_button.setAlpha(R.integer.opacityOfIconDefault);
+            statistic_button.setImageAlpha(opacityOfIconDefault);
+            option_button.setImageAlpha(opacityOfIconDefault);
         }
 
         /* Set OnClickListener for changing Fragment in FrameLayout */
@@ -67,23 +75,23 @@ public class Home extends AppCompatActivity implements OnClickListener{
             newFragmentClass = HomeFragment.class;
             enterAnimation = R.anim.slide_in_left;
             exitAnimation = R.anim.slide_out_right;
-            home_button.setAlpha(255);
-            statistic_button.setAlpha(R.integer.opacityOfIconDefault);
-            option_button.setAlpha(R.integer.opacityOfIconDefault);
+            home_button.setImageAlpha(opacityOfIconClicked);
+            statistic_button.setImageAlpha(opacityOfIconDefault);
+            option_button.setImageAlpha(opacityOfIconDefault);
         } else if (statistic_button == v) {
             newFragmentClass = StatisticFragment.class;
             if(currentFragment.getClass() == OptionFragment.class){
                 enterAnimation = R.anim.slide_in_left;
                 exitAnimation = R.anim.slide_out_right;
             }
-            home_button.setAlpha(R.integer.opacityOfIconDefault);
-            statistic_button.setAlpha(255);
-            option_button.setAlpha(R.integer.opacityOfIconDefault);
+            home_button.setImageAlpha(opacityOfIconDefault);
+            statistic_button.setImageAlpha(opacityOfIconClicked);
+            option_button.setImageAlpha(opacityOfIconDefault);
         } else {
             newFragmentClass = OptionFragment.class;
-            home_button.setAlpha(R.integer.opacityOfIconDefault);
-            statistic_button.setAlpha(R.integer.opacityOfIconDefault);
-            option_button.setAlpha(255);
+            home_button.setImageAlpha(opacityOfIconDefault);
+            statistic_button.setImageAlpha(opacityOfIconDefault);
+            option_button.setImageAlpha(opacityOfIconClicked);
         }
 
         if(currentFragment.getClass() == newFragmentClass) return;
