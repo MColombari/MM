@@ -11,20 +11,22 @@ import com.example.mm.R;
 
 import java.util.List;
 
+import localDatabase.Tables.Question;
+
 public class TestApp implements Runnable{
-    QuestionDao qDao;
-    QuestionDatabase db;
+    //QuestionDao qDao;
+    LocalDatabase db;
     Home home;
     TextView mainTextView;
     int color;
     public TestApp(Context context, Home home, TextView mainTextView) {
-        db = Room.databaseBuilder(context, QuestionDatabase.class, "Questions")
+        db = Room.databaseBuilder(context, LocalDatabase.class, "Questions")
                 .fallbackToDestructiveMigration() /* Is needed to overwrite the old scheme of the
                                                   *  local database, it will ERASE all the current
                                                   *  data.
                                                   * */
                 .build();
-        qDao = db.questionDao();
+        //qDao = db.questionDao();
         this.home = home;
         this.mainTextView = mainTextView;
     }
@@ -37,27 +39,27 @@ public class TestApp implements Runnable{
 
         color = home.getResources().getColor(R.color.green);
 
-        qDao.deleteAll();
+        //qDao.deleteAll();
 
         /* Room query can throw "SQLiteException" in case of errors */
         try {
-            qDao.insertAll(new Question(1, "20210522","Prova","Come ti chiami?", "Come ti chiami?", "Come ti chiami?", "Come ti chiami?"));
+            //qDao.insertAll(new Question(1, "20210522","Prova","Come ti chiami?", "Come ti chiami?", "Come ti chiami?", "Come ti chiami?"));
         }
         catch (SQLiteException e) {
             color = home.getResources().getColor(R.color.red);
             val.append("Errore sulle operazioni preliminari (SQLiteException)\n");
         }
 
-        q = qDao.getAll();
+        //q = qDao.getAll();
 
-        if(q.isEmpty()){
-            val.append("Non sono presenti elementi.\n");
-        }
+        //if(q.isEmpty()){
+           // val.append("Non sono presenti elementi.\n");
+        //}
 
-        for (Question i : q) {
+        /*for (Question i : q) {
             val.append(i.toString());
             val.append('\n');
-        }
+        }*/
 
         /* The interrogation of the local db needs to be in a different Thread than the main one,
         *  but is not possible to change element of a View in a different thread than the view it

@@ -2,7 +2,7 @@ package localDatabaseInteraction;
 
 import java.util.ArrayList;
 
-import localDatabase.Question;
+import localDatabase.Tables.Question;
 
 public abstract class getQuestionAbstract implements  getQuestionInterface{
     public ArrayList<Question> Data = new ArrayList<>();

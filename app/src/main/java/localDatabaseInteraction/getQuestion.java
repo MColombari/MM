@@ -1,9 +1,5 @@
 package localDatabaseInteraction;
 
-import java.util.ArrayList;
-
-import localDatabase.Question;
-
 public class getQuestion extends getQuestionAbstract{
 
     public getQuestion() {
