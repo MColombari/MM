@@ -7,14 +7,57 @@
     android:background="#FFFFFF"
     tools:context=".homeActivity.StatisticFragment">
 
+    <com.github.mikephil.charting.charts.RadarChart
+        android:id="@+id/StatisticGraph"
+        android:layout_width="550dp"
+        android:layout_height="550dp"
+        app:layout_constraintBottom_toTopOf="@+id/statisticLeftArrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statisticStatus" />
+
+    <ImageView
+        android:id="@+id/statisticLeftArrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/button_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/currentCourse"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/StatisticGraph" />
+
+    <ImageView
+        android:id="@+id/statisticRightArrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:rotation="180"
+        android:src="@drawable/button_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/currentCourse"
+        app:layout_constraintTop_toBottomOf="@+id/StatisticGraph" />
+
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/currentCourse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="StatisticFragment"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:text="None"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/statisticRightArrow"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/statisticLeftArrow"
+        app:layout_constraintTop_toBottomOf="@+id/StatisticGraph" />
+
+    <TextView
+        android:id="@+id/statisticStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Caricamento..."
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/StatisticGraph"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

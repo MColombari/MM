@@ -1,5 +1,6 @@
 package localDatabase;
 
+import android.database.SQLException;
 import android.database.sqlite.SQLiteException;
 
 import androidx.room.Dao;
@@ -39,6 +40,9 @@ public interface LocalDatabaseDao {
 
     @Query("SELECT * FROM StatisticUser")
     List<StatisticUser> getAllStatisticUser() throws SQLiteException;
+
+    @Query("SELECT * FROM StatisticUser WHERE idCourse == :idCourse")
+    List<StatisticUser> getAllStatisticUserByIdCourse(int idCourse) throws SQLException;
 
     /* Course Query */
 
