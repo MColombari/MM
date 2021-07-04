@@ -58,7 +58,7 @@ public class getCourse implements Runnable {
         try {
             coursesList = localDatabaseDao.getAllCourse();
             if(coursesList.isEmpty()) {
-                this.updateStatistic("Nessun corso trovato.", R.color.red, "None", true);
+                this.updateStatistic("Nessun corso trovato.", R.color.red, true);
                 return;
             }
             for (Course c : coursesList){
@@ -75,19 +75,19 @@ public class getCourse implements Runnable {
             }
         }
         catch(SQLException e){
-            this.updateStatistic("Errore, lettura da database.", R.color.red, "None", true);
+            this.updateStatistic("Errore, lettura da database.", R.color.red, true);
             return;
         }
-        this.updateStatistic("Updated", R.color.green, coursesList.get(0).getName(), false);
+        this.updateStatistic("Updated", R.color.green, false);
     }
 
-    void updateStatistic(String statusText, int color, String courseText, boolean error){
+    void updateStatistic(String statusText, int color, boolean error){
         if (context instanceof Activity) {
             Activity mainActivity = (Activity)context;
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    statisticFragment.updateStatistic(statusText, color, courseText);
+                    statisticFragment.updateStatistic(statusText, color);
                     if(!error){
                         statisticFragment.updateGraph(courses, values);
                     }

@@ -9,47 +9,13 @@
 
     <com.github.mikephil.charting.charts.RadarChart
         android:id="@+id/StatisticGraph"
-        android:layout_width="550dp"
-        android:layout_height="550dp"
-        app:layout_constraintBottom_toTopOf="@+id/statisticLeftArrow"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statisticStatus" />
-
-    <ImageView
-        android:id="@+id/statisticLeftArrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/button_arrow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/currentCourse"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/StatisticGraph" />
-
-    <ImageView
-        android:id="@+id/statisticRightArrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:rotation="180"
-        android:src="@drawable/button_arrow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/currentCourse"
-        app:layout_constraintTop_toBottomOf="@+id/StatisticGraph" />
-
-    <TextView
-        android:id="@+id/currentCourse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="None"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/statisticRightArrow"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/statisticLeftArrow"
-        app:layout_constraintTop_toBottomOf="@+id/StatisticGraph" />
 
     <TextView
         android:id="@+id/statisticStatus"
@@ -62,4 +28,20 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:shadowColor="@color/white"
+        android:text="^ More ^"
+        android:textColor="@color/black"
+        app:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/StatisticGraph"
+        app:rippleColor="@color/white"
+        app:strokeColor="@color/gray"
+        tools:layout_editor_absoluteX="158dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

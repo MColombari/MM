@@ -30,7 +30,6 @@ import localDatabaseInteraction.getCourse;
 
 public class StatisticFragment extends Fragment {
     TextView status;
-    TextView currentCourse;
     RadarChart radarChart;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,17 +42,15 @@ public class StatisticFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         status = view.findViewById(R.id.statisticStatus);
-        currentCourse = view.findViewById(R.id.currentCourse);
         radarChart = view.findViewById(R.id.StatisticGraph);
 
         Thread t = new Thread(new getCourse(getContext(), this));
         t.start();
     }
 
-    public void updateStatistic(String statusText, int color, String courseText){
+    public void updateStatistic(String statusText, int color){
         status.setText(statusText);
-        status.setTextColor(color);
-        currentCourse.setText(courseText);
+        status.setTextColor(getResources().getColor(color));
     }
 
     public void updateGraph(ArrayList<String> courseName, ArrayList<Float> values){

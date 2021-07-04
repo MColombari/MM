@@ -12,6 +12,7 @@
     <color name="red">#FFFF0000</color>
     <color name="blue">#FF0000FF</color>
     <color name="cyan">#6600FFFF</color>
+    <color name="gray">#FFBEBEBE</color>
 
 
 </resources>
