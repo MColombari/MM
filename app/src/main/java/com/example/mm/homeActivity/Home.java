@@ -113,6 +113,10 @@ public class Home extends AppCompatActivity implements OnClickListener, View.OnT
                 enterAnimation = R.anim.slide_in_left;
                 exitAnimation = R.anim.slide_out_right;
             }
+            else if(currentFragment.getClass() == MoreStatisticFragment.class){
+                enterAnimation = R.anim.slide_in_top;
+                exitAnimation = R.anim.slide_out_bottom;
+            }
             homeButton.setImageAlpha(opacityOfIconDefault);
             statisticButton.setImageAlpha(opacityOfIconClicked);
             optionButton.setImageAlpha(opacityOfIconDefault);
