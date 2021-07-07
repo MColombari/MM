@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -12,16 +13,16 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/MainIconSeparator1"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Home_FCV"
         app:srcCompat="@drawable/home_icon" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/MainIconSeparator1"
         android:layout_width="10dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/statistic_icon"
         app:layout_constraintHorizontal_bias="0.5"
@@ -34,16 +35,16 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+        app:layout_constraintEnd_toStartOf="@+id/MainIconSeparator2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toEndOf="@+id/MainIconSeparator1"
         app:layout_constraintTop_toBottomOf="@+id/Home_FCV"
         app:srcCompat="@drawable/statistic_icon" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/MainIconSeparator2"
         android:layout_width="10dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/option_icon"
         app:layout_constraintHorizontal_bias="0.5"
@@ -58,7 +59,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toEndOf="@+id/MainIconSeparator2"
         app:layout_constraintTop_toBottomOf="@+id/Home_FCV"
         app:srcCompat="@drawable/options_icon" />
 

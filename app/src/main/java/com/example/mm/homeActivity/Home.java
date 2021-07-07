@@ -3,33 +3,54 @@ package com.example.mm.homeActivity;
 import androidx.annotation.AnimRes;
 import androidx.annotation.AnimatorRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.mm.R;
 
-public class Home extends AppCompatActivity implements OnClickListener{
-    ImageView home_button;
-    ImageView statistic_button;
-    ImageView option_button;
+public class Home extends AppCompatActivity implements OnClickListener, View.OnTouchListener {
+    /* Definition of Elements of this Activity. */
+    ImageView homeButton;
+    ImageView statisticButton;
+    ImageView optionButton;
+    ImageView iconSeparator1;
+    ImageView iconSeparator2;
+    FragmentContainerView homeFCV;
+    ConstraintLayout constraintLayout;
 
+    /* Definition of int for set opacity of the icon. */
     int opacityOfIconDefault;
     int opacityOfIconClicked;
+
+    /* Definition on GestureDetector to handle gesture. */
+    GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* Get ImageView by id */
-        home_button = findViewById(R.id.home_icon);
-        statistic_button = findViewById(R.id.statistic_icon);
-        option_button = findViewById(R.id.option_icon);
+        /* Get Elements by id */
+        homeButton = findViewById(R.id.home_icon);
+        statisticButton = findViewById(R.id.statistic_icon);
+        optionButton = findViewById(R.id.option_icon);
+        iconSeparator1 = findViewById(R.id.MainIconSeparator1);
+        iconSeparator2 = findViewById(R.id.MainIconSeparator2);
+        homeFCV = findViewById(R.id.Home_FCV);
+        constraintLayout = findViewById(R.id.MainConstraintLayout);
 
         /* Get Resources */
         opacityOfIconDefault = getResources().getInteger(R.integer.opacityOfIconDefault);
@@ -43,14 +64,22 @@ public class Home extends AppCompatActivity implements OnClickListener{
                     .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
                     .add(R.id.Home_FCV, HomeFragment.class, null)
                     .commit();
-            statistic_button.setImageAlpha(opacityOfIconDefault);
-            option_button.setImageAlpha(opacityOfIconDefault);
+            statisticButton.setImageAlpha(opacityOfIconDefault);
+            optionButton.setImageAlpha(opacityOfIconDefault);
         }
 
         /* Set OnClickListener for changing Fragment in FrameLayout */
-        home_button.setOnClickListener(this);
-        statistic_button.setOnClickListener(this);
-        option_button.setOnClickListener(this);
+        homeButton.setOnClickListener(this);
+        statisticButton.setOnClickListener(this);
+        optionButton.setOnClickListener(this);
+
+        /* Set OnTouchListener for changing Fragment in FrameLayout */
+        iconSeparator1.setOnTouchListener(this);
+        iconSeparator2.setOnTouchListener(this);
+        constraintLayout.setOnTouchListener(this);
+
+        /* Creation of instance for gestureDetector. */
+        gestureDetector = new GestureDetector(this, new GestureListener());
 
         /*
          * La seguente parte di codice è provvisoria e serve allo scopo di testare l'utilizzo di Room (db locale).
@@ -71,27 +100,35 @@ public class Home extends AppCompatActivity implements OnClickListener{
         if(currentFragment == null) return;
 
         Class<? extends Fragment> newFragmentClass;
-        if (home_button == v) {
+        if (homeButton.getId() == v.getId()) {
             newFragmentClass = HomeFragment.class;
             enterAnimation = R.anim.slide_in_left;
             exitAnimation = R.anim.slide_out_right;
-            home_button.setImageAlpha(opacityOfIconClicked);
-            statistic_button.setImageAlpha(opacityOfIconDefault);
-            option_button.setImageAlpha(opacityOfIconDefault);
-        } else if (statistic_button == v) {
+            homeButton.setImageAlpha(opacityOfIconClicked);
+            statisticButton.setImageAlpha(opacityOfIconDefault);
+            optionButton.setImageAlpha(opacityOfIconDefault);
+        } else if (statisticButton.getId() == v.getId()) {
             newFragmentClass = StatisticFragment.class;
             if(currentFragment.getClass() == OptionFragment.class){
                 enterAnimation = R.anim.slide_in_left;
                 exitAnimation = R.anim.slide_out_right;
             }
-            home_button.setImageAlpha(opacityOfIconDefault);
-            statistic_button.setImageAlpha(opacityOfIconClicked);
-            option_button.setImageAlpha(opacityOfIconDefault);
-        } else {
+            homeButton.setImageAlpha(opacityOfIconDefault);
+            statisticButton.setImageAlpha(opacityOfIconClicked);
+            optionButton.setImageAlpha(opacityOfIconDefault);
+        } else if (optionButton.getId() == v.getId()){
             newFragmentClass = OptionFragment.class;
-            home_button.setImageAlpha(opacityOfIconDefault);
-            statistic_button.setImageAlpha(opacityOfIconDefault);
-            option_button.setImageAlpha(opacityOfIconClicked);
+            homeButton.setImageAlpha(opacityOfIconDefault);
+            statisticButton.setImageAlpha(opacityOfIconDefault);
+            optionButton.setImageAlpha(opacityOfIconClicked);
+        } else if (R.id.StatisticMoreText == v.getId()){
+            newFragmentClass = MoreStatisticFragment.class;
+            enterAnimation = R.anim.slide_in_bottom;
+            exitAnimation = R.anim.slide_out_top;
+        } else /* (R.id.MoreStatisticLessText == v.getId()) */ {
+            newFragmentClass = StatisticFragment.class;
+            enterAnimation = R.anim.slide_in_top;
+            exitAnimation = R.anim.slide_out_bottom;
         }
 
         if(currentFragment.getClass() == newFragmentClass) return;
@@ -107,5 +144,93 @@ public class Home extends AppCompatActivity implements OnClickListener{
                 .setCustomAnimations(enterAnimation, exitAnimation)
                 .add(R.id.Home_FCV, newFragmentClass, null)
                 .commit();
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        /* Call for gestureDetectorCompat */
+        return gestureDetector.onTouchEvent(event);
+    }
+
+    class GestureListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.Home_FCV);
+            if(currentFragment == null) return false;
+
+            boolean result = false;
+            float differenceX = e2.getX() - e1.getX();
+            float differenceY = e2.getY() - e1.getY();
+            if(Math.abs(differenceX) >= Math.abs(differenceY)) {
+                if (Math.abs(differenceX) > 100 && Math.abs(velocityX) > 100) {
+                    if (differenceX > 0) {
+                        if (currentFragment.getClass() == OptionFragment.class) {
+                            onClick(statisticButton);
+                        } else if (currentFragment.getClass() == StatisticFragment.class) {
+                            onClick(homeButton);
+                        }
+                    } else {
+                        if (currentFragment.getClass() == HomeFragment.class) {
+                            onClick(statisticButton);
+                        } else if (currentFragment.getClass() == StatisticFragment.class) {
+                            onClick(optionButton);
+                        }
+                    }
+                    result = true;
+                }
+            } else {
+                if (Math.abs(differenceY) > 100 && Math.abs(velocityY) > 100) {
+                    if (differenceY > 0) {
+                        if (currentFragment.getClass() == MoreStatisticFragment.class) {
+                            TextView moreStatisticLessText;
+                            moreStatisticLessText = findViewById(R.id.MoreStatisticLessText);
+                            if(moreStatisticLessText == null){
+                                /* "findViewById" return "null" if the view has not being found,
+                                * can happen when the Fragment (MoreStatisticFragment) has not
+                                * being created. */
+                                return false;
+                            }
+                            onClick(moreStatisticLessText);
+                        }
+                    } else {
+                        if (currentFragment.getClass() == StatisticFragment.class) {
+                            TextView statisticMoreText;
+                            statisticMoreText = findViewById(R.id.StatisticMoreText);
+                            if(statisticMoreText == null){
+                                /* "findViewById" return "null" if the view has not being found,
+                                 * can happen when the Fragment (StatisticFragment) has not
+                                 * being created. */
+                                return false;
+                            }
+                            onClick(statisticMoreText);
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+    }
+
+    private static final String DEBUG_TAG = "Gestures";
+
+    public void onSwipeRight() {
+        Log.d(DEBUG_TAG, "Right");
+    }
+
+    public void onSwipeLeft() {
+        Log.d(DEBUG_TAG, "Left");
+    }
+
+    public void onSwipeTop() {
+        Log.d(DEBUG_TAG, "Top");
+    }
+
+    public void onSwipeBottom() {
+        Log.d(DEBUG_TAG, "Bottom");
     }
 }

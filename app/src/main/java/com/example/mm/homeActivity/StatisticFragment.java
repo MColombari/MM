@@ -15,6 +15,7 @@ import com.example.mm.R;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.RadarData;
 import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
@@ -30,7 +31,9 @@ import localDatabaseInteraction.getCourse;
 
 public class StatisticFragment extends Fragment {
     TextView status;
+    TextView statisticMoreText;
     RadarChart radarChart;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,6 +46,9 @@ public class StatisticFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         status = view.findViewById(R.id.statisticStatus);
         radarChart = view.findViewById(R.id.StatisticGraph);
+        statisticMoreText = view.findViewById(R.id.StatisticMoreText);
+
+        statisticMoreText.setOnClickListener((Home) getActivity());
 
         Thread t = new Thread(new getCourse(getContext(), this));
         t.start();
@@ -80,5 +86,11 @@ public class StatisticFragment extends Fragment {
         radarChart.getLegend().setEnabled(false);
         radarChart.setData(radarData);
         radarChart.invalidate();
+
+        YAxis yAxis = radarChart.getYAxis();
+        yAxis.setAxisMaximum(100);
+        yAxis.resetAxisMaximum();
+        yAxis.setAxisMinimum(0);
+        yAxis.resetAxisMinimum();
     }
 }
