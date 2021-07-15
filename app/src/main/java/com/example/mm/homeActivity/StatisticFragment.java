@@ -85,12 +85,14 @@ public class StatisticFragment extends Fragment {
         radarChart.getDescription().setEnabled(false);
         radarChart.getLegend().setEnabled(false);
         radarChart.setData(radarData);
-        radarChart.invalidate();
 
         YAxis yAxis = radarChart.getYAxis();
         yAxis.setAxisMaximum(100);
         yAxis.resetAxisMaximum();
         yAxis.setAxisMinimum(0);
         yAxis.resetAxisMinimum();
+        yAxis.setLabelCount(10, false);
+
+        radarChart.invalidate();
     }
 }
