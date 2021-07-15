@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".exerciseActivity.Exercise">
+
+    <TextView
+        android:id="@+id/txtValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="questascrittanondovrebbeesserci"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="65dp"
+        android:layout_height="23dp"
+        android:text="Domanda"
+        tools:layout_editor_absoluteX="301dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="xx/xx"
+        tools:layout_editor_absoluteX="302dp"
+        tools:layout_editor_absoluteY="57dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tempo"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="22dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="76dp" />
+
+    <EditText
+        android:id="@+id/txtQuestion"
+        android:layout_width="320dp"
+        android:layout_height="235dp"
+        android:clickable="false"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Testo della domanda"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="180dp" />
+
+    <RadioButton
+        android:id="@+id/rdbA1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Risposta 1"
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="427dp" />
+
+    <RadioButton
+        android:id="@+id/rdbA2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Risposta 2"
+        app:layout_constraintTop_toBottomOf="@+id/rdbA1"
+        tools:layout_editor_absoluteX="61dp" />
+
+    <RadioButton
+        android:id="@+id/rdbA3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Risposta 3"
+        app:layout_constraintTop_toBottomOf="@+id/rdbA2"
+        tools:layout_editor_absoluteX="61dp" />
+
+    <RadioButton
+        android:id="@+id/rdbA4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Risposta 4"
+        app:layout_constraintTop_toBottomOf="@+id/rdbA3"
+        tools:layout_editor_absoluteX="61dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Indietro"
+        app:layout_constraintBottom_toTopOf="@+id/txtQuestion"
+        app:layout_constraintEnd_toStartOf="@+id/btnNext"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.818" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Avanti"
+        app:layout_constraintBottom_toTopOf="@+id/txtQuestion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.571" />
+
+    <Button
+        android:id="@+id/L"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Abbandona"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rdbA4" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
