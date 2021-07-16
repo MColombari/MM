@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,19 +12,16 @@ import android.widget.TextView;
 
 import com.example.mm.R;
 import com.github.mikephil.charting.charts.RadarChart;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.RadarData;
 import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-import localDatabase.TestApp;
-import localDatabaseInteraction.getCourse;
+import com.example.mm.homeActivity.localDatabaseInteraction.getCourseStatistic;
 
 /* https://www.anychart.com/technical-integrations/samples/android-charts/ */
 
@@ -50,11 +46,11 @@ public class StatisticFragment extends Fragment {
 
         statisticMoreText.setOnClickListener((Home) getActivity());
 
-        Thread t = new Thread(new getCourse(getContext(), this));
+        Thread t = new Thread(new getCourseStatistic(getContext(), this));
         t.start();
     }
 
-    public void updateStatistic(String statusText, int color){
+    public void updateStatus(String statusText, int color){
         status.setText(statusText);
         status.setTextColor(getResources().getColor(color));
     }
