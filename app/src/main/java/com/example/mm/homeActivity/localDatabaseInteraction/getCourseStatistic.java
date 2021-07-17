@@ -6,7 +6,7 @@ import android.database.SQLException;
 import androidx.room.Room;
 
 import com.example.mm.R;
-import com.example.mm.homeActivity.StatisticFragment;
+import com.example.mm.homeActivity.statisticFragment.StatisticFragment;
 
 import java.util.ArrayList;
 import java.util.List;

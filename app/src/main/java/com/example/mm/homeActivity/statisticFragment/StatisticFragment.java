@@ -1,8 +1,9 @@
-package com.example.mm.homeActivity;
+package com.example.mm.homeActivity.statisticFragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mm.R;
+import com.example.mm.homeActivity.Home;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -38,7 +40,7 @@ public class StatisticFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         status = view.findViewById(R.id.statisticStatus);
         radarChart = view.findViewById(R.id.StatisticGraph);
@@ -56,7 +58,7 @@ public class StatisticFragment extends Fragment {
     }
 
     public void updateGraph(ArrayList<String> courseName, ArrayList<Float> values){
-        ArrayList radarEntries = new ArrayList();
+        ArrayList<RadarEntry> radarEntries = new ArrayList<RadarEntry>();
         for(float f : values){
             radarEntries.add(new RadarEntry(f));
         }

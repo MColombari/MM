@@ -3,15 +3,18 @@ package com.example.mm.homeActivity.localDatabaseInteraction;
 import android.app.Activity;
 import android.content.Context;
 import android.database.SQLException;
-import android.graphics.drawable.Drawable;
-import android.widget.TextView;
+import android.os.Build;
 
+import androidx.annotation.RequiresApi;
 import androidx.room.Room;
 
 import com.example.mm.R;
-import com.example.mm.homeActivity.MoreStatisticFragment;
+import com.example.mm.homeActivity.statisticFragment.MoreStatisticFragment;
+import com.example.mm.homeActivity.statisticFragment.RecyclerViewRowData;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import localDatabase.LocalDatabase;
@@ -25,9 +28,7 @@ public class getCourseMoreStatistic implements Runnable{
     LocalDatabase localDatabase;
     MoreStatisticFragment moreStatisticFragment;
 
-    ArrayList<String> courses;
-    ArrayList<Float> values;
-    ArrayList<Integer> imagesTrends;
+    ArrayList<RecyclerViewRowData> recyclerViewRowDataArrayList;
 
     public getCourseMoreStatistic(Context context, MoreStatisticFragment moreStatisticFragment) {
         this.context = context;
@@ -37,9 +38,7 @@ public class getCourseMoreStatistic implements Runnable{
         localDatabaseDao = localDatabase.localDatabaseDao();
         this.moreStatisticFragment = moreStatisticFragment;
 
-        courses = new ArrayList<>();
-        values = new ArrayList<>();
-        imagesTrends = new ArrayList<>();
+        recyclerViewRowDataArrayList = new ArrayList<>();
     }
 
     @Override
@@ -52,7 +51,6 @@ public class getCourseMoreStatistic implements Runnable{
                 return;
             }
             for (Course c : coursesList){
-                courses.add(c.getName());
                 List<StatisticUser> statisticUsers = localDatabaseDao.getAllStatisticUserByIdCourse(c.getId());
                 float value = 0;
                 float lastValue = 0;
@@ -63,15 +61,14 @@ public class getCourseMoreStatistic implements Runnable{
                     }
                     value /= statisticUsers.size();
                 }
-                values.add(value);
                 if((value - lastValue) > 0){
-                    imagesTrends.add(R.drawable.red_triangle);
+                    recyclerViewRowDataArrayList.add(new RecyclerViewRowData(c.getName(), value, R.drawable.red_triangle));
                 }
                 else if((value - lastValue) < 0){
-                    imagesTrends.add(R.drawable.green_triangle);
+                    recyclerViewRowDataArrayList.add(new RecyclerViewRowData(c.getName(), value, R.drawable.green_triangle));
                 }
                 else{
-                    imagesTrends.add(R.drawable.orange_triangle);
+                    recyclerViewRowDataArrayList.add(new RecyclerViewRowData(c.getName(), value, R.drawable.orange_rectangle));
                 }
             }
         }
@@ -90,7 +87,8 @@ public class getCourseMoreStatistic implements Runnable{
                 public void run() {
                     moreStatisticFragment.updateStatus(status, color);
                     if(!error){
-                        moreStatisticFragment.updateRecycleView(courses, values, imagesTrends);
+                        Collections.sort(recyclerViewRowDataArrayList);
+                        moreStatisticFragment.updateRecycleView(recyclerViewRowDataArrayList);
                     }
                 }
             });
