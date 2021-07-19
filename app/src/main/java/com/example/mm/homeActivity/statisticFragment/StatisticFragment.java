@@ -72,7 +72,7 @@ public class StatisticFragment extends Fragment {
         XAxis xAxis = radarChart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(courseName));
 
-        radarDataSet.setColors(R.color.blue);
+        radarDataSet.setColors(getResources().getColor(R.color.cyan));
         radarDataSet.setValueTextColor(Color.BLACK);
         radarDataSet.setValueTextSize(10f);
         radarDataSet.setHighlightCircleFillColor(R.color.cyan);

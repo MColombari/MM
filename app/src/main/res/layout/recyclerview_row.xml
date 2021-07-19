@@ -41,9 +41,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/RecyclerviewRowExpandableLayout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -52,15 +54,24 @@
         app:layout_constraintVertical_bias="0.7">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/RecyclerviewRowWarning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="let's goooooo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/RecyclerviewRowLineChart"
+            app:layout_constraintStart_toStartOf="@+id/RecyclerviewRowLineChart"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/RecyclerviewRowLineChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

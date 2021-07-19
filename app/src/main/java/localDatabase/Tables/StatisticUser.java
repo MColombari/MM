@@ -11,13 +11,14 @@ import static androidx.room.ForeignKey.CASCADE;
         parentColumns = "id",
         childColumns = "idCourse",
         onUpdate = CASCADE))
-public class StatisticUser {
+public class StatisticUser implements Comparable<StatisticUser> {
     /* Generated id as the primary for being able to insert multiple record on the same date,
     *  Course with the same points. */
     @PrimaryKey(autoGenerate = true)
     public int id;
     @NonNull
     public int idCourse;
+    /* Date format "yyyyMMdd". */
     @NonNull
     public int date;
     @NonNull
@@ -49,5 +50,10 @@ public class StatisticUser {
                 ", date=" + date +
                 ", points=" + points +
                 '}';
+    }
+
+    @Override
+    public int compareTo(StatisticUser o) {
+        return this.getDate() - o.getDate();
     }
 }

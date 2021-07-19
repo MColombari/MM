@@ -11,6 +11,7 @@ import androidx.room.Room;
 import com.example.mm.R;
 import com.example.mm.homeActivity.statisticFragment.MoreStatisticFragment;
 import com.example.mm.homeActivity.statisticFragment.RecyclerViewRowData;
+import com.example.mm.homeActivity.statisticFragment.RecyclerViewRowRecordData;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,23 +53,26 @@ public class getCourseMoreStatistic implements Runnable{
             }
             for (Course c : coursesList){
                 List<StatisticUser> statisticUsers = localDatabaseDao.getAllStatisticUserByIdCourse(c.getId());
+                ArrayList<RecyclerViewRowRecordData> recordDataArrayList = new ArrayList<>();
                 float value = 0;
                 float lastValue = 0;
                 if(!statisticUsers.isEmpty()) {
+                    Collections.sort(statisticUsers);
                     for (StatisticUser s : statisticUsers) {
+                        recordDataArrayList.add(new RecyclerViewRowRecordData(s.getPoints(), s.getDate()));
                         value += s.getPoints();
                         lastValue = s.getPoints();
                     }
                     value /= statisticUsers.size();
                 }
                 if((value - lastValue) > 0){
-                    recyclerViewRowDataArrayList.add(new RecyclerViewRowData(c.getName(), value, R.drawable.red_triangle));
+                    recyclerViewRowDataArrayList.add(new RecyclerViewRowData(c.getName(), value, R.drawable.red_triangle, recordDataArrayList));
                 }
                 else if((value - lastValue) < 0){
-                    recyclerViewRowDataArrayList.add(new RecyclerViewRowData(c.getName(), value, R.drawable.green_triangle));
+                    recyclerViewRowDataArrayList.add(new RecyclerViewRowData(c.getName(), value, R.drawable.green_triangle, recordDataArrayList));
                 }
                 else{
-                    recyclerViewRowDataArrayList.add(new RecyclerViewRowData(c.getName(), value, R.drawable.orange_rectangle));
+                    recyclerViewRowDataArrayList.add(new RecyclerViewRowData(c.getName(), value, R.drawable.orange_rectangle, recordDataArrayList));
                 }
             }
         }

@@ -6,12 +6,14 @@ public class RecyclerViewRowData implements Comparable<RecyclerViewRowData>{
     String course;
     Float value;
     Integer imagesTrend;
+    ArrayList<RecyclerViewRowRecordData> recordDataArrayList;
     boolean isExpanded;
 
-    public RecyclerViewRowData(String courses, Float values, Integer imagesTrends) {
+    public RecyclerViewRowData(String courses, Float values, Integer imagesTrends, ArrayList<RecyclerViewRowRecordData> recordDataArrayList) {
         this.course = courses;
         this.value = values;
         this.imagesTrend = imagesTrends;
+        this.recordDataArrayList = recordDataArrayList;
         this.isExpanded = false;
     }
 
@@ -24,6 +26,9 @@ public class RecyclerViewRowData implements Comparable<RecyclerViewRowData>{
     }
     public Integer getImagesTrend() {
         return imagesTrend;
+    }
+    public ArrayList<RecyclerViewRowRecordData> getRecordDataArrayList() {
+        return recordDataArrayList;
     }
     public boolean isExpanded() {
         return isExpanded;
@@ -38,6 +43,9 @@ public class RecyclerViewRowData implements Comparable<RecyclerViewRowData>{
     }
     public void setImagesTrend(Integer imagesTrends) {
         this.imagesTrend = imagesTrends;
+    }
+    public void setRecordDataArrayList(ArrayList<RecyclerViewRowRecordData> recordDataArrayList) {
+        this.recordDataArrayList = recordDataArrayList;
     }
     public void setExpanded(boolean expanded) {
         isExpanded = expanded;
