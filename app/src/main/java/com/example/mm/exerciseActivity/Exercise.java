@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.View;
-//////import android.widget.TimePicker;
 
 
 import com.example.mm.homeActivity.Home;
@@ -16,33 +15,43 @@ import com.example.mm.R;
 
 public class Exercise extends AppCompatActivity implements View.OnClickListener {
     TextView txt;
-    ////////TimePicker txtTime;
     TextView txtQuestion;
     Button btnLeave;
+    Button btnNext;
+    Button btnPrev;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
-        this.txtQuestion = findViewById(R.id.txtQuestion);
+        this.txtQuestion = (TextView)findViewById(R.id.txtQuestion);
 
         Bundle b = getIntent().getExtras();
         int value = -1; // or other values
         if(b != null)
             value = b.getInt("values");
 
-        txt = findViewById(R.id.txtTime);
+        txt = (TextView)findViewById(R.id.txtTime);
         txt.setText(Integer.toString(value));
-        txt.setActivated(false);
-        this.txtQuestion.setActivated(false);
-        this.btnLeave = findViewById(R.id.btnLeave);
+        this.btnLeave = (Button)findViewById(R.id.btnLeave);
 
-        //cose provate a fare: disabilitare testi domanda e tempo, prove con next e prev ceh non cambiano il testo
-        //btnleave per tornare alla schermata home non va, txtquestion è plaintext, verificare cosa serve  effettivamente
+
+        //btnleave per tornare alla schermata home non va,
         //settare i colori giusti per option/exercise
+
         //chiedere come si passa da una domanda all'altra nel modo migliore
-        //fare prova in cui si passa da option a ex passando un testo qualsiasi e
-        //domande relative a temi interessanti quali i porcellini d'india o capybara
+        /*
+        quando avrai array domande ( per ora usare dei dummy), mmettere animazione semplice (impara come si fa) tipo testo che appare
+        /scompare, rimanere nello stesso, non iniziare nuova attività, metodo: cambiare testo
+        usare fragment per testo/rdbbutton (puoi riciclasre animaz del signor Colombari)
+        */
+
+        //controlla se rdb hanno prop uncheckable
+        //creaare classe exercise data container (es: rispo selezionata per domanda selezionata, e altri dati e più codice per noi)
+
+        //creare classe in db esterno che impl runnable con nome a piacere (search backup db), che appena chiamata fa roba che dice mattia ( per ora è una prova)
+
+        //
 
 
     }
@@ -62,7 +71,7 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
                 break;
             case R.id.btnPrev:
                 //prova
-                this.txtQuestion.setText("Hai premuto prossimo");
+                this.txtQuestion.setText("Hai premuto precdente");
 
                 break;
         }
