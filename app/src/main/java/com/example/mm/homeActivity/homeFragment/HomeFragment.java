@@ -1,4 +1,4 @@
-package com.example.mm.homeActivity;
+package com.example.mm.homeActivity.homeFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.mm.R;
+import com.example.mm.homeActivity.Home;
 import com.example.mm.optionActivity.Option;
 
 public class HomeFragment extends Fragment {

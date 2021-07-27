@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mm.R;
+import com.example.mm.homeActivity.homeFragment.HomeFragment;
+import com.example.mm.homeActivity.optionFragment.OptionFragment;
 import com.example.mm.homeActivity.statisticFragment.MoreStatisticFragment;
 import com.example.mm.homeActivity.statisticFragment.StatisticFragment;
 
