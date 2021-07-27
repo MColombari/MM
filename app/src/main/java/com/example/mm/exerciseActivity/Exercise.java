@@ -49,6 +49,10 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
         //controlla se rdb hanno prop uncheckable
         //creaare classe exercise data container (es: rispo selezionata per domanda selezionata, e altri dati e più codice per noi)
 
+        //creare classe in db esterno che impl runnable con nome a piacere (search backup db), che appena chiamata fa roba che dice mattia ( per ora è una prova)
+
+        //
+
 
     }
 
