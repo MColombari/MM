@@ -46,4 +46,6 @@ public interface LocalDatabaseDao {
     List<UserInformation> getAllUserInformation() throws SQLiteException;
     @Query("DELETE FROM UserInformation")
     void deleteAllUserInformation();
+    @Insert
+    void insertUserInformation(UserInformation... userInformations) throws SQLiteException;
 }

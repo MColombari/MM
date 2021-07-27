@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/white"
     tools:context=".homeActivity.optionFragment.OptionFragment">
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="wrap_content"
         android:layout_height="10dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="200dp"
         android:scaleX="7"
         android:scaleY="2"
         android:src="@drawable/icon_separator_orizzontal"
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="User"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -37,25 +37,23 @@
         android:id="@+id/TextViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/TextViewEmail"
+        app:layout_constraintEnd_toStartOf="@+id/TextViewSurname"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toRightOf="@id/textView5"
-        app:layout_constraintRight_toLeftOf="@id/TextViewSurname"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/TextViewSurname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/TextViewMatr"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toRightOf="@id/TextViewName"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/TextViewName"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/TextViewEmail"
@@ -63,9 +61,9 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/TexrViewUpdateUserInfo"
+        app:layout_constraintEnd_toStartOf="@+id/TextViewMatr"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toRightOf="@id/textView5"
-        app:layout_constraintRight_toLeftOf="@id/TextViewMatr"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TextViewName" />
 
     <TextView
@@ -74,9 +72,9 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/TexrViewUpdateUserInfo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toRightOf="@id/TextViewEmail"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/TextViewEmail"
         app:layout_constraintTop_toBottomOf="@+id/TextViewSurname" />
 
     <TextView
@@ -88,7 +86,9 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView5"
-        app:layout_constraintEnd_toStartOf="@+id/TextViewMatr"
-        app:layout_constraintStart_toEndOf="@+id/TextViewEmail" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/TextViewEmail"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

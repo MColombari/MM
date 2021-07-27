@@ -1,5 +1,6 @@
 package com.example.mm.homeActivity.optionFragment;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,14 +10,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.mm.R;
 import com.example.mm.homeActivity.localDatabaseInteraction.getUserInformation;
-
-import org.w3c.dom.Text;
+import com.example.mm.homeActivity.localDatabaseInteraction.setUserInformation;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -26,6 +25,15 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     TextView textViewEmail;
     TextView textViewMatr;
     TextView textViewUpdateInfo;
+
+    TextView optionFragmentPlainTextName;
+    TextView optionFragmentPlainTextSurname;
+    TextView optionFragmentPlainTextEmail;
+    TextView optionFragmentPlainTextMatr;
+    TextView optionFragmentTextButton;
+
+    View view;
+    PopupWindow popupWindow;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +45,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.view = view;
         textViewName = (TextView) view.findViewById(R.id.TextViewName);
         textViewSurname = (TextView) view.findViewById(R.id.TextViewSurname);
         textViewEmail = (TextView) view.findViewById(R.id.TextViewEmail);
@@ -73,12 +82,36 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
             LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
             View popupView = layoutInflater.inflate(R.layout.fragment_option_popup_window, null);
 
-            PopupWindow popupWindow = new PopupWindow(popupView, 750,900, true);
+            popupWindow = new PopupWindow(popupView, 900,1200, true);
 
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                popupWindow.setElevation(20);
+            }
 
             /* "v" is used as a parent view to get the View.getWindowToken() token from. */
             popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+            optionFragmentPlainTextName = (TextView) popupView.findViewById(R.id.OptionFragmentPlainTextName);
+            optionFragmentPlainTextSurname = (TextView) popupView.findViewById(R.id.OptionFragmentPlainTextSurname);
+            optionFragmentPlainTextEmail = (TextView) popupView.findViewById(R.id.OptionFragmentPlainTextEmail);
+            optionFragmentPlainTextMatr = (TextView) popupView.findViewById(R.id.OptionFragmentPlainTextMatr);
+            optionFragmentTextButton = (TextView) popupView.findViewById(R.id.OptionFragmentTextButton);
+            optionFragmentTextButton.setOnClickListener(this);
+        }
+        else if (v.getId() == R.id.OptionFragmentTextButton){
+            try {
+                String name = optionFragmentPlainTextName.getText().toString();
+                String surname = optionFragmentPlainTextSurname.getText().toString();
+                String email = optionFragmentPlainTextEmail.getText().toString();
+                int matr = Integer.parseInt(optionFragmentPlainTextMatr.getText().toString());
+
+                Thread t = new Thread(new setUserInformation(getContext(), popupWindow, this, name, surname, email, matr));
+                t.start();
+            }
+            catch (NumberFormatException e){
+                optionFragmentTextButton.setText("Error, check matr, and try again.");
+                optionFragmentTextButton.setTextColor(getResources().getColor(R.color.red));
+            }
         }
     }
 }

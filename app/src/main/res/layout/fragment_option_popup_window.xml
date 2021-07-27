@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray">
+    android:background="@color/white"
+    app:barrierMargin="@dimen/cardview_default_elevation">
 
     <TextView
         android:id="@+id/textView6"
@@ -35,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/OptionFragmentPlainTextSurname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -50,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/OptionFragmentPlainTextName" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/OptionFragmentPlainTextEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -62,10 +63,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/OptionFragmentPlainTextSurname" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/OptionFragmentPlainTextMatr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -77,10 +78,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+        app:layout_constraintTop_toBottomOf="@+id/OptionFragmentPlainTextEmail" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/OptionFragmentTextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -90,6 +91,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+        app:layout_constraintTop_toBottomOf="@+id/OptionFragmentPlainTextMatr" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
