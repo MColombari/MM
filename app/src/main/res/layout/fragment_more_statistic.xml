@@ -37,7 +37,7 @@
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginTop="30dp"
-        android:text="Less"
+        android:text="@string/underline_Less"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"

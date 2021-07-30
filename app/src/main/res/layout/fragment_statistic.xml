@@ -7,6 +7,16 @@
     android:background="#FFFFFF"
     tools:context=".homeActivity.statisticFragment.StatisticFragment">
 
+    <ImageView
+        android:id="@+id/Statistic_Fragment_Question_Mark"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/question_mark_icon"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <com.github.mikephil.charting.charts.RadarChart
         android:id="@+id/StatisticGraph"
         android:layout_width="500dp"
@@ -34,7 +44,7 @@
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginBottom="30sp"
-        android:text="More"
+        android:text="@string/underline_More"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
