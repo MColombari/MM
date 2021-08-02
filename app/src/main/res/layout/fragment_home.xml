@@ -7,6 +7,16 @@
     android:background="#FFFFFF"
     tools:context=".homeActivity.homeFragment.HomeFragment">
 
+    <ImageView
+        android:id="@+id/Home_Fragment_Question_Mark"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/question_mark_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <Button
         android:id="@+id/Resume_Button"
         android:layout_width="300dp"

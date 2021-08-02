@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteException;
 
 import androidx.room.Room;
 
+import com.example.mm.R;
 import com.example.mm.homeActivity.optionFragment.OptionFragment;
 import com.example.mm.optionActivity.Option;
 
@@ -81,7 +82,7 @@ public class getUserInformation implements  Runnable {
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    optionFragment.updateInfo(name, surname, email, matr, button);
+                    optionFragment.updateInfo(name, surname, email, matr, context.getString(R.string.underline_Add_User_Information));
                 }
             });
         }

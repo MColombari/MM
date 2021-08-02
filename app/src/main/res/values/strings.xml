@@ -6,6 +6,7 @@
     <string name="underline_Ok"><u>Ok</u></string>
     <string name="underline_Update_Information"><u>Update Information</u></string>
     <string name="underline_Add_Update_Information"><u>Add/Update Information</u></string>
+    <string name="underline_Add_User_Information"><u>Add User Information</u></string>
     <string name="underline_Upload"><u>Upload</u></string>
     <string name="underline_Download"><u>Download</u></string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.mm.homeActivity.optionFragment;
 
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import com.example.mm.R;
 import com.example.mm.homeActivity.localDatabaseInteraction.getUserInformation;
 import com.example.mm.homeActivity.localDatabaseInteraction.setUserInformation;
+
+import java.util.Objects;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -76,7 +79,8 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
         textViewSurname.setText(surname);
         textViewEmail.setText(email);
         textViewMatr.setText(matr);
-        textViewUpdateInfo.setText("Update Information");
+        textViewUpdateInfo.setText(requireContext().getString(R.string.underline_Update_Information));
+        textViewUpdateInfo.setPaintFlags(textViewUpdateInfo.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         textViewUpdateInfo.setTextColor(getResources().getColor(R.color.black));
     }
     public void updateInfo(String name, String surname, String email, String matr, String buttonText){
@@ -85,6 +89,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
         textViewEmail.setText(email);
         textViewMatr.setText(matr);
         textViewUpdateInfo.setText(buttonText);
+        textViewUpdateInfo.setPaintFlags(textViewUpdateInfo.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         textViewUpdateInfo.setTextColor(getResources().getColor(R.color.red));
     }
 
@@ -92,7 +97,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if(v.getId() == textViewUpdateInfo.getId()){
             /* Update User Information */
-            LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+            LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(LAYOUT_INFLATER_SERVICE);
             View popupView = layoutInflater.inflate(R.layout.fragment_option_popup_window, null);
 
             UserInformationPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT, true);
@@ -119,11 +124,19 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
                 String email = optionFragmentPlainTextEmail.getText().toString();
                 int matr = Integer.parseInt(optionFragmentPlainTextMatr.getText().toString());
 
+                if(name.isEmpty() || surname.isEmpty() || email.isEmpty()){
+                    optionFragmentTextButton.setText("Error, parameter, and try again.");
+                    optionFragmentTextButton.setPaintFlags(optionFragmentTextButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                    optionFragmentTextButton.setTextColor(getResources().getColor(R.color.red));
+                    return;
+                }
+
                 Thread t = new Thread(new setUserInformation(getContext(), UserInformationPopupWindow, this, name, surname, email, matr));
                 t.start();
             }
             catch (NumberFormatException e){
                 optionFragmentTextButton.setText("Error, check matr, and try again.");
+                optionFragmentTextButton.setPaintFlags(optionFragmentTextButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 optionFragmentTextButton.setTextColor(getResources().getColor(R.color.red));
             }
         }
@@ -131,7 +144,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
                 v.getId() == R.id.Option_Fragment_Question_Mark_Backup ||
                 v.getId() == R.id.Option_Fragment_Question_Mark_Manage_Course){
             /* Show information about  */
-            LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+            LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(LAYOUT_INFLATER_SERVICE);
             View popupView = layoutInflater.inflate(R.layout.generic_popup_window, null);
 
             questionMarkPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT, true);
@@ -174,7 +187,11 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
                                     "All the information store in the cloud are not seen by any " +
                                     "professor or used to set school grades, but they can be used " +
                                     "to make generic (non individual) graph for the professor or " +
-                                    "anyone else.");
+                                    "anyone else.\n" +
+                                    "Update your progress for the first time will required a password " +
+                                    "that will be used for confirm your identity next time you will " +
+                                    "update them.\n" +
+                                    "To reset your password contact student's secretariat.");
                     break;
                 case R.id.Option_Fragment_Question_Mark_Manage_Course:
                     title.setText("More about manage courses.");
