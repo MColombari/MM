@@ -13,6 +13,10 @@ import com.example.mm.homeActivity.Home;
 
 import com.example.mm.R;
 
+import java.util.ArrayList;
+
+import questionSortingAlgorithm.dataStructure.QuestionsDataRecurrence;
+
 public class Exercise extends AppCompatActivity implements View.OnClickListener {
     TextView txt;
     TextView txtQuestion;
@@ -75,5 +79,13 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
 
                 break;
         }
+    }
+
+    public void updateQuestion(ArrayList<QuestionsDataRecurrence> questionsDataRecurrenceArrayList){
+        /* All Fine */
+    }
+
+    public void updateQuestionError(String errorString){
+        /* Error */
     }
 }

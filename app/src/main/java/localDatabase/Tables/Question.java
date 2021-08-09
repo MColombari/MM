@@ -3,12 +3,20 @@ package localDatabase.Tables;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(foreignKeys = @ForeignKey(entity = Course.class,
+        parentColumns = "id",
+        childColumns = "idCourse",
+        onUpdate = CASCADE))
 public class Question {
     @PrimaryKey
     public int qid;
+    @NonNull
+    public int idCourse;
     @NonNull
     @ColumnInfo(name = "lastChanges")
     public String lastChanges;
@@ -28,8 +36,9 @@ public class Question {
     @ColumnInfo(name = "wrongAnswer3")
     public String wrongAnswer3;
 
-    public Question(int qid, @NonNull String lastChanges, @NonNull String questionText, @NonNull String rightAnswer, @NonNull String wrongAnswer1, @NonNull String wrongAnswer2, @NonNull String wrongAnswer3) {
+    public Question(@NonNull int qid, @NonNull int idCourse, @NonNull String lastChanges, @NonNull String questionText, @NonNull String rightAnswer, @NonNull String wrongAnswer1, @NonNull String wrongAnswer2, @NonNull String wrongAnswer3) {
         this.qid = qid;
+        this.idCourse = idCourse;
         this.lastChanges = lastChanges;
         this.questionText = questionText;
         this.rightAnswer = rightAnswer;
@@ -41,6 +50,9 @@ public class Question {
     /*      Getter      */
     public int getQid() {
         return qid;
+    }
+    public int getIdCourse() {
+        return idCourse;
     }
     @NonNull public String getLastChanges() {
         return lastChanges;
@@ -64,6 +76,9 @@ public class Question {
     /*      Setter      */
     public void setQid(int qid) {
         this.qid = qid;
+    }
+    public void setIdCourse(int idCourse) {
+        this.idCourse = idCourse;
     }
     public void setLastChanges(@NonNull String lastChanges) {
         this.lastChanges = lastChanges;

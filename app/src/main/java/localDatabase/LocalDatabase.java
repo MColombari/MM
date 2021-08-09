@@ -12,7 +12,7 @@ import localDatabase.Tables.UserInformation;
 * database transactions.
 * https://developer.android.com/jetpack/androidx/releases/room#2.1.0-alpha06 */
 
-@Database(entities = {Question.class, StatisticUser.class, Course.class, UserInformation.class}, version = 2, exportSchema = false)
+@Database(entities = {Question.class, StatisticUser.class, Course.class, UserInformation.class}, version = 3, exportSchema = false)
 public abstract class LocalDatabase extends RoomDatabase {
     public abstract LocalDatabaseDao localDatabaseDao();
 }

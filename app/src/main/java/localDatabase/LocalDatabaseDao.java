@@ -21,9 +21,11 @@ public interface LocalDatabaseDao {
     @Query("SELECT * FROM Question")
     List<Question> getAllQuestion() throws SQLiteException;
     @Query("SELECT * FROM Question WHERE qid IN (:qIds)")
-    List<Question> loadAllQuestionByIds(int[] qIds) throws SQLiteException;
-    @Query("SELECT * FROM Question WHERE questionText IN (:values)")
-    List<Question> loadAllQuestionByValue(int[] values) throws SQLiteException;
+    List<Question> getAllQuestionByIds(int[] qIds) throws SQLiteException;
+    @Query("SELECT * FROM Question Q WHERE Q.idCourse IN (:courseIds)")
+    List<Question> getAllQuestionByCourseIds(int[] courseIds) throws SQLiteException;
+    @Query("SELECT * FROM Question Q LEFT JOIN Course C ON (Q.idCourse == C.id) WHERE C.name IN (:courseNames)")
+    List<Question> getAllQuestionByCoursesName(String[] courseNames) throws SQLiteException;
     @Insert
     void insertAllQuestion(Question... question) throws SQLiteException;
     @Query("DELETE FROM Question")
@@ -34,8 +36,10 @@ public interface LocalDatabaseDao {
     /* StatisticUser Query */
     @Query("SELECT * FROM StatisticUser")
     List<StatisticUser> getAllStatisticUser() throws SQLiteException;
-    @Query("SELECT * FROM StatisticUser WHERE idCourse == :idCourse")
+    @Query("SELECT * FROM StatisticUser S LEFT JOIN Question Q On (S.qidQuestion == Q.qid) WHERE idCourse == :idCourse")
     List<StatisticUser> getAllStatisticUserByIdCourse(int idCourse) throws SQLiteException;
+    @Query("SELECT COUNT(*) FROM StatisticUser WHERE qidQuestion == :qid")
+    int getOccurrencesByQid(int qid) throws SQLiteException;
 
     /* Course Query */
     @Query("SELECT * FROM Course")
