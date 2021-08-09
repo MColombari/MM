@@ -27,7 +27,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.util.ArrayList;
 
-import com.example.mm.homeActivity.localDatabaseInteraction.getCourseStatistic;
+import com.example.mm.homeActivity.localDatabaseInteraction.GetCourseStatistic;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -57,7 +57,7 @@ public class StatisticFragment extends Fragment implements View.OnClickListener 
         statisticMoreText.setOnClickListener((Home) getActivity());
         questionMark.setOnClickListener(this);
 
-        Thread t = new Thread(new getCourseStatistic(getContext(), this));
+        Thread t = new Thread(new GetCourseStatistic(getContext(), this));
         t.start();
     }
 

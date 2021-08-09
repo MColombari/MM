@@ -23,7 +23,7 @@ import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.Course;
 import localDatabase.Tables.StatisticUser;
 
-public class getCourseMoreStatistic implements Runnable{
+public class GetCourseMoreStatistic implements Runnable{
     Context context;
     LocalDatabaseDao localDatabaseDao;
     LocalDatabase localDatabase;
@@ -31,7 +31,7 @@ public class getCourseMoreStatistic implements Runnable{
 
     ArrayList<RecyclerViewRowData> recyclerViewRowDataArrayList;
 
-    public getCourseMoreStatistic(Context context, MoreStatisticFragment moreStatisticFragment) {
+    public GetCourseMoreStatistic(Context context, MoreStatisticFragment moreStatisticFragment) {
         this.context = context;
         localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "LocalDatabase")
                 .fallbackToDestructiveMigration()

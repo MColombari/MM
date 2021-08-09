@@ -27,7 +27,7 @@ public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runn
     ArrayList<QuestionsDataRecurrence> questionsDataRecurrenceArrayList;
     int[] courseIds;
 
-    public GetQuestionByRecurrence(Context context, LocalDatabaseDao localDatabaseDao, LocalDatabase localDatabase, Exercise exerciseActivity, int[] courseIds) {
+    public GetQuestionByRecurrence(Context context, Exercise exerciseActivity, int[] courseIds) {
         this.context = context;
         localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "LocalDatabase")
                 .fallbackToDestructiveMigration()

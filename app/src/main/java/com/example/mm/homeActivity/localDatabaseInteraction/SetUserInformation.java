@@ -13,7 +13,7 @@ import localDatabase.LocalDatabase;
 import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.UserInformation;
 
-public class setUserInformation implements Runnable {
+public class SetUserInformation implements Runnable {
     Context context;
     PopupWindow popupWindow;
     OptionFragment optionFragment;
@@ -24,7 +24,7 @@ public class setUserInformation implements Runnable {
     String email;
     int matr;
 
-    public setUserInformation(Context context, PopupWindow popupWindow, OptionFragment optionFragment, String name, String surname, String email, int matr) {
+    public SetUserInformation(Context context, PopupWindow popupWindow, OptionFragment optionFragment, String name, String surname, String email, int matr) {
         this.context = context;
         this.popupWindow = popupWindow;
         this.optionFragment = optionFragment;

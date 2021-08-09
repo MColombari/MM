@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.mm.R;
 import com.example.mm.homeActivity.Home;
-import com.example.mm.homeActivity.localDatabaseInteraction.getCourseMoreStatistic;
+import com.example.mm.homeActivity.localDatabaseInteraction.GetCourseMoreStatistic;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class MoreStatisticFragment extends Fragment {
         moreStatisticStatus = view.findViewById(R.id.moreStatisticStatus);
         moreStatisticLessText.setOnClickListener((Home) getActivity());
 
-        Thread t = new Thread(new getCourseMoreStatistic(getContext(), this));
+        Thread t = new Thread(new GetCourseMoreStatistic(getContext(), this));
         t.start();
     }
 

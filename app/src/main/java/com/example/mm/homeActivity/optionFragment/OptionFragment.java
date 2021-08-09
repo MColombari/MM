@@ -16,10 +16,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.mm.R;
-import com.example.mm.homeActivity.localDatabaseInteraction.getUserInformation;
-import com.example.mm.homeActivity.localDatabaseInteraction.setUserInformation;
-
-import java.util.Objects;
+import com.example.mm.homeActivity.localDatabaseInteraction.GetUserInformation;
+import com.example.mm.homeActivity.localDatabaseInteraction.SetUserInformation;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -70,7 +68,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
         optionFragmentQuestionMarkBackup.setOnClickListener(this);
         optionFragmentQuestionMarkManageCourse.setOnClickListener(this);
 
-        Thread t = new Thread(new getUserInformation(getContext(), this));
+        Thread t = new Thread(new GetUserInformation(getContext(), this));
         t.start();
     }
 
@@ -131,7 +129,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
                     return;
                 }
 
-                Thread t = new Thread(new setUserInformation(getContext(), UserInformationPopupWindow, this, name, surname, email, matr));
+                Thread t = new Thread(new SetUserInformation(getContext(), UserInformationPopupWindow, this, name, surname, email, matr));
                 t.start();
             }
             catch (NumberFormatException e){

@@ -16,7 +16,7 @@ import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.Course;
 import localDatabase.Tables.StatisticUser;
 
-public class getCourseStatistic implements Runnable {
+public class GetCourseStatistic implements Runnable {
     Context context;
     LocalDatabaseDao localDatabaseDao;
     LocalDatabase localDatabase;
@@ -24,7 +24,7 @@ public class getCourseStatistic implements Runnable {
     ArrayList<String> courses;
     ArrayList<Float> values;
 
-    public getCourseStatistic(Context context, StatisticFragment statisticFragment) {
+    public GetCourseStatistic(Context context, StatisticFragment statisticFragment) {
         this.context = context;
         localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "LocalDatabase")
                 .fallbackToDestructiveMigration() /* Is needed to overwrite the old scheme of the

@@ -18,7 +18,7 @@ import localDatabase.LocalDatabase;
 import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.UserInformation;
 
-public class getUserInformation implements  Runnable {
+public class GetUserInformation implements  Runnable {
     Context context;
     OptionFragment optionFragment;
     LocalDatabase localDatabase;
@@ -26,7 +26,7 @@ public class getUserInformation implements  Runnable {
 
     List<UserInformation> userInformations;
 
-    public getUserInformation(Context context, OptionFragment optionFragment) {
+    public GetUserInformation(Context context, OptionFragment optionFragment) {
         this.context = context;
         this.optionFragment = optionFragment;
 
