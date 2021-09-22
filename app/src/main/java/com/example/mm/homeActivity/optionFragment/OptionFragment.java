@@ -35,8 +35,8 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     TextView optionFragmentTextButton;
 
     ImageView optionFragmentQuestionMarkUserInformation;
-    ImageView optionFragmentQuestionMarkBackup;
-    ImageView optionFragmentQuestionMarkManageCourse;
+    ImageView optionFragmentQuestionMarkSync;
+    ImageView optionFragmentQuestionMarkMoreAboutUs;
 
     View view;
     PopupWindow UserInformationPopupWindow;
@@ -60,13 +60,13 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
         textViewUpdateInfo = (TextView) view.findViewById(R.id.TexrViewUpdateUserInfo);
 
         optionFragmentQuestionMarkUserInformation = (ImageView) view.findViewById(R.id.Option_Fragment_Question_Mark_User_Information);
-        optionFragmentQuestionMarkBackup = (ImageView) view.findViewById(R.id.Option_Fragment_Question_Mark_Backup);
-        optionFragmentQuestionMarkManageCourse = (ImageView) view.findViewById(R.id.Option_Fragment_Question_Mark_Manage_Course);
+        optionFragmentQuestionMarkSync = (ImageView) view.findViewById(R.id.Option_Fragment_Question_Mark_Sync);
+        optionFragmentQuestionMarkMoreAboutUs = (ImageView) view.findViewById(R.id.Option_Fragment_Question_Mark_More_About_Us);
 
         textViewUpdateInfo.setOnClickListener(this);
         optionFragmentQuestionMarkUserInformation.setOnClickListener(this);
-        optionFragmentQuestionMarkBackup.setOnClickListener(this);
-        optionFragmentQuestionMarkManageCourse.setOnClickListener(this);
+        optionFragmentQuestionMarkSync.setOnClickListener(this);
+        optionFragmentQuestionMarkMoreAboutUs.setOnClickListener(this);
 
         Thread t = new Thread(new GetUserInformation(getContext(), this));
         t.start();
@@ -139,8 +139,8 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
             }
         }
         else if (v.getId() == R.id.Option_Fragment_Question_Mark_User_Information ||
-                v.getId() == R.id.Option_Fragment_Question_Mark_Backup ||
-                v.getId() == R.id.Option_Fragment_Question_Mark_Manage_Course){
+                v.getId() == R.id.Option_Fragment_Question_Mark_Sync ||
+                v.getId() == R.id.Option_Fragment_Question_Mark_More_About_Us){
             /* Show information about  */
             LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(LAYOUT_INFLATER_SERVICE);
             View popupView = layoutInflater.inflate(R.layout.generic_popup_window, null);
@@ -174,29 +174,23 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
                                     " of user, that need to be students of university of UNIMORE.)" +
                                     " if you aren't a student of UNIMORE you could louse all your progress.");
                     break;
-                case R.id.Option_Fragment_Question_Mark_Backup:
-                    title.setText("More about backup.");
+                case R.id.Option_Fragment_Question_Mark_Sync:
+                    title.setText("More about sync.");
                     text.setText(   "Backup is essential to keep your progress save, and being able to " +
                                     "change device without lose some important feature of this app " +
                                     "such as the algorithms to sort question as you needed, or " +
                                     "the statistic showed with graph to monitor your progress.\n" +
-                                    "Downloading the backup will override your local progress " +
-                                    "and uploading your backup will override your cloud backup.\n" +
+                                    "Synchronize your data will overwrite your progress in the cloud.\n" +
                                     "All the information store in the cloud are not seen by any " +
                                     "professor or used to set school grades, but they can be used " +
                                     "to make generic (non individual) graph for the professor or " +
                                     "anyone else.\n" +
-                                    "Update your progress for the first time will required a password " +
-                                    "that will be used for confirm your identity next time you will " +
-                                    "update them.\n" +
-                                    "To reset your password contact student's secretariat.");
+                                    "Your user information will identify your synchronization\n" +
+                                    "For any problem is not my fault.");
                     break;
-                case R.id.Option_Fragment_Question_Mark_Manage_Course:
-                    title.setText("More about manage courses.");
-                    text.setText(   "Manage your courses, such as remove courses, add courses or erase " +
-                                    "information about courses.\n" +
-                                    "Deleting a course will automatically delete all your statistic " +
-                                    "about it.");
+                case R.id.Option_Fragment_Question_Mark_More_About_Us:
+                    title.setText("More About Us.");
+                    text.setText(   "Information about \"the programmer\" who made this project.");
                     break;
             }
         }

@@ -3,6 +3,8 @@ package com.example.mm.homeActivity.localDatabaseInteraction;
 import android.app.Activity;
 import android.content.Context;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteException;
+
 import androidx.room.Room;
 
 import com.example.mm.R;
@@ -61,7 +63,7 @@ public class GetCourseStatistic implements Runnable {
                 values.add(value);
             }
         }
-        catch(SQLException e){
+        catch(SQLiteException e){
             this.updateStatistic("Errore, lettura da database.", R.color.red, true);
             return;
         }
