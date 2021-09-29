@@ -3,6 +3,7 @@ package com.example.mm.optionActivity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.mm.R;
 import com.example.mm.exerciseActivity.Exercise;
+import com.example.mm.optionActivity.localDatabaseInteraction.GetCourse;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,8 +25,14 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
     // initialize variables
     TextView textView;
     boolean[] selectedLanguage;
-    ArrayList<Integer> langList = new ArrayList<>();
-    String[] langArray = {"Informatica", "OOP", "Basi di Dati", "Geometria", "Diritto del Lavoro", "D U M M Y"}; //DUMMY
+    ArrayList<Integer> subList = new ArrayList<>();
+
+            // {"Informatica", "OOP", "Basi di Dati", "Geometria", "Diritto del Lavoro", "D U M M Y"}; //DUMMY
+    List<Course> courseName;
+
+    ArrayList<String> list;
+    ArrayList<Course> courses;
+    ArrayList<Course> coursesToSend;
 
     Button btnNext;
 
@@ -33,7 +41,13 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
+        list = new ArrayList<>();
+        courses = new ArrayList<>();
+        coursesToSend = new ArrayList<>();
+
+
         //TO DO riuscire a mettere le mani sui dati da inserire nella lista
+        //updateDropDown();
 
         // assign variable
         btnNext = findViewById(R.id.btnNext);
@@ -43,7 +57,9 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
         textView.setOnClickListener(this);
 
         // initialize selected language array //DUMMY
-        selectedLanguage = new boolean[langArray.length];
+
+        Thread thread = new Thread(new GetCourse((Context) this, this));
+        thread.run();
     }
 
 
@@ -63,25 +79,28 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
             // set title
-            builder.setTitle("Seleziona Materia");
+            builder.setTitle("Select Subject");
 
             // set dialog non cancelable
             builder.setCancelable(false);
 
-            builder.setMultiChoiceItems(langArray, selectedLanguage, new DialogInterface.OnMultiChoiceClickListener() {
+            String[] stringArray = list.toArray(new String[0]);
+            selectedLanguage = new boolean[list.size()];
+
+            builder.setMultiChoiceItems(stringArray, selectedLanguage, new DialogInterface.OnMultiChoiceClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i, boolean b) {
                     // check condition
                     if (b) {
                         // when checkbox selected
                         // Add position  in lang list
-                        langList.add(i);
+                        subList.add(i);
                         // Sort array list
-                        Collections.sort(langList);
+                        Collections.sort(subList);
                     } else {
                         // when checkbox unselected
                         // Remove position from langList
-                        langList.remove(i);
+                        subList.remove(i);
                     }
                 }
             });
@@ -92,11 +111,11 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
                     // Initialize string builder
                     StringBuilder stringBuilder = new StringBuilder();
                     // use for loop
-                    for (int j = 0; j < langList.size(); j++) {
+                    for (int j = 0; j < subList.size(); j++) {
                         // concat array value
-                        stringBuilder.append(langArray[langList.get(j)]);
+                        stringBuilder.append(courses.get(subList.get(j)).getName());
                         // check condition
-                        if (j != langList.size() - 1) {
+                        if (j != subList.size() - 1) {
                             // When j value  not equal
                             // to lang list size - 1
                             // add comma
@@ -124,7 +143,7 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
                         // remove all selection
                         selectedLanguage[j] = false;
                         // clear language list
-                        langList.clear();
+                        subList.clear();
                         // clear text view value
                         textView.setText("");
                     }
@@ -147,6 +166,12 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
             this.textView.setText("va bene, cancella questo messaggio");
             //lavori normalmente
             //this.langArray = courseName.stream().toArray();
+
+            courses.addAll(courseName);
+
+            for (Course i : courseName){
+                list.add(i.getName());
+            }
         }
     }
 }

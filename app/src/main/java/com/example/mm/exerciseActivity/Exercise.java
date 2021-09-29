@@ -31,12 +31,13 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
         this.txtQuestion = (TextView)findViewById(R.id.txtQuestion);
 
         Bundle b = getIntent().getExtras();
-        int value = -1; // or other values
+        String value = ""; // or other values
         if(b != null)
-            value = b.getInt("values");
+            value = b.getString("lista");
 
         txt = (TextView)findViewById(R.id.txtTime);
-        txt.setText(Integer.toString(value));
+        //P L A C E H O L D E R
+        txt.setText(value);
         this.btnLeave = (Button)findViewById(R.id.btnLeave);
 
 
@@ -50,7 +51,6 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
         usare fragment per testo/rdbbutton (puoi riciclasre animaz del signor Colombari)
         */
 
-        //controlla se rdb hanno prop uncheckable
         //creaare classe exercise data container (es: rispo selezionata per domanda selezionata, e altri dati e più codice per noi)
 
         //creare classe in db esterno che impl runnable con nome a piacere (search backup db), che appena chiamata fa roba che dice mattia ( per ora è una prova)
