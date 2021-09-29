@@ -52,7 +52,8 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
         if(v.getId() == this.btnNext.getId()) {
             Intent intent = new Intent(this, Exercise.class);
             Bundle b = new Bundle();
-            b.putInt("values", 1);
+            //b.putInt("values", 1);
+            b.putString("lista", (String) this.textView.getText());
             intent.putExtras(b);
             startActivity(intent);
         }
@@ -143,6 +144,7 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
             this.textView.setText("errore lettura lista");
         else
         {
+            this.textView.setText("va bene, cancella questo messaggio");
             //lavori normalmente
             //this.langArray = courseName.stream().toArray();
         }
