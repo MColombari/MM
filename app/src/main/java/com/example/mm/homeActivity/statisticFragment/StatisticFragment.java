@@ -57,7 +57,7 @@ public class StatisticFragment extends Fragment implements View.OnClickListener 
         statisticMoreText.setOnClickListener((Home) getActivity());
         questionMark.setOnClickListener(this);
 
-        Thread t = new Thread(new GetCourseStatistic(getContext(), this));
+        Thread t = new Thread(new GetCourseStatistic(getActivity(), getActivity().getApplicationContext(), this));
         t.start();
     }
 

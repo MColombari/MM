@@ -26,9 +26,9 @@ public class GetCourseStatistic implements Runnable {
     ArrayList<String> courses;
     ArrayList<Float> values;
 
-    public GetCourseStatistic(Context context, StatisticFragment statisticFragment) {
+    public GetCourseStatistic(Context context, Context contextDatabase, StatisticFragment statisticFragment) {
         this.context = context;
-        localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "LocalDatabase")
+        localDatabase = Room.databaseBuilder(contextDatabase, LocalDatabase.class, "LocalDatabase")
                 .fallbackToDestructiveMigration() /* Is needed to overwrite the old scheme of the
                                                    *  local database, it will ERASE all the current
                                                    *  data.

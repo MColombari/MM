@@ -38,7 +38,7 @@ public class MoreStatisticFragment extends Fragment {
         moreStatisticStatus = view.findViewById(R.id.moreStatisticStatus);
         moreStatisticLessText.setOnClickListener((Home) getActivity());
 
-        Thread t = new Thread(new GetCourseMoreStatistic(getContext(), this));
+        Thread t = new Thread(new GetCourseMoreStatistic(getContext(), getActivity().getApplicationContext(), this));
         t.start();
     }
 

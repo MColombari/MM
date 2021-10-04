@@ -31,9 +31,9 @@ public class GetCourseMoreStatistic implements Runnable{
 
     ArrayList<RecyclerViewRowData> recyclerViewRowDataArrayList;
 
-    public GetCourseMoreStatistic(Context context, MoreStatisticFragment moreStatisticFragment) {
+    public GetCourseMoreStatistic(Context context, Context contextDatabase, MoreStatisticFragment moreStatisticFragment) {
         this.context = context;
-        localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "LocalDatabase")
+        localDatabase = Room.databaseBuilder(contextDatabase, LocalDatabase.class, "LocalDatabase")
                 .fallbackToDestructiveMigration()
                 .build();
         localDatabaseDao = localDatabase.localDatabaseDao();

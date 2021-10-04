@@ -38,17 +38,17 @@ public class GetCourse implements  Runnable{
         List<Course> courseList;
         try{
             courseList = localDatabaseDao.getAllCourse();
-            this.updateDropDown(courseList, true);
+            this.updateDropDown(courseList, false);
         }
         catch (SQLiteException e){
-            this.updateDropDown(null, false);
+            this.updateDropDown(null, true);
         }
     }
 
     void updateDropDown(List<Course> courseList, boolean error) {
         //updateDropDown
-        if (context instanceof Activity) {
-            Activity mainActivity = (Activity)context;
+        if (optionActivity instanceof Activity) {
+            Activity mainActivity = (Activity) optionActivity;
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

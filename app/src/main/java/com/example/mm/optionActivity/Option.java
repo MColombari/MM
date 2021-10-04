@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -34,6 +35,8 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
     ArrayList<Course> courses;
     ArrayList<Course> coursesToSend;
 
+    TextView textView11; //Debug Purpose.
+
     Button btnNext;
 
     @Override
@@ -56,10 +59,11 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
         textView = findViewById(R.id.textView);
         textView.setOnClickListener(this);
 
+        textView11 = (TextView) findViewById(R.id.textView11); //Debug Purpose.
         // initialize selected language array //DUMMY
 
-        Thread thread = new Thread(new GetCourse((Context) this, this));
-        thread.run();
+        Thread thread = new Thread(new GetCourse(getApplicationContext(), this));
+        thread.start();
     }
 
 
@@ -167,10 +171,30 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
             //lavori normalmente
             //this.langArray = courseName.stream().toArray();
 
-            courses.addAll(courseName);
+            if((courseName != null) && (!courseName.isEmpty())) {
+                courses.addAll(courseName);
 
-            for (Course i : courseName){
-                list.add(i.getName());
+                /* --- Start Debug Purpose Code --- */
+
+                StringBuilder stringBuilder = new StringBuilder();
+                for(Course i : courseName){
+                    stringBuilder.append("\t" + i.getName() + "\n");
+                }
+                textView11.setText("ChkErr = " + (chkErr ? "True" : "False") + "\nCourse Names =\n" + stringBuilder.toString());
+
+                /* --- End Debug Purpose Code --- */
+
+                for (Course i : courseName) {
+                    list.add(i.getName());
+                }
+            }
+            else{
+                if(chkErr){
+                    textView11.setText("True");
+                }
+                else{
+                    textView11.setText("False");
+                }
             }
         }
     }

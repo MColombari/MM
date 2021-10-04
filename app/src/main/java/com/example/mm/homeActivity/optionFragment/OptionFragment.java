@@ -13,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mm.R;
+import com.example.mm.homeActivity.externalServerInteraction.Sync;
 import com.example.mm.homeActivity.localDatabaseInteraction.GetUserInformation;
 import com.example.mm.homeActivity.localDatabaseInteraction.SetUserInformation;
 
@@ -27,6 +29,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     TextView textViewEmail;
     TextView textViewMatr;
     TextView textViewUpdateInfo;
+    TextView textViewProgressBarText;
 
     TextView optionFragmentPlainTextName;
     TextView optionFragmentPlainTextSurname;
@@ -34,9 +37,12 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     TextView optionFragmentPlainTextMatr;
     TextView optionFragmentTextButton;
 
+    ImageView imageViewSyncButton;
     ImageView optionFragmentQuestionMarkUserInformation;
     ImageView optionFragmentQuestionMarkSync;
     ImageView optionFragmentQuestionMarkMoreAboutUs;
+
+    ProgressBar progressBar;
 
     View view;
     PopupWindow UserInformationPopupWindow;
@@ -58,17 +64,30 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
         textViewEmail = (TextView) view.findViewById(R.id.TextViewEmail);
         textViewMatr = (TextView) view.findViewById(R.id.TextViewMatr);
         textViewUpdateInfo = (TextView) view.findViewById(R.id.TexrViewUpdateUserInfo);
+        textViewProgressBarText = (TextView) view.findViewById(R.id.progressBarText);
 
+        imageViewSyncButton = (ImageView) view.findViewById(R.id.ImageViewSyncButton);
         optionFragmentQuestionMarkUserInformation = (ImageView) view.findViewById(R.id.Option_Fragment_Question_Mark_User_Information);
         optionFragmentQuestionMarkSync = (ImageView) view.findViewById(R.id.Option_Fragment_Question_Mark_Sync);
         optionFragmentQuestionMarkMoreAboutUs = (ImageView) view.findViewById(R.id.Option_Fragment_Question_Mark_More_About_Us);
 
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+
+        textViewProgressBarText.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            progressBar.setMin(0);
+            progressBar.setMax(100);
+        }
+
         textViewUpdateInfo.setOnClickListener(this);
+        imageViewSyncButton.setOnClickListener(this);
         optionFragmentQuestionMarkUserInformation.setOnClickListener(this);
         optionFragmentQuestionMarkSync.setOnClickListener(this);
         optionFragmentQuestionMarkMoreAboutUs.setOnClickListener(this);
 
-        Thread t = new Thread(new GetUserInformation(getContext(), this));
+        Thread t = new Thread(new GetUserInformation(getContext(), getActivity().getApplicationContext(), this));
         t.start();
     }
 
@@ -114,6 +133,10 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
             optionFragmentTextButton = (TextView) popupView.findViewById(R.id.OptionFragmentPopupWindowAddUpdateUserInfo);
             optionFragmentTextButton.setOnClickListener(this);
         }
+        else if (v.getId() == R.id.ImageViewSyncButton){
+            Thread thread = new Thread(new Sync());
+            thread.start();
+        }
         else if (v.getId() == R.id.OptionFragmentPopupWindowAddUpdateUserInfo){
             /* Set user information */
             try {
@@ -129,7 +152,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
                     return;
                 }
 
-                Thread t = new Thread(new SetUserInformation(getContext(), UserInformationPopupWindow, this, name, surname, email, matr));
+                Thread t = new Thread(new SetUserInformation(getContext(), getActivity().getApplicationContext(), UserInformationPopupWindow, this, name, surname, email, matr));
                 t.start();
             }
             catch (NumberFormatException e){

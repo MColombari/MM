@@ -26,11 +26,11 @@ public class GetUserInformation implements  Runnable {
 
     List<UserInformation> userInformations;
 
-    public GetUserInformation(Context context, OptionFragment optionFragment) {
+    public GetUserInformation(Context context, Context contextDatabase, OptionFragment optionFragment) {
         this.context = context;
         this.optionFragment = optionFragment;
 
-        localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "LocalDatabase")
+        localDatabase = Room.databaseBuilder(contextDatabase, LocalDatabase.class, "LocalDatabase")
                 .fallbackToDestructiveMigration()  /* Is needed to overwrite the old scheme of the
                                                     *  local database, it will ERASE all the current
                                                     *  data.

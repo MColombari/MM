@@ -24,7 +24,7 @@ public class SetUserInformation implements Runnable {
     String email;
     int matr;
 
-    public SetUserInformation(Context context, PopupWindow popupWindow, OptionFragment optionFragment, String name, String surname, String email, int matr) {
+    public SetUserInformation(Context context, Context contextDatabase, PopupWindow popupWindow, OptionFragment optionFragment, String name, String surname, String email, int matr) {
         this.context = context;
         this.popupWindow = popupWindow;
         this.optionFragment = optionFragment;
@@ -33,7 +33,7 @@ public class SetUserInformation implements Runnable {
         this.email = email;
         this.matr = matr;
 
-        localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "LocalDatabase")
+        localDatabase = Room.databaseBuilder(contextDatabase, LocalDatabase.class, "LocalDatabase")
                 .fallbackToDestructiveMigration()  /* Is needed to overwrite the old scheme of the
          *  local database, it will ERASE all the current
          *  data.
