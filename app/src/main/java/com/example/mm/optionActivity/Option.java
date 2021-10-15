@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.mm.R;
@@ -25,6 +26,7 @@ import localDatabase.Tables.Course;
 public class Option extends AppCompatActivity implements View.OnClickListener {
     // initialize variables
     TextView textView;
+    TextView txtNumberSelect;
     boolean[] selectedLanguage;
     ArrayList<Integer> subList = new ArrayList<>();
 
@@ -34,6 +36,10 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
     ArrayList<String> list;
     ArrayList<Course> courses;
     ArrayList<Course> coursesToSend;
+
+    RadioButton rdb1;
+    RadioButton rdb2;
+    RadioButton rdb3;
 
     TextView textView11; //Debug Purpose.
 
@@ -48,16 +54,18 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
         courses = new ArrayList<>();
         coursesToSend = new ArrayList<>();
 
-
-        //TO DO riuscire a mettere le mani sui dati da inserire nella lista
-        //updateDropDown();
-
         // assign variable
         btnNext = findViewById(R.id.btnNext);
         btnNext.setOnClickListener(this);
 
         textView = findViewById(R.id.textView);
         textView.setOnClickListener(this);
+
+        txtNumberSelect = findViewById(R.id.txtNumberSelect);
+
+        rdb1 = findViewById(R.id.rdb1);
+        rdb2 = findViewById(R.id.rdb2);
+        rdb3 = findViewById(R.id.rdb3);
 
         textView11 = (TextView) findViewById(R.id.textView11); //Debug Purpose.
         // initialize selected language array //DUMMY
@@ -72,8 +80,19 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
         if(v.getId() == this.btnNext.getId()) {
             Intent intent = new Intent(this, Exercise.class);
             Bundle b = new Bundle();
-            //b.putInt("values", 1);
+            int diff = 1; //default difficulty, 1 easy, 2 medium, 3 hard
+
+            if(rdb1.isChecked())
+                diff = 1;
+            if(rdb2.isChecked())
+                diff = 2;
+            if(rdb3.isChecked())
+                diff = 3;
+
             b.putString("lista", (String) this.textView.getText());
+            b.putInt("difficulty", diff);
+            b.putInt("questions", Integer.parseInt(String.valueOf(txtNumberSelect.getText())));
+
             intent.putExtras(b);
             startActivity(intent);
         }

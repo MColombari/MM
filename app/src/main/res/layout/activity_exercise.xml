@@ -14,6 +14,7 @@
         android:layout_marginBottom="16dp"
         android:background="@color/black"
         android:text="Abbandona"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -36,7 +37,8 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tempo" />
+            android:text="Tempo"
+            android:textColor="@color/gray" />
 
         <EditText
             android:id="@+id/txtTime"
@@ -44,6 +46,7 @@
             android:layout_height="wrap_content"
             android:editable="false"
             android:ems="10"
+            android:background="@android:drawable/editbox_background"
             android:enabled="false"
             android:inputType="time" />
 
@@ -68,13 +71,15 @@
             android:id="@+id/textView"
             android:layout_width="65dp"
             android:layout_height="23dp"
-            android:text="Domanda" />
+            android:text="Domanda"
+            android:textColor="@color/gray" />
 
         <TextView
             android:id="@+id/txtNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="xx/xx" />
+            android:text="xx/xx"
+            android:textColor="@color/gray" />
 
     </LinearLayout>
 
@@ -93,7 +98,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/black"
-            android:text="Indietro" />
+            android:text="Indietro"
+            android:textColor="@color/black" />
 
         <Space
             android:layout_width="121dp"
@@ -105,7 +111,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/black"
-            android:text="Avanti" />
+            android:text="Avanti"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 
@@ -123,27 +130,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
-            android:text="Risposta 1" />
+            android:text="Risposta 1"
+            android:textColor="@color/black" />
 
         <RadioButton
             android:id="@+id/rdbA2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Risposta 2" />
+            android:text="Risposta 2"
+            android:textColor="@color/black" />
 
         <RadioButton
             android:id="@+id/rdbA3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Risposta 3" />
+            android:text="Risposta 3"
+            android:textColor="@color/black" />
 
         <RadioButton
             android:id="@+id/rdbA4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Risposta 4" />
+            android:text="Risposta 4"
+            android:textColor="@color/black" />
     </RadioGroup>
 
     <EditText
@@ -156,6 +167,7 @@
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:text="Testo della domanda"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
