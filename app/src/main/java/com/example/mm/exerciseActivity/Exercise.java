@@ -24,21 +24,23 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
     Button btnNext;
     Button btnPrev;
 
+    TextView debug;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
-        this.txtQuestion = (TextView)findViewById(R.id.txtQuestion);
+        this.txtQuestion = (TextView)findViewById(R.id.QuestionText);
 
         Bundle b = getIntent().getExtras();
-        String value = ""; // or other values
+        int numberOfQuestion = 0; // or other values
         if(b != null)
-            value = b.getString("lista");
+            numberOfQuestion = b.getInt("lista");
 
-        txt = (TextView)findViewById(R.id.txtTime);
-        //P L A C E H O L D E R
-        txt.setText(value);
-        this.btnLeave = (Button)findViewById(R.id.btnLeave);
+
+        this.btnLeave = (Button)findViewById(R.id.LeaveButton);
+
+        debug = findViewById(R.id.textView3);
 
 
         //btnleave per tornare alla schermata home non va,
@@ -65,18 +67,13 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId())
         {
-            case R.id.btnLeave:
+            case R.id.LeaveButton:
                 Intent intent = new Intent(this, Home.class);
                 startActivity(intent);
                 break;
-            case R.id.btnNext:
+            case R.id.StartButtonOptionActivity:
                 //prova
                 this.txtQuestion.setText("Hai premuto prossimo");
-                break;
-            case R.id.btnPrev:
-                //prova
-                this.txtQuestion.setText("Hai premuto precdente");
-
                 break;
         }
     }

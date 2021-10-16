@@ -13,28 +13,28 @@
         android:id="@+id/txtInfo1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="10dp"
         android:text="Select the number of questions"
         android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/txtNumberSelect"
+        app:layout_constraintBottom_toTopOf="@+id/NumberOfQuestions"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.532"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/NumberOfQuestions" />
 
     <Button
-        android:id="@+id/btnNext"
+        android:id="@+id/StartButtonOptionActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="68dp"
-        android:text="Next"
-        android:textColor="#000000"
+        android:text="Start"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/CoursesSelected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -46,16 +46,10 @@
         android:padding="12dp"
         android:textColorHint="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/txtInfo1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView11"
@@ -66,7 +60,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txtNumberSelect"
+        android:id="@+id/NumberOfQuestions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
@@ -77,51 +71,63 @@
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/txtInfo2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtInfo2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="10dp"
         android:text="Select the difficulty"
         android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroupOptionActivity"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/radioGroupOptionActivity" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/radioGroupOptionActivity"
         android:layout_width="205dp"
         android:layout_height="177dp"
         android:layout_marginBottom="68dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintBottom_toTopOf="@+id/StartButtonOptionActivity"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
-            android:id="@+id/rdb1"
+            android:id="@+id/radioGroupSelection1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Easy"
+            android:text="Sort by less seen"
             android:textColor="#000000" />
 
         <RadioButton
-            android:id="@+id/rdb2"
+            android:id="@+id/radioGroupSelection2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Medium"
+            android:text="Sort by less correct"
             android:textColor="#000000" />
 
         <RadioButton
-            android:id="@+id/rdb3"
+            android:id="@+id/radioGroupSelection3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hard"
             android:textColor="#000000" />
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/FlagOptionActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/CoursesSelected"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19999999" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

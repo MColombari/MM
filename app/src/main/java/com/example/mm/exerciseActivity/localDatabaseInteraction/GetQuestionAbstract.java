@@ -4,5 +4,5 @@ import java.util.ArrayList;
 
 import localDatabase.Tables.Question;
 
-public abstract class GetQuestionAbstract implements GetQuestionInterface {
+public abstract class GetQuestionAbstract implements Runnable {
 }

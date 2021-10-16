@@ -8,128 +8,32 @@
     tools:context=".exerciseActivity.Exercise">
 
     <Button
-        android:id="@+id/btnLeave"
+        android:id="@+id/LeaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:background="@color/black"
-        android:text="Abbandona"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Leave"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/QuestionText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/layTime"
-        android:layout_width="225dp"
-        android:layout_height="106dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="76dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/txtQuestion"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="31dp" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tempo"
-            android:textColor="@color/gray" />
-
-        <EditText
-            android:id="@+id/txtTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:editable="false"
-            android:ems="10"
-            android:background="@android:drawable/editbox_background"
-            android:enabled="false"
-            android:inputType="time" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layQeustion"
-        android:layout_width="75dp"
-        android:layout_height="106dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/leyNextPrev"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/layTime">
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="31dp" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="65dp"
-            android:layout_height="23dp"
-            android:text="Domanda"
-            android:textColor="@color/gray" />
-
-        <TextView
-            android:id="@+id/txtNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="xx/xx"
-            android:textColor="@color/gray" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/leyNextPrev"
-        android:layout_width="309dp"
-        android:layout_height="59dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/txtQuestion"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.81"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layTime">
-
-        <Button
-            android:id="@+id/btnPrev"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/black"
-            android:text="Indietro"
-            android:textColor="@color/black" />
-
-        <Space
-            android:layout_width="121dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/black"
-            android:text="Avanti"
-            android:textColor="@color/black" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.44" />
 
     <RadioGroup
+        android:id="@+id/radioGroupExerciseActivity"
         android:layout_width="276dp"
-        android:layout_height="253dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLeave"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtQuestion">
+        app:layout_constraintTop_toBottomOf="@+id/QuestionText">
 
         <RadioButton
             android:id="@+id/rdbA1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
             android:text="Risposta 1"
             android:textColor="@color/black" />
 
@@ -144,7 +48,6 @@
             android:id="@+id/rdbA3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="Risposta 3"
             android:textColor="@color/black" />
 
@@ -152,13 +55,12 @@
             android:id="@+id/rdbA4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:text="Risposta 4"
             android:textColor="@color/black" />
     </RadioGroup>
 
     <EditText
-        android:id="@+id/txtQuestion"
+        android:id="@+id/QuestionText"
         android:layout_width="324dp"
         android:layout_height="215dp"
         android:editable="false"
@@ -174,5 +76,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.338" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Numero domanda"
+        app:layout_constraintBottom_toTopOf="@+id/QuestionText"
+        app:layout_constraintEnd_toStartOf="@+id/LeaveButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.38" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NaN/NaN"
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <Button
+        android:id="@+id/PrevButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prev."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/NextButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupExerciseActivity" />
+
+    <Button
+        android:id="@+id/NextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/PrevButton"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupExerciseActivity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
