@@ -26,8 +26,8 @@ public class QuestionsDataRecurrence extends QuestionsDataAbstract implements Co
     @Override
     public int compareTo(QuestionsDataRecurrence o) {
         if(o.getOccurrence() == this.getOccurrence()){
-            return o.getQuestion().getQid() - this.getQuestion().getQid();
+            return this.getQuestion().getQid() - o.getQuestion().getQid();
         }
-        return o.getOccurrence() - this.getOccurrence();
+        return this.getOccurrence() - o.getOccurrence();
     }
 }

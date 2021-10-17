@@ -9,4 +9,8 @@
     <string name="underline_Add_User_Information"><u>Add User Information</u></string>
     <string name="underline_Upload"><u>Upload</u></string>
     <string name="underline_Download"><u>Download</u></string>
+    <string name="underline_Back"><u>Back</u></string>
+    <string name="underline_Cancel"><u>Cancel</u></string>
+    <string name="underline_Yes"><u>Yes</u></string>
+    <string name="underline_No"><u>No</u></string>
 </resources>

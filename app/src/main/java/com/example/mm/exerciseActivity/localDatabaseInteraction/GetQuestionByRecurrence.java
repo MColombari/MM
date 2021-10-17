@@ -20,21 +20,20 @@ import questionSortingAlgorithm.RecurrenceSorting;
 import questionSortingAlgorithm.dataStructure.QuestionsDataRecurrence;
 
 public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runnable {
-    Context context;
+
     LocalDatabaseDao localDatabaseDao;
     LocalDatabase localDatabase;
-    Exercise exerciseActivity;
+
     ArrayList<QuestionsDataRecurrence> questionsDataRecurrenceArrayList;
-    int[] courseIds;
+
 
     public GetQuestionByRecurrence(Context context, Exercise exerciseActivity, int[] courseIds) {
-        this.context = context;
+        super(context, exerciseActivity, courseIds);
+
         localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "LocalDatabase")
                 .fallbackToDestructiveMigration()
                 .build();
         localDatabaseDao = localDatabase.localDatabaseDao();
-        this.exerciseActivity = exerciseActivity;
-        this.courseIds = courseIds;
 
         questionsDataRecurrenceArrayList = new ArrayList<>();
     }
@@ -45,7 +44,7 @@ public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runn
         try{
             rawQuestions = localDatabaseDao.getAllQuestionByCourseIds(courseIds);
             if(rawQuestions.isEmpty()){
-                this.updateQuestionError("Error no question found.");
+                this.updateQuestion();
                 return;
             }
             for (Question q: rawQuestions){
@@ -61,9 +60,10 @@ public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runn
         }
     }
 
+
     void updateQuestion(){
-        if (context instanceof Activity) {
-            Activity mainActivity = (Activity)context;
+        if (exerciseActivity instanceof Activity) {
+            Activity mainActivity = (Activity)exerciseActivity;
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -74,8 +74,8 @@ public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runn
     }
 
     void updateQuestionError(String errorString){
-        if (context instanceof Activity) {
-            Activity mainActivity = (Activity)context;
+        if (exerciseActivity instanceof Activity) {
+            Activity mainActivity = (Activity)exerciseActivity;
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

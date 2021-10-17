@@ -19,10 +19,10 @@ import android.widget.TextView;
 
 import com.example.mm.R;
 import com.example.mm.exerciseActivity.Exercise;
+import com.example.mm.homeActivity.Home;
 import com.example.mm.optionActivity.localDatabaseInteraction.GetCourse;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import localDatabase.Tables.Course;
@@ -31,6 +31,7 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
     TextView CourseSelection;
     TextView txtNumberSelect;
     TextView Flag;
+    TextView BackButton;
     boolean[] selectedCourses;
 
     EditText EditTextNumberOfQuestion;
@@ -42,8 +43,6 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
     RadioButton radioGroupSelection1;
     RadioButton radioGroupSelection2;
     RadioButton radioGroupSelection3;
-
-    TextView textView11; //Debug Purpose.
 
     Button StartButtonOptionActivity;
 
@@ -59,6 +58,7 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
         StartButtonOptionActivity = (Button) findViewById(R.id.StartButtonOptionActivity);
         EditTextNumberOfQuestion = (EditText) findViewById(R.id.NumberOfQuestions);
         Flag = (TextView) findViewById(R.id.FlagOptionActivity);
+        BackButton = (TextView) findViewById(R.id.BackButton);
         CourseSelection = (TextView) findViewById(R.id.CoursesSelected);
         txtNumberSelect = (TextView) findViewById(R.id.NumberOfQuestions);
         radioGroupSelection1 = (RadioButton) findViewById(R.id.radioGroupSelection1);
@@ -67,9 +67,8 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
 
 
         StartButtonOptionActivity.setOnClickListener(this);
+        BackButton.setOnClickListener(this);
 
-
-        textView11 = (TextView) findViewById(R.id.textView11); //Debug Purpose.
 
         Thread thread = new Thread(new GetCourse(getApplicationContext(), this));
         thread.start();
@@ -78,7 +77,11 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == this.StartButtonOptionActivity.getId()) {
+        if(v.getId() == this.BackButton.getId()){
+            Intent intent = new Intent(this, Home.class);
+            startActivity(intent);
+        }
+        else if(v.getId() == this.StartButtonOptionActivity.getId()) {
             Intent intent = new Intent(this, Exercise.class);
             Bundle bundle = new Bundle();
 
@@ -87,14 +90,14 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
                 LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = layoutInflater.inflate(R.layout.generic_popup_window, null);
 
-                PopupWindow questionMarkPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT, true);
+                PopupWindow genericPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT, true);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    questionMarkPopupWindow.setElevation(20);
+                    genericPopupWindow.setElevation(20);
                 }
-                questionMarkPopupWindow.setAnimationStyle(R.style.AnimationGenericPopupWindow);
-                questionMarkPopupWindow.update();
+                genericPopupWindow.setAnimationStyle(R.style.AnimationGenericPopupWindow);
+                genericPopupWindow.update();
                 /* "v" is used as a parent view to get the View.getWindowToken() token from. */
-                questionMarkPopupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+                genericPopupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 
                 TextView text = (TextView) popupView.findViewById(R.id.Generic_Popup_Window_Text);
                 TextView title = (TextView) popupView.findViewById(R.id.Generic_Popup_Window_Title);
@@ -103,13 +106,13 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        questionMarkPopupWindow.dismiss();
+                        genericPopupWindow.dismiss();
                     }
                 });
 
                 title.setText("Error");
                 title.setTextColor(getResources().getColor(R.color.red));
-                text.setText("The numeber of question needs to be\ngreater than zero.");
+                text.setText("The number of question needs to be\ngreater than zero.");
 
                 return;
             }
@@ -123,6 +126,36 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
             for(Course i : listOfCoursesSelected){
                 listOfCoursesSelectedIds.add(i.getId());
             }
+            if(listOfCoursesSelectedIds.isEmpty()){
+                LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = layoutInflater.inflate(R.layout.generic_popup_window, null);
+
+                PopupWindow genericPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT, true);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    genericPopupWindow.setElevation(20);
+                }
+                genericPopupWindow.setAnimationStyle(R.style.AnimationGenericPopupWindow);
+                genericPopupWindow.update();
+                /* "v" is used as a parent view to get the View.getWindowToken() token from. */
+                genericPopupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+                TextView text = (TextView) popupView.findViewById(R.id.Generic_Popup_Window_Text);
+                TextView title = (TextView) popupView.findViewById(R.id.Generic_Popup_Window_Title);
+                TextView button = (TextView) popupView.findViewById(R.id.Generic_Popup_Window_Ok);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        genericPopupWindow.dismiss();
+                    }
+                });
+
+                title.setText("Error");
+                title.setTextColor(getResources().getColor(R.color.red));
+                text.setText("The number of courses needs to be\nat least one.");
+
+                return;
+            }
 
             bundle.putInt("QuestionNumber", numberOfQuestion);
             bundle.putInt("SortOption", SortOption);
@@ -131,7 +164,7 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
             intent.putExtras(bundle);
             startActivity(intent);
         }
-        if(v.getId() == this.CourseSelection.getId())
+        else if(v.getId() == this.CourseSelection.getId())
         {
             // Initialize alert dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -159,6 +192,23 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
+
+                    StringBuilder stringBuilder = new StringBuilder();
+
+                    boolean flag = true;
+                    for(int a = 0; a < selectedCourses.length; a++){
+                        if(selectedCourses[a]){
+                            if(flag){
+                                flag = false;
+                                stringBuilder.append(listOfCoursesNames.get(a));
+                            }
+                            else{
+                                stringBuilder.append(", " + listOfCoursesNames.get(a));
+                            }
+                        }
+                    }
+
+                    CourseSelection.setText(stringBuilder.toString());
                 }
             });
 
@@ -168,7 +218,7 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
                     for(int a = 0; a < selectedCourses.length; a++){
                         selectedCourses[a] = false;
                     }
-
+                    CourseSelection.setText("No selected courses");
                     dialogInterface.dismiss();
                 }
             });
@@ -183,14 +233,15 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
     public void updateDropDown(List<Course> listOfCourses, boolean chkErr) {
         //chkErr = boolean passato per verifica errore
         if(chkErr) {
-            this.CourseSelection.setText("Errore lettura corsi");
+            this.CourseSelection.setText("");
             Flag.setText("Errore lettura corsi");
             Flag.setTextColor(getResources().getColor(R.color.red));
         }
         else
         {
             if((listOfCourses != null) && (!listOfCourses.isEmpty())) {
-                this.CourseSelection.setText("Seleziona i corsi");
+                this.CourseSelection.setText("No selected courses");
+                this.CourseSelection.setTextColor(getResources().getColor(R.color.gray));
                 Flag.setText("Updated");
                 Flag.setTextColor(getResources().getColor(R.color.green));
 
@@ -205,19 +256,9 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
                 for(int a = 0; a < selectedCourses.length; a++){
                     selectedCourses[a] = false;
                 }
-
-                /* --- Start Debug Purpose Code --- */
-
-                StringBuilder stringBuilder = new StringBuilder();
-                for(String i : listOfCoursesNames){
-                    stringBuilder.append(i + "\n");
-                }
-                textView11.setText("ChkErr = " + (chkErr ? "True" : "False") + "\nCourse Names =\n" + stringBuilder.toString());
-
-                /* --- End Debug Purpose Code --- */
             }
             else{
-                this.CourseSelection.setText("Errore, nessun corso trovato");
+                this.CourseSelection.setText("");
                 Flag.setText("Errore, nessun corso trovato");
                 Flag.setTextColor(getResources().getColor(R.color.red));
             }
