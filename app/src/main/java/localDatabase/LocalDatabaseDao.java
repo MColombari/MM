@@ -40,6 +40,10 @@ public interface LocalDatabaseDao {
     List<StatisticUser> getAllStatisticUserByIdCourse(int idCourse) throws SQLiteException;
     @Query("SELECT COUNT(*) FROM StatisticUser WHERE qidQuestion == :qid")
     int getOccurrencesByQid(int qid) throws SQLiteException;
+    @Insert
+    void insertStatisticUser(StatisticUser statisticUsers) throws SQLiteException;
+    @Insert
+    void insertAllStatisticUser(StatisticUser... statisticUsers) throws SQLiteException;
 
     /* Course Query */
     @Query("SELECT * FROM Course")
@@ -51,5 +55,5 @@ public interface LocalDatabaseDao {
     @Query("DELETE FROM UserInformation")
     void deleteAllUserInformation();
     @Insert
-    void insertUserInformation(UserInformation... userInformations) throws SQLiteException;
+    void insertUserInformation(UserInformation... userInformation) throws SQLiteException;
 }
