@@ -19,11 +19,11 @@ import localDatabase.Tables.UserInformation;
 
 public class SetStatisticUser implements Runnable {
     Context context;
-    Exercise exercise;
-    ArrayList<StatisticUser> statisticUserArrayList;
-
     LocalDatabase localDatabase;
     LocalDatabaseDao localDatabaseDao;
+
+    Exercise exercise;
+    ArrayList<StatisticUser> statisticUserArrayList;
 
     public SetStatisticUser(Context context, Exercise exercise, ArrayList<StatisticUser> statisticUserArrayList){
         this.context = context;

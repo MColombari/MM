@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.SpannableString;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +17,24 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.mm.R;
+import com.example.mm.exerciseActivity.Exercise;
 import com.example.mm.homeActivity.Home;
+import com.example.mm.homeActivity.localDatabaseInteraction.GetQuickResumeData;
 import com.example.mm.optionActivity.Option;
+import com.example.mm.optionActivity.localDatabaseInteraction.SetQuickResumeData;
+
+import java.util.ArrayList;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
     Button startButton;
+    Button quickResumeButton;
     ImageView questionMark;
+
+    int numbQuestion;
+    int sortingAlgorithm;
+    ArrayList<Integer> coursesIdsArrayList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,10 +48,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
 
         startButton = (Button) view.findViewById(R.id.Start_Button);
+        quickResumeButton = (Button) view.findViewById(R.id.Resume_Button);
         questionMark = (ImageView) view.findViewById(R.id.Home_Fragment_Question_Mark);
 
         startButton.setOnClickListener(this);
         questionMark.setOnClickListener(this);
+
+        Thread thread = new Thread(new GetQuickResumeData(getContext(), getActivity().getApplicationContext(), this));
+        thread.start();
+    }
+
+    public void setQuickResume(boolean setClickListener, SpannableString buttonName, int numbQuestion, int sortingAlgorithm, ArrayList<Integer> coursesIdsArrayList){
+        this.numbQuestion = numbQuestion;
+        this.sortingAlgorithm = sortingAlgorithm;
+        this.coursesIdsArrayList = coursesIdsArrayList;
+        if(setClickListener){
+            quickResumeButton.setOnClickListener(this);
+            quickResumeButton.setBackgroundColor(getContext().getResources().getColor(R.color.light_green));
+        }
+        quickResumeButton.setText(buttonName);
     }
 
     @Override
@@ -78,6 +104,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     "be chose by you.\n" +
                     "The resume button (if green) will start a new quiz with the last setting " +
                     "used for the last quiz, if the button is grey no previous settings are found.");
+        }
+        else if(v.getId() == quickResumeButton.getId()){
+            Intent intent = new Intent(getActivity().getApplicationContext(), Exercise.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("QuestionNumber", numbQuestion);
+            bundle.putInt("SortOption", sortingAlgorithm);
+            bundle.putIntegerArrayList("CoursesId", coursesIdsArrayList);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
     }
 }

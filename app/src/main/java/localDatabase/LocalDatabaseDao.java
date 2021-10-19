@@ -12,6 +12,8 @@ import java.util.List;
 
 import localDatabase.Tables.Course;
 import localDatabase.Tables.Question;
+import localDatabase.Tables.QuickResumeData;
+import localDatabase.Tables.QuickResumeDataIds;
 import localDatabase.Tables.StatisticUser;
 import localDatabase.Tables.UserInformation;
 
@@ -48,6 +50,8 @@ public interface LocalDatabaseDao {
     /* Course Query */
     @Query("SELECT * FROM Course")
     List<Course> getAllCourse() throws SQLiteException;
+    @Query("SELECT * FROM Course WHERE id IN (:id)")
+    List<Course> getCourseById(int[] id) throws SQLiteException;
 
     /* User Information Query */
     @Query("SELECT * FROM UserInformation")
@@ -56,4 +60,20 @@ public interface LocalDatabaseDao {
     void deleteAllUserInformation();
     @Insert
     void insertUserInformation(UserInformation... userInformation) throws SQLiteException;
+
+    /* Quick Resume Data Query */
+    @Insert
+    void insertQuickResumeData(QuickResumeData quickResumeData);
+    @Query("SELECT * FROM QuickResumeData")
+    List<QuickResumeData> getAllQuickResumeData();
+    @Query("DELETE FROM QuickResumeData")
+    void deleteAllQuickResumeData();
+
+    /* Quick Resume Data Ids Query */
+    @Insert
+    void insertQuickResumeDataIds(QuickResumeDataIds quickResumeDataIds);
+    @Query("SELECT * FROM QuickResumeDataIds")
+    List<QuickResumeDataIds> getAllQuickResumeDataIds();
+    @Query("DELETE FROM QuickResumeDataIds")
+    void deleteAllQuickResumeDataIds();
 }

@@ -5,6 +5,8 @@ import androidx.room.RoomDatabase;
 
 import localDatabase.Tables.Course;
 import localDatabase.Tables.Question;
+import localDatabase.Tables.QuickResumeData;
+import localDatabase.Tables.QuickResumeDataIds;
 import localDatabase.Tables.StatisticUser;
 import localDatabase.Tables.UserInformation;
 
@@ -12,7 +14,7 @@ import localDatabase.Tables.UserInformation;
 * database transactions.
 * https://developer.android.com/jetpack/androidx/releases/room#2.1.0-alpha06 */
 
-@Database(entities = {Question.class, StatisticUser.class, Course.class, UserInformation.class}, version = 3, exportSchema = false)
+@Database(entities = {Question.class, StatisticUser.class, Course.class, UserInformation.class, QuickResumeData.class, QuickResumeDataIds.class}, version = 4, exportSchema = false)
 public abstract class LocalDatabase extends RoomDatabase {
     public abstract LocalDatabaseDao localDatabaseDao();
 }

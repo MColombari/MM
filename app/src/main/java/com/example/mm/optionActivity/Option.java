@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.mm.R;
 import com.example.mm.exerciseActivity.Exercise;
+import com.example.mm.optionActivity.localDatabaseInteraction.SetQuickResumeData;
 import com.example.mm.homeActivity.Home;
 import com.example.mm.optionActivity.localDatabaseInteraction.GetCourse;
 
@@ -160,6 +161,10 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
             bundle.putInt("QuestionNumber", numberOfQuestion);
             bundle.putInt("SortOption", SortOption);
             bundle.putIntegerArrayList("CoursesId", listOfCoursesSelectedIds);
+
+            /* Save the data for the quick resume. */
+            Thread thread = new Thread(new SetQuickResumeData(getApplicationContext(), numberOfQuestion, SortOption, listOfCoursesSelectedIds));
+            thread.start();
 
             intent.putExtras(bundle);
             startActivity(intent);
