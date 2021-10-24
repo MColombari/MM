@@ -111,21 +111,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Sort by less seen"
+            android:text="Sort by less seen question"
             android:textColor="#000000" />
 
         <RadioButton
             android:id="@+id/radioGroupSelection2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sort by less correct"
+            android:text="Sort by more seen question"
             android:textColor="#000000" />
 
         <RadioButton
             android:id="@+id/radioGroupSelection3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hard"
+            android:text="Sort by most wrong answer"
             android:textColor="#000000" />
     </RadioGroup>
 
@@ -147,7 +147,7 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/CoursesSelected"
         app:layout_constraintEnd_toEndOf="@+id/CoursesSelected"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@+id/CoursesSelected" />
 
     <TextView

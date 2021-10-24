@@ -86,6 +86,36 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
             Intent intent = new Intent(this, Exercise.class);
             Bundle bundle = new Bundle();
 
+            if(this.EditTextNumberOfQuestion.getText().toString().equals("")){
+                LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = layoutInflater.inflate(R.layout.generic_popup_window, null);
+
+                PopupWindow genericPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT, true);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    genericPopupWindow.setElevation(20);
+                }
+                genericPopupWindow.setAnimationStyle(R.style.AnimationGenericPopupWindow);
+                genericPopupWindow.update();
+                /* "v" is used as a parent view to get the View.getWindowToken() token from. */
+                genericPopupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+                TextView text = (TextView) popupView.findViewById(R.id.Generic_Popup_Window_Text);
+                TextView title = (TextView) popupView.findViewById(R.id.Generic_Popup_Window_Title);
+                TextView button = (TextView) popupView.findViewById(R.id.Generic_Popup_Window_Ok);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        genericPopupWindow.dismiss();
+                    }
+                });
+
+                title.setText("Error");
+                title.setTextColor(getResources().getColor(R.color.red));
+                text.setText("The number of question can't\nbe empty.");
+
+                return;
+            }
             int numberOfQuestion = new Integer(this.EditTextNumberOfQuestion.getText().toString());
             if(numberOfQuestion <= 0){
                 LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);

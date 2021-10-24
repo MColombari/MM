@@ -7,25 +7,24 @@ import android.database.sqlite.SQLiteException;
 import androidx.room.Room;
 
 import com.example.mm.exerciseActivity.Exercise;
-import com.example.mm.homeActivity.statisticFragment.MoreStatisticFragment;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import localDatabase.LocalDatabase;
 import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.Question;
 import questionSortingAlgorithm.RecurrenceSorting;
+import questionSortingAlgorithm.ReverseRecurrenceSorting;
 import questionSortingAlgorithm.dataStructure.QuestionsDataRecurrence;
 
-public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runnable {
+public class GetQuestionByReverseRecurrence extends GetQuestionAbstract implements Runnable{
     LocalDatabaseDao localDatabaseDao;
     LocalDatabase localDatabase;
+
     ArrayList<QuestionsDataRecurrence> questionsDataRecurrenceArrayList;
 
-
-    public GetQuestionByRecurrence(Context context, Exercise exerciseActivity, int[] courseIds) {
+    public GetQuestionByReverseRecurrence(Context context, Exercise exerciseActivity, int[] courseIds) {
         super(context, exerciseActivity, courseIds);
 
         localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "LocalDatabase")
@@ -49,8 +48,8 @@ public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runn
                 int occurrence = localDatabaseDao.getOccurrencesByQid(q.getQid());
                 questionsDataRecurrenceArrayList.add(new QuestionsDataRecurrence(q, occurrence));
             }
-            RecurrenceSorting recurrenceSorting = new RecurrenceSorting(questionsDataRecurrenceArrayList);
-            questionsDataRecurrenceArrayList = recurrenceSorting.sortQuestions();
+            ReverseRecurrenceSorting reverseRecurrenceSorting = new ReverseRecurrenceSorting(questionsDataRecurrenceArrayList);
+            questionsDataRecurrenceArrayList = reverseRecurrenceSorting.sortQuestions();
             this.updateQuestion();
         }
         catch(SQLiteException e){
@@ -58,8 +57,8 @@ public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runn
         }
     }
 
-
-    void updateQuestion(){
+    @Override
+    void updateQuestion() {
         if (exerciseActivity instanceof Activity) {
             Activity mainActivity = (Activity)exerciseActivity;
             mainActivity.runOnUiThread(new Runnable() {
@@ -71,7 +70,8 @@ public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runn
         }
     }
 
-    void updateQuestionError(String errorString){
+    @Override
+    void updateQuestionError(String errorString) {
         if (exerciseActivity instanceof Activity) {
             Activity mainActivity = (Activity)exerciseActivity;
             mainActivity.runOnUiThread(new Runnable() {

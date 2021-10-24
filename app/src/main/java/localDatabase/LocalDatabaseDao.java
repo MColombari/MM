@@ -42,6 +42,8 @@ public interface LocalDatabaseDao {
     List<StatisticUser> getAllStatisticUserByIdCourse(int idCourse) throws SQLiteException;
     @Query("SELECT COUNT(*) FROM StatisticUser WHERE qidQuestion == :qid")
     int getOccurrencesByQid(int qid) throws SQLiteException;
+    @Query("SELECT AVG(points) FROM StatisticUser WHERE qidQuestion == :qid")
+    int getAveragePointsPerQuestion(int qid) throws SQLiteException;
     @Insert
     void insertStatisticUser(StatisticUser statisticUsers) throws SQLiteException;
     @Insert

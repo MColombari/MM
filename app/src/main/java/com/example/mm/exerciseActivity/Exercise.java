@@ -19,7 +19,9 @@ import android.widget.TextView;
 import android.view.View;
 
 
+import com.example.mm.exerciseActivity.localDatabaseInteraction.GetQuestionByPoints;
 import com.example.mm.exerciseActivity.localDatabaseInteraction.GetQuestionByRecurrence;
+import com.example.mm.exerciseActivity.localDatabaseInteraction.GetQuestionByReverseRecurrence;
 import com.example.mm.exerciseActivity.localDatabaseInteraction.SetStatisticUser;
 import com.example.mm.homeActivity.Home;
 
@@ -34,6 +36,7 @@ import java.util.List;
 import java.util.Locale;
 
 import localDatabase.Tables.StatisticUser;
+import questionSortingAlgorithm.dataStructure.QuestionsDataAbstract;
 import questionSortingAlgorithm.dataStructure.QuestionsDataRecurrence;
 
 public class Exercise extends AppCompatActivity implements View.OnClickListener {
@@ -95,6 +98,12 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
 
         if(sortOption == 1){
             sortingAlgorithm = new GetQuestionByRecurrence(getApplicationContext(), this, listOfCoursesSelectedIdsArray);
+        }
+        else if(sortOption == 2){
+            sortingAlgorithm = new GetQuestionByReverseRecurrence(getApplicationContext(), this, listOfCoursesSelectedIdsArray);
+        }
+        else if(sortOption == 3){
+            sortingAlgorithm = new GetQuestionByPoints(getApplicationContext(), this, listOfCoursesSelectedIdsArray);
         }
 
         Thread thread = new Thread(sortingAlgorithm);
@@ -189,6 +198,9 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
                     }
                     points /= responseDataArrayList.size();
                     text.setText(Integer.toString(points) + " / 100");
+                    text.setTextSize(50);
+                    Animation jumpOutAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.jump_out);
+                    text.startAnimation(jumpOutAnimation);
 
                     if(!statisticUserArrayList.isEmpty()) {
                         Thread thread = new Thread(new SetStatisticUser(getApplicationContext(), activityExercise, statisticUserArrayList));
@@ -353,7 +365,7 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
 
     }
 
-    public void updateQuestion(ArrayList<QuestionsDataRecurrence> questionsDataRecurrenceArrayList){
+    public void updateQuestion(ArrayList<? extends QuestionsDataAbstract> questionsDataRecurrenceArrayList){
         if(questionsDataRecurrenceArrayList.isEmpty()){
             questionText.setText("Errore, nessuna domanda trovata\ncon i parametri specificati,\nprego riprovare con altri parametri.\n");
             questionText.setTextColor(getResources().getColor(R.color.red));
@@ -366,7 +378,7 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
 
         questionsDataRecurrenceArrayList = Utils.CutArray.cutQuestionsDataRecurrence(questionsDataRecurrenceArrayList, 0, numberOfQuestion - 1);
 
-        for(QuestionsDataRecurrence i : questionsDataRecurrenceArrayList){
+        for(QuestionsDataAbstract i : questionsDataRecurrenceArrayList){
             List<Integer> index = Arrays.asList(0, 1, 2, 3);
             ArrayList<String> questionShuffled = new ArrayList<>();
             Collections.shuffle(index);

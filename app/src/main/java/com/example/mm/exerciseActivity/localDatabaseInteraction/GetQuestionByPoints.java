@@ -7,25 +7,23 @@ import android.database.sqlite.SQLiteException;
 import androidx.room.Room;
 
 import com.example.mm.exerciseActivity.Exercise;
-import com.example.mm.homeActivity.statisticFragment.MoreStatisticFragment;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import localDatabase.LocalDatabase;
 import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.Question;
-import questionSortingAlgorithm.RecurrenceSorting;
+import questionSortingAlgorithm.PointsSorting;
+import questionSortingAlgorithm.dataStructure.QuestionsDataPoints;
 import questionSortingAlgorithm.dataStructure.QuestionsDataRecurrence;
 
-public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runnable {
+public class GetQuestionByPoints extends GetQuestionAbstract implements Runnable {
     LocalDatabaseDao localDatabaseDao;
     LocalDatabase localDatabase;
-    ArrayList<QuestionsDataRecurrence> questionsDataRecurrenceArrayList;
+    ArrayList<QuestionsDataPoints> questionsDataPointsArrayList;
 
-
-    public GetQuestionByRecurrence(Context context, Exercise exerciseActivity, int[] courseIds) {
+    public GetQuestionByPoints(Context context, Exercise exerciseActivity, int[] courseIds) {
         super(context, exerciseActivity, courseIds);
 
         localDatabase = Room.databaseBuilder(context, LocalDatabase.class, "LocalDatabase")
@@ -33,45 +31,45 @@ public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runn
                 .build();
         localDatabaseDao = localDatabase.localDatabaseDao();
 
-        questionsDataRecurrenceArrayList = new ArrayList<>();
+        questionsDataPointsArrayList = new ArrayList<>();
     }
 
     @Override
     public void run() {
-        List<Question> rawQuestions;
         try{
-            rawQuestions = localDatabaseDao.getAllQuestionByCourseIds(courseIds);
-            if(rawQuestions.isEmpty()){
+            List<Question> questionList = localDatabaseDao.getAllQuestionByCourseIds(courseIds);
+            if(questionList.isEmpty()){
                 this.updateQuestion();
                 return;
             }
-            for (Question q: rawQuestions){
-                int occurrence = localDatabaseDao.getOccurrencesByQid(q.getQid());
-                questionsDataRecurrenceArrayList.add(new QuestionsDataRecurrence(q, occurrence));
+            for(Question q: questionList){
+                int avgPoints = localDatabaseDao.getAveragePointsPerQuestion(q.getQid());
+                questionsDataPointsArrayList.add(new QuestionsDataPoints(q, avgPoints));
             }
-            RecurrenceSorting recurrenceSorting = new RecurrenceSorting(questionsDataRecurrenceArrayList);
-            questionsDataRecurrenceArrayList = recurrenceSorting.sortQuestions();
+            PointsSorting pointsSorting = new PointsSorting(questionsDataPointsArrayList);
+            questionsDataPointsArrayList = pointsSorting.sortQuestions();
             this.updateQuestion();
         }
-        catch(SQLiteException e){
+        catch (SQLiteException e){
             this.updateQuestionError("Error local database.");
         }
     }
 
-
-    void updateQuestion(){
+    @Override
+    void updateQuestion() {
         if (exerciseActivity instanceof Activity) {
-            Activity mainActivity = (Activity)exerciseActivity;
+            Activity mainActivity = (Activity) exerciseActivity;
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    exerciseActivity.updateQuestion(questionsDataRecurrenceArrayList);
+                    exerciseActivity.updateQuestion(questionsDataPointsArrayList);
                 }
             });
         }
     }
 
-    void updateQuestionError(String errorString){
+    @Override
+    void updateQuestionError(String errorString) {
         if (exerciseActivity instanceof Activity) {
             Activity mainActivity = (Activity)exerciseActivity;
             mainActivity.runOnUiThread(new Runnable() {
