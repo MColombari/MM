@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
@@ -206,43 +208,66 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
             return;
         }
 
-        questionIndex++;
+        Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+        fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
 
-        questionText.setText(responseDataArrayList.get(questionIndex).getQuestionText());
-        ResponseData RD = responseDataArrayList.get(questionIndex);
-        radioGroupExerciseActivity1.setText(RD.getResponseInOrder().get(0));
-        radioGroupExerciseActivity2.setText(RD.getResponseInOrder().get(1));
-        radioGroupExerciseActivity3.setText(RD.getResponseInOrder().get(2));
-        radioGroupExerciseActivity4.setText(RD.getResponseInOrder().get(3));
+            }
 
-        currentQuestionNumberTextView.setText(Integer.toString(questionIndex + 1) + "/" + Integer.toString(numberOfQuestion));
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                questionIndex++;
 
-        int indexOfQuestionChose = responseDataArrayList.get(questionIndex).getAnswerChose();
-        if(indexOfQuestionChose == 0){
-            radioGroup.check(radioGroupExerciseActivity1.getId());
-        }
-        else if(indexOfQuestionChose == 1){
-            radioGroup.check(radioGroupExerciseActivity2.getId());
-        }
-        else if(indexOfQuestionChose == 2){
-            radioGroup.check(radioGroupExerciseActivity3.getId());
-        }
-        else if(indexOfQuestionChose == 3){
-            radioGroup.check(radioGroupExerciseActivity4.getId());
-        }
-        else{
-            radioGroup.clearCheck();
-        }
+                questionText.setText(responseDataArrayList.get(questionIndex).getQuestionText());
+                ResponseData RD = responseDataArrayList.get(questionIndex);
+                radioGroupExerciseActivity1.setText(RD.getResponseInOrder().get(0));
+                radioGroupExerciseActivity2.setText(RD.getResponseInOrder().get(1));
+                radioGroupExerciseActivity3.setText(RD.getResponseInOrder().get(2));
+                radioGroupExerciseActivity4.setText(RD.getResponseInOrder().get(3));
 
-        if(questionIndex == (numberOfQuestion - 1)){
-            prevButton.setBackgroundColor(getResources().getColor(R.color.black));
-            nextButton.setBackgroundColor(getResources().getColor(R.color.red));
-            nextButton.setText("End examination");
-        }
-        else{
-            prevButton.setBackgroundColor(getResources().getColor(R.color.black));
-            nextButton.setBackgroundColor(getResources().getColor(R.color.black));
-        }
+                currentQuestionNumberTextView.setText(Integer.toString(questionIndex + 1) + "/" + Integer.toString(numberOfQuestion));
+
+                int indexOfQuestionChose = responseDataArrayList.get(questionIndex).getAnswerChose();
+                if(indexOfQuestionChose == 0){
+                    radioGroup.check(radioGroupExerciseActivity1.getId());
+                }
+                else if(indexOfQuestionChose == 1){
+                    radioGroup.check(radioGroupExerciseActivity2.getId());
+                }
+                else if(indexOfQuestionChose == 2){
+                    radioGroup.check(radioGroupExerciseActivity3.getId());
+                }
+                else if(indexOfQuestionChose == 3){
+                    radioGroup.check(radioGroupExerciseActivity4.getId());
+                }
+                else{
+                    radioGroup.clearCheck();
+                }
+
+                if(questionIndex == (numberOfQuestion - 1)){
+                    prevButton.setBackgroundColor(getResources().getColor(R.color.black));
+                    nextButton.setBackgroundColor(getResources().getColor(R.color.red));
+                    nextButton.setText("End examination");
+                }
+                else{
+                    prevButton.setBackgroundColor(getResources().getColor(R.color.black));
+                    nextButton.setBackgroundColor(getResources().getColor(R.color.black));
+                }
+
+                Animation fadeInAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+                questionText.startAnimation(fadeInAnimation);
+                radioGroup.startAnimation(fadeInAnimation);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        questionText.startAnimation(fadeOutAnimation);
+        radioGroup.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
 
     }
     public void prevQuestion(){
@@ -264,44 +289,68 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
             responseDataArrayList.get(questionIndex).setAnswerChose(3);
         }
 
-        questionIndex--;
+        Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+        fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
 
-        questionText.setText(responseDataArrayList.get(questionIndex).getQuestionText());
-        ResponseData RD = responseDataArrayList.get(questionIndex);
-        radioGroupExerciseActivity1.setText(RD.getResponseInOrder().get(0));
-        radioGroupExerciseActivity2.setText(RD.getResponseInOrder().get(1));
-        radioGroupExerciseActivity3.setText(RD.getResponseInOrder().get(2));
-        radioGroupExerciseActivity4.setText(RD.getResponseInOrder().get(3));
+            }
 
-        currentQuestionNumberTextView.setText(Integer.toString(questionIndex + 1) + "/" + Integer.toString(numberOfQuestion));
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                questionIndex--;
 
-        int indexOfQuestionChose = responseDataArrayList.get(questionIndex).getAnswerChose();
-        if(indexOfQuestionChose == 0){
-            radioGroup.check(radioGroupExerciseActivity1.getId());
-        }
-        else if(indexOfQuestionChose == 1){
-            radioGroup.check(radioGroupExerciseActivity2.getId());
-        }
-        else if(indexOfQuestionChose == 2){
-            radioGroup.check(radioGroupExerciseActivity3.getId());
-        }
-        else if(indexOfQuestionChose == 3){
-            radioGroup.check(radioGroupExerciseActivity4.getId());
-        }
-        else{
-            radioGroup.clearCheck();
-        }
+                questionText.setText(responseDataArrayList.get(questionIndex).getQuestionText());
+                ResponseData RD = responseDataArrayList.get(questionIndex);
+                radioGroupExerciseActivity1.setText(RD.getResponseInOrder().get(0));
+                radioGroupExerciseActivity2.setText(RD.getResponseInOrder().get(1));
+                radioGroupExerciseActivity3.setText(RD.getResponseInOrder().get(2));
+                radioGroupExerciseActivity4.setText(RD.getResponseInOrder().get(3));
 
-        if(questionIndex == 0){
-            prevButton.setBackgroundColor(getResources().getColor(R.color.gray));
-            nextButton.setBackgroundColor(getResources().getColor(R.color.black));
-            nextButton.setText("Next");
-        }
-        else{
-            prevButton.setBackgroundColor(getResources().getColor(R.color.black));
-            nextButton.setBackgroundColor(getResources().getColor(R.color.black));
-            nextButton.setText("Next");
-        }
+                currentQuestionNumberTextView.setText(Integer.toString(questionIndex + 1) + "/" + Integer.toString(numberOfQuestion));
+
+                int indexOfQuestionChose = responseDataArrayList.get(questionIndex).getAnswerChose();
+                if(indexOfQuestionChose == 0){
+                    radioGroup.check(radioGroupExerciseActivity1.getId());
+                }
+                else if(indexOfQuestionChose == 1){
+                    radioGroup.check(radioGroupExerciseActivity2.getId());
+                }
+                else if(indexOfQuestionChose == 2){
+                    radioGroup.check(radioGroupExerciseActivity3.getId());
+                }
+                else if(indexOfQuestionChose == 3){
+                    radioGroup.check(radioGroupExerciseActivity4.getId());
+                }
+                else{
+                    radioGroup.clearCheck();
+                }
+
+                if(questionIndex == 0){
+                    prevButton.setBackgroundColor(getResources().getColor(R.color.gray));
+                    nextButton.setBackgroundColor(getResources().getColor(R.color.black));
+                    nextButton.setText("Next");
+                }
+                else{
+                    prevButton.setBackgroundColor(getResources().getColor(R.color.black));
+                    nextButton.setBackgroundColor(getResources().getColor(R.color.black));
+                    nextButton.setText("Next");
+                }
+
+                Animation fadeInAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+                questionText.startAnimation(fadeInAnimation);
+                radioGroup.startAnimation(fadeInAnimation);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        questionText.startAnimation(fadeOutAnimation);
+        radioGroup.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
+
     }
 
     public void updateQuestion(ArrayList<QuestionsDataRecurrence> questionsDataRecurrenceArrayList){

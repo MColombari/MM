@@ -91,6 +91,7 @@ public class GetQuickResumeData implements Runnable {
             boolean flag = true;
             for(Course c: courseList){
                 if(flag){
+                    flag = false;
                     stringBuilder.append(c.getName());
                 }
                 else{
