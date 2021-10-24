@@ -1,8 +1,6 @@
 package com.example.mm.exerciseActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,16 +15,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.view.View;
-
-
 import com.example.mm.exerciseActivity.localDatabaseInteraction.GetQuestionByPoints;
 import com.example.mm.exerciseActivity.localDatabaseInteraction.GetQuestionByRecurrence;
 import com.example.mm.exerciseActivity.localDatabaseInteraction.GetQuestionByReverseRecurrence;
 import com.example.mm.exerciseActivity.localDatabaseInteraction.SetStatisticUser;
 import com.example.mm.homeActivity.Home;
-
 import com.example.mm.R;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,10 +28,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
 import localDatabase.Tables.StatisticUser;
 import questionSortingAlgorithm.dataStructure.QuestionsDataAbstract;
-import questionSortingAlgorithm.dataStructure.QuestionsDataRecurrence;
 
 public class Exercise extends AppCompatActivity implements View.OnClickListener {
     Button leaveButton;
@@ -127,7 +119,7 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
             }
         }
         if(questionIndex >= (numberOfQuestion - 1)){
-            /* Finisci esercitazione */
+            /* Ending examination. */
             LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
             View popupView = layoutInflater.inflate(R.layout.double_button_popup_window, null);
 
@@ -151,7 +143,7 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
             yesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /* Exit and save progress */
+                    /* Exit and save progress. */
                     doubleButtonPopupWindow.dismiss();
 
                     LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -284,7 +276,7 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
     }
     public void prevQuestion(){
         if(questionIndex <= 0){
-            /* Do nothing. */
+            /* Do nothing if the "PREV" button is pressed in the first question. */
             return;
         }
 
@@ -340,14 +332,12 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
 
                 if(questionIndex == 0){
                     prevButton.setBackgroundColor(getResources().getColor(R.color.gray));
-                    nextButton.setBackgroundColor(getResources().getColor(R.color.black));
-                    nextButton.setText("Next");
                 }
                 else{
                     prevButton.setBackgroundColor(getResources().getColor(R.color.black));
-                    nextButton.setBackgroundColor(getResources().getColor(R.color.black));
-                    nextButton.setText("Next");
                 }
+                nextButton.setBackgroundColor(getResources().getColor(R.color.black));
+                nextButton.setText("Next");
 
                 Animation fadeInAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
                 questionText.startAnimation(fadeInAnimation);
@@ -367,7 +357,7 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
 
     public void updateQuestion(ArrayList<? extends QuestionsDataAbstract> questionsDataRecurrenceArrayList){
         if(questionsDataRecurrenceArrayList.isEmpty()){
-            questionText.setText("Errore, nessuna domanda trovata\ncon i parametri specificati,\nprego riprovare con altri parametri.\n");
+            questionText.setText("Error, no question was found\nwith specified settings,\nplease try again with different settings.\n");
             questionText.setTextColor(getResources().getColor(R.color.red));
             return;
         }
@@ -445,7 +435,7 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
             }
             doubleButtonPopupWindow.setAnimationStyle(R.style.AnimationGenericPopupWindow);
             doubleButtonPopupWindow.update();
-            /* "v" is used as a parent view to get the View.getWindowToken() token from. */
+            /* The View "v" is used as a parent view to get the View.getWindowToken() token from. */
             doubleButtonPopupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 
             TextView text = (TextView) popupView.findViewById(R.id.Double_Button_Popup_Window_Text);

@@ -1,21 +1,13 @@
 package com.example.mm.exerciseActivity.localDatabaseInteraction;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.database.sqlite.SQLiteException;
-
 import androidx.room.Room;
-
 import com.example.mm.exerciseActivity.Exercise;
-
 import java.util.ArrayList;
-
 import localDatabase.LocalDatabase;
 import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.StatisticUser;
-import localDatabase.Tables.UserInformation;
 
 public class SetStatisticUser implements Runnable {
     Context context;
@@ -37,7 +29,7 @@ public class SetStatisticUser implements Runnable {
          * */
                 .build();
         localDatabaseDao = localDatabase.localDatabaseDao();
-    };
+    }
     @Override
     public void run() {
         try{

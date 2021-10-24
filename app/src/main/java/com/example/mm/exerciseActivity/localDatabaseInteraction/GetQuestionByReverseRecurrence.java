@@ -14,9 +14,13 @@ import java.util.List;
 import localDatabase.LocalDatabase;
 import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.Question;
-import questionSortingAlgorithm.RecurrenceSorting;
 import questionSortingAlgorithm.ReverseRecurrenceSorting;
 import questionSortingAlgorithm.dataStructure.QuestionsDataRecurrence;
+
+/* Debugging purpose:
+ *   Use this query to check if the average points per question:
+ *       select su.qidQuestion, q.questionText, count(*) from statisticuser su left join question q  on (su.qidQuestion == q.qid) group by su.qidQuestion order by 3 desc, su.qidQuestion desc
+ *  */
 
 public class GetQuestionByReverseRecurrence extends GetQuestionAbstract implements Runnable{
     LocalDatabaseDao localDatabaseDao;
@@ -59,8 +63,8 @@ public class GetQuestionByReverseRecurrence extends GetQuestionAbstract implemen
 
     @Override
     void updateQuestion() {
-        if (exerciseActivity instanceof Activity) {
-            Activity mainActivity = (Activity)exerciseActivity;
+        if (exerciseActivity != null) {
+            Activity mainActivity = exerciseActivity;
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -72,8 +76,8 @@ public class GetQuestionByReverseRecurrence extends GetQuestionAbstract implemen
 
     @Override
     void updateQuestionError(String errorString) {
-        if (exerciseActivity instanceof Activity) {
-            Activity mainActivity = (Activity)exerciseActivity;
+        if (exerciseActivity != null) {
+            Activity mainActivity = exerciseActivity;
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

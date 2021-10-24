@@ -7,7 +7,7 @@ public class ResponseData {
     String questionText;
     ArrayList<String> responseInOrder;
     int rightAnswer;
-    int answerChose; /* if is equal to (-1) the answer has not been chose yet. */
+    int answerChose; /* if is equal to "-1" the answer has not been chose yet. */
 
     public ResponseData(int questionId, String questionText, ArrayList<String> questionInOrder, int rightAnswer, int answerChose) {
         this.questionId = questionId;

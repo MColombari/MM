@@ -30,7 +30,6 @@ import localDatabase.Tables.Course;
 
 public class Option extends AppCompatActivity implements View.OnClickListener {
     TextView CourseSelection;
-    TextView txtNumberSelect;
     TextView Flag;
     TextView BackButton;
     boolean[] selectedCourses;
@@ -61,7 +60,6 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
         Flag = (TextView) findViewById(R.id.FlagOptionActivity);
         BackButton = (TextView) findViewById(R.id.BackButton);
         CourseSelection = (TextView) findViewById(R.id.CoursesSelected);
-        txtNumberSelect = (TextView) findViewById(R.id.NumberOfQuestions);
         radioGroupSelection1 = (RadioButton) findViewById(R.id.radioGroupSelection1);
         radioGroupSelection2 = (RadioButton) findViewById(R.id.radioGroupSelection2);
         radioGroupSelection3 = (RadioButton) findViewById(R.id.radioGroupSelection3);
@@ -116,7 +114,7 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
 
                 return;
             }
-            int numberOfQuestion = new Integer(this.EditTextNumberOfQuestion.getText().toString());
+            int numberOfQuestion = Integer.valueOf(this.EditTextNumberOfQuestion.getText().toString());
             if(numberOfQuestion <= 0){
                 LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = layoutInflater.inflate(R.layout.generic_popup_window, null);
@@ -238,7 +236,8 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
                                 stringBuilder.append(listOfCoursesNames.get(a));
                             }
                             else{
-                                stringBuilder.append(", " + listOfCoursesNames.get(a));
+                                stringBuilder.append(", ");
+                                stringBuilder.append(listOfCoursesNames.get(a));
                             }
                         }
                     }
@@ -286,7 +285,7 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
                     listOfCoursesNames.add(i.getName());
                 }
 
-                this.listOfCourses = (ArrayList) listOfCourses;
+                this.listOfCourses = (ArrayList<Course>) listOfCourses;
                 selectedCourses = new boolean[listOfCoursesNames.size()];
                 for(int a = 0; a < selectedCourses.length; a++){
                     selectedCourses[a] = false;

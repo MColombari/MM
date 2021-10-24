@@ -7,10 +7,8 @@ import android.database.sqlite.SQLiteException;
 import androidx.room.Room;
 
 import com.example.mm.exerciseActivity.Exercise;
-import com.example.mm.homeActivity.statisticFragment.MoreStatisticFragment;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import localDatabase.LocalDatabase;
@@ -18,6 +16,11 @@ import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.Question;
 import questionSortingAlgorithm.RecurrenceSorting;
 import questionSortingAlgorithm.dataStructure.QuestionsDataRecurrence;
+
+/* Debugging purpose:
+ *   Use this query to check if the average points per question:
+ *       select su.qidQuestion, q.questionText, count(*) from statisticuser su left join question q  on (su.qidQuestion == q.qid) group by su.qidQuestion order by 3, su.qidQuestion
+ *  */
 
 public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runnable {
     LocalDatabaseDao localDatabaseDao;
@@ -60,8 +63,8 @@ public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runn
 
 
     void updateQuestion(){
-        if (exerciseActivity instanceof Activity) {
-            Activity mainActivity = (Activity)exerciseActivity;
+        if (exerciseActivity != null) {
+            Activity mainActivity = exerciseActivity;
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -72,8 +75,8 @@ public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runn
     }
 
     void updateQuestionError(String errorString){
-        if (exerciseActivity instanceof Activity) {
-            Activity mainActivity = (Activity)exerciseActivity;
+        if (exerciseActivity != null) {
+            Activity mainActivity = exerciseActivity;
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

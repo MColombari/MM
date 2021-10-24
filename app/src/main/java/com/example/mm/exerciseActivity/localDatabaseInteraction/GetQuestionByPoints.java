@@ -16,7 +16,11 @@ import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.Question;
 import questionSortingAlgorithm.PointsSorting;
 import questionSortingAlgorithm.dataStructure.QuestionsDataPoints;
-import questionSortingAlgorithm.dataStructure.QuestionsDataRecurrence;
+
+/* Debugging purpose:
+*   Use this query to check if the average points per question:
+*       select su.qidQuestion, q.questionText, avg(points) from statisticuser su left join question q  on (su.qidQuestion == q.qid) group by su.qidQuestion order by 3
+*  */
 
 public class GetQuestionByPoints extends GetQuestionAbstract implements Runnable {
     LocalDatabaseDao localDatabaseDao;
@@ -57,8 +61,8 @@ public class GetQuestionByPoints extends GetQuestionAbstract implements Runnable
 
     @Override
     void updateQuestion() {
-        if (exerciseActivity instanceof Activity) {
-            Activity mainActivity = (Activity) exerciseActivity;
+        if (exerciseActivity != null) {
+            Activity mainActivity = exerciseActivity;
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -70,8 +74,8 @@ public class GetQuestionByPoints extends GetQuestionAbstract implements Runnable
 
     @Override
     void updateQuestionError(String errorString) {
-        if (exerciseActivity instanceof Activity) {
-            Activity mainActivity = (Activity)exerciseActivity;
+        if (exerciseActivity != null) {
+            Activity mainActivity = exerciseActivity;
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
