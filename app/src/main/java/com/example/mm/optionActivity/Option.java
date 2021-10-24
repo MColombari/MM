@@ -29,45 +29,40 @@ import java.util.List;
 import localDatabase.Tables.Course;
 
 public class Option extends AppCompatActivity implements View.OnClickListener {
-    TextView CourseSelection;
     TextView Flag;
     TextView BackButton;
-    boolean[] selectedCourses;
-
+    TextView CourseSelection;
     EditText EditTextNumberOfQuestion;
-
-    ArrayList<String> listOfCoursesNames;
-    ArrayList<Course> listOfCourses;
-    ArrayList<Course> listOfCoursesSelected;
-
     RadioButton radioGroupSelection1;
     RadioButton radioGroupSelection2;
     RadioButton radioGroupSelection3;
-
     Button StartButtonOptionActivity;
+
+    boolean[] selectedCourses;
+    ArrayList<String> listOfCoursesNames;
+    ArrayList<Course> listOfCourses;
+    ArrayList<Course> listOfCoursesSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
+        Flag = (TextView) findViewById(R.id.FlagOptionActivity);
+        BackButton = (TextView) findViewById(R.id.BackButton);
+        CourseSelection = (TextView) findViewById(R.id.CoursesSelected);
+        EditTextNumberOfQuestion = (EditText) findViewById(R.id.NumberOfQuestions);
+        radioGroupSelection1 = (RadioButton) findViewById(R.id.radioGroupSelection1);
+        radioGroupSelection2 = (RadioButton) findViewById(R.id.radioGroupSelection2);
+        radioGroupSelection3 = (RadioButton) findViewById(R.id.radioGroupSelection3);
+        StartButtonOptionActivity = (Button) findViewById(R.id.StartButtonOptionActivity);
+
         listOfCoursesNames = new ArrayList<>();
         listOfCourses = new ArrayList<>();
         listOfCoursesSelected = new ArrayList<>();
 
-        StartButtonOptionActivity = (Button) findViewById(R.id.StartButtonOptionActivity);
-        EditTextNumberOfQuestion = (EditText) findViewById(R.id.NumberOfQuestions);
-        Flag = (TextView) findViewById(R.id.FlagOptionActivity);
-        BackButton = (TextView) findViewById(R.id.BackButton);
-        CourseSelection = (TextView) findViewById(R.id.CoursesSelected);
-        radioGroupSelection1 = (RadioButton) findViewById(R.id.radioGroupSelection1);
-        radioGroupSelection2 = (RadioButton) findViewById(R.id.radioGroupSelection2);
-        radioGroupSelection3 = (RadioButton) findViewById(R.id.radioGroupSelection3);
-
-
         StartButtonOptionActivity.setOnClickListener(this);
         BackButton.setOnClickListener(this);
-
 
         Thread thread = new Thread(new GetCourse(getApplicationContext(), this));
         thread.start();
@@ -94,7 +89,7 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
                 }
                 genericPopupWindow.setAnimationStyle(R.style.AnimationGenericPopupWindow);
                 genericPopupWindow.update();
-                /* "v" is used as a parent view to get the View.getWindowToken() token from. */
+                /* The View "v" is used as a parent view to get the View.getWindowToken() token from. */
                 genericPopupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 
                 TextView text = (TextView) popupView.findViewById(R.id.Generic_Popup_Window_Text);
@@ -114,7 +109,7 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
 
                 return;
             }
-            int numberOfQuestion = Integer.valueOf(this.EditTextNumberOfQuestion.getText().toString());
+            int numberOfQuestion = Integer.parseInt(this.EditTextNumberOfQuestion.getText().toString());
             if(numberOfQuestion <= 0){
                 LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = layoutInflater.inflate(R.layout.generic_popup_window, null);
@@ -125,7 +120,7 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
                 }
                 genericPopupWindow.setAnimationStyle(R.style.AnimationGenericPopupWindow);
                 genericPopupWindow.update();
-                /* "v" is used as a parent view to get the View.getWindowToken() token from. */
+                /* The View "v" is used as a parent view to get the View.getWindowToken() token from. */
                 genericPopupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 
                 TextView text = (TextView) popupView.findViewById(R.id.Generic_Popup_Window_Text);
@@ -165,7 +160,7 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
                 }
                 genericPopupWindow.setAnimationStyle(R.style.AnimationGenericPopupWindow);
                 genericPopupWindow.update();
-                /* "v" is used as a parent view to get the View.getWindowToken() token from. */
+                /* The View "v" is used as a parent view to get the View.getWindowToken() token from. */
                 genericPopupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 
                 TextView text = (TextView) popupView.findViewById(R.id.Generic_Popup_Window_Text);
@@ -199,12 +194,10 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
         }
         else if(v.getId() == this.CourseSelection.getId())
         {
-            // Initialize alert dialog
+            /* Initialize alert dialog. */
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            // Set title
-            builder.setTitle("Select Courses");
-            // Set dialog non cancelable
-            builder.setCancelable(false);
+            builder.setTitle("Select Courses"); //Set title.
+            builder.setCancelable(false); //Set dialog non cancelable.
 
             String[] listOfCoursesNamesStrings = listOfCoursesNames.toArray(new String[0]);
 
@@ -233,12 +226,11 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
                         if(selectedCourses[a]){
                             if(flag){
                                 flag = false;
-                                stringBuilder.append(listOfCoursesNames.get(a));
                             }
                             else{
                                 stringBuilder.append(", ");
-                                stringBuilder.append(listOfCoursesNames.get(a));
                             }
+                            stringBuilder.append(listOfCoursesNames.get(a));
                         }
                     }
 
@@ -256,19 +248,15 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
                     dialogInterface.dismiss();
                 }
             });
-
             builder.show();
         }
-
-
     }
 
 
     public void updateDropDown(List<Course> listOfCourses, boolean chkErr) {
-        //chkErr = boolean passato per verifica errore
         if(chkErr) {
             this.CourseSelection.setText("");
-            Flag.setText("Errore lettura corsi");
+            Flag.setText("Error, getting courses");
             Flag.setTextColor(getResources().getColor(R.color.red));
         }
         else
@@ -293,7 +281,7 @@ public class Option extends AppCompatActivity implements View.OnClickListener {
             }
             else{
                 this.CourseSelection.setText("");
-                Flag.setText("Errore, nessun corso trovato");
+                Flag.setText("Error, no courses found");
                 Flag.setTextColor(getResources().getColor(R.color.red));
             }
         }

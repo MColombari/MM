@@ -47,7 +47,7 @@ public class SetQuickResumeData implements Runnable {
             }
         }
         catch(SQLiteException e){
-            /* I don't check for error in case this are not saved. */
+            /* I don't check for error in case this data are not saved. */
         }
     }
 }

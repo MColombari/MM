@@ -2,15 +2,10 @@ package com.example.mm.optionActivity.localDatabaseInteraction;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteException;
-
 import androidx.room.Room;
-
 import com.example.mm.optionActivity.Option;
-
 import java.util.List;
-
 import localDatabase.LocalDatabase;
 import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.Course;
@@ -47,8 +42,8 @@ public class GetCourse implements  Runnable{
 
     void updateDropDown(List<Course> courseList, boolean error) {
         //updateDropDown
-        if (optionActivity instanceof Activity) {
-            Activity mainActivity = (Activity) optionActivity;
+        if (optionActivity != null) {
+            Activity mainActivity = optionActivity;
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
