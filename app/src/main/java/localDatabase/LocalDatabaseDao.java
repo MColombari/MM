@@ -24,12 +24,16 @@ public interface LocalDatabaseDao {
     List<Question> getAllQuestion() throws SQLiteException;
     @Query("SELECT * FROM Question WHERE qid IN (:qIds)")
     List<Question> getAllQuestionByIds(int[] qIds) throws SQLiteException;
+    @Query("SELECT * FROM Question WHERE qid == :qIds")
+    List<Question> getAllQuestionByIds(int qIds) throws SQLiteException;
     @Query("SELECT * FROM Question Q WHERE Q.idCourse IN (:courseIds)")
     List<Question> getAllQuestionByCourseIds(int[] courseIds) throws SQLiteException;
     @Query("SELECT * FROM Question Q LEFT JOIN Course C ON (Q.idCourse == C.id) WHERE C.name IN (:courseNames)")
     List<Question> getAllQuestionByCoursesName(String[] courseNames) throws SQLiteException;
     @Insert
     void insertAllQuestion(Question... question) throws SQLiteException;
+    @Insert
+    void insertAllQuestion(List<Question> questionList) throws SQLiteException;
     @Query("DELETE FROM Question")
     void deleteAllQuestion();
     @Delete
@@ -54,6 +58,10 @@ public interface LocalDatabaseDao {
     List<Course> getAllCourse() throws SQLiteException;
     @Query("SELECT * FROM Course WHERE id IN (:id)")
     List<Course> getCourseById(int[] id) throws SQLiteException;
+    @Query("SELECT * FROM Course WHERE id  == :id")
+    List<Course> getCourseById(int id) throws SQLiteException;
+    @Insert
+    void insertCourses(Course course) throws SQLiteException;
 
     /* User Information Query */
     @Query("SELECT * FROM UserInformation")

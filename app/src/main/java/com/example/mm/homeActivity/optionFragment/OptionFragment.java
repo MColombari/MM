@@ -1,5 +1,6 @@
 package com.example.mm.homeActivity.optionFragment;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.mm.R;
@@ -29,7 +31,6 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     TextView textViewEmail;
     TextView textViewMatr;
     TextView textViewUpdateInfo;
-    TextView textViewProgressBarText;
 
     TextView optionFragmentPlainTextName;
     TextView optionFragmentPlainTextSurname;
@@ -64,22 +65,11 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
         textViewEmail = (TextView) view.findViewById(R.id.TextViewEmail);
         textViewMatr = (TextView) view.findViewById(R.id.TextViewMatr);
         textViewUpdateInfo = (TextView) view.findViewById(R.id.TexrViewUpdateUserInfo);
-        textViewProgressBarText = (TextView) view.findViewById(R.id.progressBarText);
 
         imageViewSyncButton = (ImageView) view.findViewById(R.id.ImageViewSyncButton);
         optionFragmentQuestionMarkUserInformation = (ImageView) view.findViewById(R.id.Option_Fragment_Question_Mark_User_Information);
         optionFragmentQuestionMarkSync = (ImageView) view.findViewById(R.id.Option_Fragment_Question_Mark_Sync);
         optionFragmentQuestionMarkMoreAboutUs = (ImageView) view.findViewById(R.id.Option_Fragment_Question_Mark_More_About_Us);
-
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-
-        textViewProgressBarText.setVisibility(View.INVISIBLE);
-        progressBar.setVisibility(View.INVISIBLE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            progressBar.setMin(0);
-            progressBar.setMax(100);
-        }
 
         textViewUpdateInfo.setOnClickListener(this);
         imageViewSyncButton.setOnClickListener(this);
@@ -134,7 +124,31 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
             optionFragmentTextButton.setOnClickListener(this);
         }
         else if (v.getId() == R.id.ImageViewSyncButton){
-            Thread thread = new Thread(new Sync());
+            LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+            View popupView = layoutInflater.inflate(R.layout.loading_popup_window, null);
+
+            PopupWindow genericPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT, false);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                genericPopupWindow.setElevation(20);
+            }
+            genericPopupWindow.setAnimationStyle(R.style.AnimationGenericPopupWindow);
+            genericPopupWindow.update();
+            /* "v" is used as a parent view to get the View.getWindowToken() token from. */
+            genericPopupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+
+            TextView text = (TextView) popupView.findViewById(R.id.Generic_Popup_Window_Text);
+            TextView title = (TextView) popupView.findViewById(R.id.Generic_Popup_Window_Title);
+            ProgressBar progressBar = (ProgressBar) popupView.findViewById(R.id.progress_bar);
+
+            progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.cyan), android.graphics.PorterDuff.Mode.SRC_IN);
+            progressBar.setMax(100);
+            //progressBar.setProgress(10, true);
+
+            title.setText("Synchronization");
+            text.setText("Connection to server...");
+            text.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+
+            Thread thread = new Thread(new Sync(getContext(), getActivity().getApplicationContext(), genericPopupWindow, text, progressBar));
             thread.start();
         }
         else if (v.getId() == R.id.OptionFragmentPopupWindowAddUpdateUserInfo){
