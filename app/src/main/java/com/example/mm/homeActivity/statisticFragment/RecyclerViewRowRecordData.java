@@ -1,9 +1,5 @@
 package com.example.mm.homeActivity.statisticFragment;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class RecyclerViewRowRecordData implements Comparable<RecyclerViewRowRecordData> {
     int value;

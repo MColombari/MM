@@ -1,13 +1,10 @@
 package com.example.mm.homeActivity.optionFragment;
 
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
-import android.widget.SeekBar;
 import android.widget.TextView;
-
 import com.example.mm.R;
 import com.example.mm.homeActivity.externalServerInteraction.Sync;
 import com.example.mm.homeActivity.localDatabaseInteraction.GetUserInformation;
@@ -42,8 +37,6 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     ImageView optionFragmentQuestionMarkUserInformation;
     ImageView optionFragmentQuestionMarkSync;
     ImageView optionFragmentQuestionMarkMoreAboutUs;
-
-    ProgressBar progressBar;
 
     View view;
     PopupWindow UserInformationPopupWindow;
@@ -103,7 +96,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v.getId() == textViewUpdateInfo.getId()){
-            /* Update User Information */
+            /* Update User Informations. */
             LayoutInflater layoutInflater = (LayoutInflater) requireContext().getSystemService(LAYOUT_INFLATER_SERVICE);
             View popupView = layoutInflater.inflate(R.layout.fragment_option_popup_window, null);
 
@@ -142,7 +135,6 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
 
             progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.cyan), android.graphics.PorterDuff.Mode.SRC_IN);
             progressBar.setMax(100);
-            //progressBar.setProgress(10, true);
 
             title.setText("Synchronization");
             text.setText("Connection to server...");
@@ -152,7 +144,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
             thread.start();
         }
         else if (v.getId() == R.id.OptionFragmentPopupWindowAddUpdateUserInfo){
-            /* Set user information */
+            /* Set user informations. */
             try {
                 String name = optionFragmentPlainTextName.getText().toString();
                 String surname = optionFragmentPlainTextSurname.getText().toString();
@@ -160,7 +152,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
                 int matr = Integer.parseInt(optionFragmentPlainTextMatr.getText().toString());
 
                 if(name.isEmpty() || surname.isEmpty() || email.isEmpty()){
-                    optionFragmentTextButton.setText("Error, parameter, and try again.");
+                    optionFragmentTextButton.setText("Error, empty parameter, try again.");
                     optionFragmentTextButton.setPaintFlags(optionFragmentTextButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                     optionFragmentTextButton.setTextColor(getResources().getColor(R.color.red));
                     return;
@@ -206,24 +198,14 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
                 case R.id.Option_Fragment_Question_Mark_User_Information:
                     title.setText("More about user information.");
                     text.setText(   "User information are information need by the app for download or" +
-                                    " load progress backup form the database, all this data" +
+                                    " load backup from the database, all this data" +
                                     " could be see by authorized people only (to check the information" +
-                                    " of user, that need to be students of university of UNIMORE.)" +
-                                    " if you aren't a student of UNIMORE you could louse all your progress.");
+                                    " of user, that need to be students of university of UNIMORE.)");
                     break;
                 case R.id.Option_Fragment_Question_Mark_Sync:
                     title.setText("More about sync.");
-                    text.setText(   "Backup is essential to keep your progress save, and being able to " +
-                                    "change device without lose some important feature of this app " +
-                                    "such as the algorithms to sort question as you needed, or " +
-                                    "the statistic showed with graph to monitor your progress.\n" +
-                                    "Synchronize your data will overwrite your progress in the cloud.\n" +
-                                    "All the information store in the cloud are not seen by any " +
-                                    "professor or used to set school grades, but they can be used " +
-                                    "to make generic (non individual) graph for the professor or " +
-                                    "anyone else.\n" +
-                                    "Your user information will identify your synchronization\n" +
-                                    "For any problem is not my fault.");
+                    text.setText(   "Sync is a function to download the most recent Questions and Courses" +
+                                    " from the external database, it also will send to it the user information.");
                     break;
                 case R.id.Option_Fragment_Question_Mark_More_About_Us:
                     title.setText("More About Us.");

@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
 import android.widget.PopupWindow;
-
 import androidx.room.Room;
-
 import com.example.mm.homeActivity.optionFragment.OptionFragment;
-
 import localDatabase.LocalDatabase;
 import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.UserInformation;
@@ -47,7 +44,7 @@ public class SetUserInformation implements Runnable {
         try{
             localDatabaseDao.deleteAllUserInformation();
             localDatabaseDao.insertUserInformation(new UserInformation(name, surname, email, matr));
-            this.updateStatistic("Name: " + name, "Surname: " + surname, "Email: " + email, "Matr.: " + Integer.toString(matr));
+            this.updateStatistic("Name: " + name, "Surname: " + surname, "Email: " + email, "Matr.: " + matr);
         }
         catch(SQLiteException e){
             this.updateStatistic("Error local database,", "", "Try add/update information again.", "", "Add/Update User Information");

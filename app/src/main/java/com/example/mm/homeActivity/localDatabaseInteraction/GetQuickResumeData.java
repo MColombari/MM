@@ -4,20 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
-import android.net.IpSecManager;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.widget.TextView;
-
 import androidx.room.Room;
-
-import com.example.mm.R;
 import com.example.mm.homeActivity.homeFragment.HomeFragment;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import Utils.GetAlorithmsName;
 import localDatabase.LocalDatabase;
 import localDatabase.LocalDatabaseDao;
@@ -31,9 +24,9 @@ public class GetQuickResumeData implements Runnable {
     LocalDatabaseDao localDatabaseDao;
 
     HomeFragment homeFragment;
+    ArrayList<Integer> coursesIdsArrayList;
     int numQuestion;
     int sortingAlgorithm;
-    ArrayList<Integer> coursesIdsArrayList;
 
     public GetQuickResumeData(Context context, Context contextDatabase, HomeFragment homeFragment) {
         this.context = context;
@@ -56,7 +49,7 @@ public class GetQuickResumeData implements Runnable {
             List<QuickResumeData> quickResumeDataList = localDatabaseDao.getAllQuickResumeData();
             if(quickResumeDataList.isEmpty()){
                 SpannableString spannableString=  new SpannableString("Quick Resume not available\n until al least one exercise is done");
-                spannableString.setSpan(new RelativeSizeSpan(2f), 0,26, 0); // set size of the first 26 character.
+                spannableString.setSpan(new RelativeSizeSpan(2f), 0,26, 0); /* Set size of the first 26 character. */
 
                 setQuickResume(false, spannableString);
                 return;
@@ -92,11 +85,11 @@ public class GetQuickResumeData implements Runnable {
             for(Course c: courseList){
                 if(flag){
                     flag = false;
-                    stringBuilder.append(c.getName());
                 }
                 else{
-                    stringBuilder.append(", " + c.getName());
+                    stringBuilder.append(", ");
                 }
+                stringBuilder.append(c.getName());
             }
 
             SpannableString spannableString=  new SpannableString(stringBuilder.toString());

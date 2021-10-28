@@ -3,21 +3,14 @@ package com.example.mm.homeActivity.localDatabaseInteraction;
 import android.app.Activity;
 import android.content.Context;
 import android.database.SQLException;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 import androidx.room.Room;
-
 import com.example.mm.R;
 import com.example.mm.homeActivity.statisticFragment.MoreStatisticFragment;
 import com.example.mm.homeActivity.statisticFragment.RecyclerViewRowData;
 import com.example.mm.homeActivity.statisticFragment.RecyclerViewRowRecordData;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import localDatabase.LocalDatabase;
 import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.Course;
@@ -48,7 +41,7 @@ public class GetCourseMoreStatistic implements Runnable{
         try {
             coursesList = localDatabaseDao.getAllCourse();
             if(coursesList.isEmpty()) {
-                this.updateMoreStatistic("Nessun corso trovato.", R.color.red, true);
+                this.updateMoreStatistic("No courses found", R.color.red, true);
                 return;
             }
             for (Course c : coursesList){
@@ -94,7 +87,7 @@ public class GetCourseMoreStatistic implements Runnable{
             }
         }
         catch(SQLException e){
-            this.updateMoreStatistic("Errore, lettura da database", R.color.red, false);
+            this.updateMoreStatistic("Error, local database", R.color.red, false);
             return;
         }
         this.updateMoreStatistic("Updated", R.color.green, false);

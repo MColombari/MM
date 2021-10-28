@@ -3,9 +3,7 @@ package com.example.mm.homeActivity.homeFragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.text.SpannableString;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,13 +13,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import com.example.mm.R;
 import com.example.mm.exerciseActivity.Exercise;
 import com.example.mm.homeActivity.Home;
 import com.example.mm.homeActivity.localDatabaseInteraction.GetQuickResumeData;
 import com.example.mm.optionActivity.Option;
-import com.example.mm.optionActivity.localDatabaseInteraction.SetQuickResumeData;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -44,7 +42,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         startButton = (Button) view.findViewById(R.id.Start_Button);
@@ -75,7 +73,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             startActivity(new Intent((Home) getActivity(), Option.class));
         }
         else if(v.getId() == R.id.Home_Fragment_Question_Mark){
-            /* Show information about  */
+            /* Show information about. */
             LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
             View popupView = layoutInflater.inflate(R.layout.generic_popup_window, null);
 
@@ -100,10 +98,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             });
 
             title.setText("More about home.");
-            text.setText(   "The start button will let you start a new quiz witch settings will " +
+            text.setText("The start button will let you start a new quiz witch settings will " +
                     "be chose by you.\n" +
                     "The resume button (if green) will start a new quiz with the last setting " +
-                    "used for the last quiz, if the button is grey no previous settings are found.");
+                    "used for the last quiz, if the button is grey no previous settings were found.");
         }
         else if(v.getId() == quickResumeButton.getId()){
             Intent intent = new Intent(getActivity().getApplicationContext(), Exercise.class);

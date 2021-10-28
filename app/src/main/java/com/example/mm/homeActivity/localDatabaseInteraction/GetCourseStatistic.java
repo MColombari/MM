@@ -2,17 +2,12 @@ package com.example.mm.homeActivity.localDatabaseInteraction;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteException;
-
 import androidx.room.Room;
-
 import com.example.mm.R;
 import com.example.mm.homeActivity.statisticFragment.StatisticFragment;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import localDatabase.LocalDatabase;
 import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.Course;
@@ -47,7 +42,7 @@ public class GetCourseStatistic implements Runnable {
         try {
             coursesList = localDatabaseDao.getAllCourse();
             if(coursesList.isEmpty()) {
-                this.updateStatistic("Nessun corso trovato.", R.color.red, true);
+                this.updateStatistic("No courses found", R.color.red, true);
                 return;
             }
             for (Course c : coursesList){
@@ -64,7 +59,7 @@ public class GetCourseStatistic implements Runnable {
             }
         }
         catch(SQLiteException e){
-            this.updateStatistic("Errore, lettura da database.", R.color.red, true);
+            this.updateStatistic("Error, local database", R.color.red, true);
             return;
         }
         this.updateStatistic("Updated", R.color.green, false);

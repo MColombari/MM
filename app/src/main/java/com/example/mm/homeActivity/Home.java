@@ -6,16 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.mm.R;
 import com.example.mm.homeActivity.homeFragment.HomeFragment;
 import com.example.mm.homeActivity.optionFragment.OptionFragment;
@@ -45,19 +42,19 @@ public class Home extends AppCompatActivity implements OnClickListener, View.OnT
         setContentView(R.layout.activity_main);
 
         /* Get Elements by id */
-        homeButton = findViewById(R.id.home_icon);
-        statisticButton = findViewById(R.id.statistic_icon);
-        optionButton = findViewById(R.id.option_icon);
-        iconSeparator1 = findViewById(R.id.MainIconSeparator1);
-        iconSeparator2 = findViewById(R.id.MainIconSeparator2);
-        homeFCV = findViewById(R.id.Home_FCV);
-        constraintLayout = findViewById(R.id.MainConstraintLayout);
+        homeButton = (ImageView) findViewById(R.id.home_icon);
+        statisticButton = (ImageView) findViewById(R.id.statistic_icon);
+        optionButton = (ImageView) findViewById(R.id.option_icon);
+        iconSeparator1 = (ImageView) findViewById(R.id.MainIconSeparator1);
+        iconSeparator2 = (ImageView) findViewById(R.id.MainIconSeparator2);
+        homeFCV = (FragmentContainerView) findViewById(R.id.Home_FCV);
+        constraintLayout = (ConstraintLayout) findViewById(R.id.MainConstraintLayout);
 
         /* Get Resources */
         opacityOfIconDefault = getResources().getInteger(R.integer.opacityOfIconDefault);
         opacityOfIconClicked = getResources().getInteger(R.integer.opacityOfIconClicked);
 
-        /* savedInstanceState is a object containing the activity's previously saved state,
+        /* "savedInstanceState" is a object containing the activity's previously saved state,
          * is null only if the activity has never existed before */
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
@@ -81,15 +78,6 @@ public class Home extends AppCompatActivity implements OnClickListener, View.OnT
 
         /* Creation of instance for gestureDetector. */
         gestureDetector = new GestureDetector(this, new GestureListener());
-
-        /*
-         * La seguente parte di codice è provvisoria e serve allo scopo di testare l'utilizzo di Room (db locale).
-         * I file raltivi al db locale sono presenti nel package "localDatabase", dove a sua volta è presente una classe che implementa Runnable "TestApp"
-         * che testa l'utilizzo del db locale aggiungento elementi e stampandoli du schermo.
-         * */
-        //TextView mainTextView = findViewById(R.id.mainText);
-        //Thread t = new Thread(new TestApp(getApplicationContext(), this, mainTextView));
-        //t.start();
     }
 
     @Override
@@ -98,7 +86,9 @@ public class Home extends AppCompatActivity implements OnClickListener, View.OnT
         @AnimatorRes @AnimRes int exitAnimation = R.anim.slide_out_left;
 
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.Home_FCV);
-        if(currentFragment == null) return;
+        if(currentFragment == null){
+            return;
+        }
 
         Class<? extends Fragment> newFragmentClass;
         if (homeButton.getId() == v.getId()) {
@@ -153,7 +143,7 @@ public class Home extends AppCompatActivity implements OnClickListener, View.OnT
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        /* Call for gestureDetectorCompat */
+        /* Call for gestureDetectorCompat. */
         return gestureDetector.onTouchEvent(event);
     }
 
@@ -219,23 +209,5 @@ public class Home extends AppCompatActivity implements OnClickListener, View.OnT
             }
             return result;
         }
-    }
-
-    private static final String DEBUG_TAG = "Gestures";
-
-    public void onSwipeRight() {
-        Log.d(DEBUG_TAG, "Right");
-    }
-
-    public void onSwipeLeft() {
-        Log.d(DEBUG_TAG, "Left");
-    }
-
-    public void onSwipeTop() {
-        Log.d(DEBUG_TAG, "Top");
-    }
-
-    public void onSwipeBottom() {
-        Log.d(DEBUG_TAG, "Bottom");
     }
 }

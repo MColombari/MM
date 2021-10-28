@@ -7,10 +7,8 @@ import android.os.Build;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.annotation.RequiresApi;
 import androidx.room.Room;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,7 +18,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import localDatabase.LocalDatabase;
 import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.Course;
@@ -28,13 +25,14 @@ import localDatabase.Tables.Question;
 import localDatabase.Tables.UserInformation;
 
 public class Sync implements Runnable{
-    private final String SERVER_IP = "192.168.1.66";
+    private final String SERVER_IP = "192.168.1.67";
     private final int SERVER_PORT = 3000;
     private final int TIME_TO_STAY = 5;
 
-    private final String message = "Hello wor- ... server?!?!";
     LocalDatabase localDatabase;
     LocalDatabaseDao localDatabaseDao;
+
+    Context context;
 
     Socket socket;
     PrintWriter out;
@@ -43,18 +41,17 @@ public class Sync implements Runnable{
     StringBuilder communicationText;
 
     PopupWindow popupWindow;
-    TextView text;
-    ProgressBar progressBar;
-    Context context;
+    TextView popupWindowsText;
+    ProgressBar popupWindowsProgressBar;
 
     List<Course> courseList;
     List<Question> questionList;
 
-    public Sync(Context context, Context contextDatabase, PopupWindow popupWindow, TextView text, ProgressBar progressBar) {
-        this.popupWindow = popupWindow;
-        this.text = text;
-        this.progressBar = progressBar;
+    public Sync(Context context, Context contextDatabase, PopupWindow popupWindow, TextView popupWindowsText, ProgressBar popupWindowsProgressBar) {
         this.context = context;
+        this.popupWindow = popupWindow;
+        this.popupWindowsText = popupWindowsText;
+        this.popupWindowsProgressBar = popupWindowsProgressBar;
 
         localDatabase = Room.databaseBuilder(contextDatabase, LocalDatabase.class, "LocalDatabase")
                 .fallbackToDestructiveMigration()  /* Is needed to overwrite the old scheme of the
@@ -66,6 +63,7 @@ public class Sync implements Runnable{
 
         communicationText = new StringBuilder();
         communicationText.append("Connection to server...");
+        updateText(communicationText.toString());
 
         courseList = new ArrayList<>();
         questionList = new ArrayList<>();
@@ -78,17 +76,16 @@ public class Sync implements Runnable{
             *   https://www.oracle.com/java/technologies/jpl2-socket-communication.html. */
             try{
                 socket = new Socket(SERVER_IP, SERVER_PORT);
-                out = new PrintWriter(socket.getOutputStream(),
-                        true);
-                in = new BufferedReader(new InputStreamReader(
-                        socket.getInputStream()));
-            } catch (UnknownHostException e) {
+                out = new PrintWriter(socket.getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            }
+            catch (UnknownHostException e) {
                 communicationText.append("\t\t[failed]\nError server connection,\n operation aborted.\n");
                 setProgressBarPosition(0);
                 updateText(communicationText.toString());
                 try {
                     TimeUnit.SECONDS.sleep(TIME_TO_STAY);
-                } catch (InterruptedException interruptedException) { terminatePopup(); return;}
+                } catch (InterruptedException interruptedException) { /* Just terminate the popup and return. */ }
                 terminatePopup();
                 return;
             } catch  (IOException e) {
@@ -97,7 +94,7 @@ public class Sync implements Runnable{
                 updateText(communicationText.toString());
                 try {
                     TimeUnit.SECONDS.sleep(TIME_TO_STAY);
-                } catch (InterruptedException interruptedException) { terminatePopup(); return;}
+                } catch (InterruptedException interruptedException) { /* Just terminate the popup and return. */ }
                 terminatePopup();
                 return;
             }
@@ -114,8 +111,18 @@ public class Sync implements Runnable{
                 updateText(communicationText.toString());
                 try {
                     TimeUnit.SECONDS.sleep(TIME_TO_STAY);
-                } catch (InterruptedException interruptedException) { terminatePopup(); return;}
+                } catch (InterruptedException interruptedException) { /* Just terminate the popup and return. */ }
                 terminatePopup();
+
+                /* Close server connection. */
+                try {
+                    if(out != null){ out.close(); }
+                    if(in != null){ in.close(); }
+                    if(socket != null){ socket.close(); }
+                } catch (IOException e) {
+                    /* Do nothing. */
+                }
+
                 return;
             }
 
@@ -143,8 +150,8 @@ public class Sync implements Runnable{
             setProgressBarPosition(50);
 
             /* Receiving number of courses and questions. */
-            int numberOfCourses = 0;
-            int numberOfQuestion = 0;
+            int numberOfCourses;
+            int numberOfQuestion;
             if((messageIn = in.readLine()) != null){
                 numberOfCourses = Integer.parseInt(messageIn);
             }
@@ -158,18 +165,17 @@ public class Sync implements Runnable{
                 throw new IOException();
             }
 
+            /* Sending ACK. */
             out.println("ACK");
             out.flush();
 
-            System.out.println(numberOfCourses);
-            System.out.println(numberOfQuestion);
-
+            /* Receiving courses. */
             for(int i = 0; i < numberOfCourses; i++){
-                int id = 0;
-                String name = null;
-                String year = null;
-                String professor = null;
-                String description = null;
+                int id;
+                String name;
+                String year;
+                String professor;
+                String description;
 
                 if((messageIn = in.readLine()) != null){
                     id = Integer.parseInt(messageIn);
@@ -203,17 +209,18 @@ public class Sync implements Runnable{
                 }
 
                 courseList.add(new Course(id, name, year, professor, description));
-                System.out.println(courseList.get(courseList.size() - 1).toString());
             }
+
+            /* Receiving questions. */
             for(int i = 0; i < numberOfQuestion; i++){
-                int id = 0;
-                int idCourse = 0;
-                String lastChange = null;
-                String questionText = null;
-                String answer1 = null;
-                String answer2 = null;
-                String answer3 = null;
-                String answer4 = null;
+                int id;
+                int idCourse;
+                String lastChange;
+                String questionText;
+                String answer1;
+                String answer2;
+                String answer3;
+                String answer4;
 
                 if((messageIn = in.readLine()) != null){
                     id = Integer.parseInt(messageIn);
@@ -265,26 +272,27 @@ public class Sync implements Runnable{
                 }
 
                 questionList.add(new Question(id, idCourse, lastChange, questionText, answer1, answer2, answer3, answer4));
-                System.out.println(questionList.get(questionList.size() - 1).toString());
             }
 
             communicationText.append("\t\t[ok]\nSaving question and courses...");
             updateText(communicationText.toString());
             setProgressBarPosition(75);
 
-
+            /* Saving courses. */
             for(Course c: courseList){
                 if(localDatabaseDao.getCourseById(c.getId()).isEmpty()){
                     localDatabaseDao.insertCourses(c);
                 }
             }
 
+            /* Saving courses. */
             for(Question q: questionList){
                 if(localDatabaseDao.getAllQuestionByIds(q.getQid()).isEmpty()){
                     localDatabaseDao.insertAllQuestion(q);
                 }
             }
 
+            /* Sending ACK. */
             out.println("ACK");
             out.flush();
 
@@ -293,30 +301,32 @@ public class Sync implements Runnable{
             setProgressBarPosition(100);
             try {
                 TimeUnit.SECONDS.sleep(TIME_TO_STAY);
-            } catch (InterruptedException interruptedException) { terminatePopup(); return;}
+            } catch (InterruptedException interruptedException) { /* Just terminate the popup and return. */ }
             terminatePopup();
-
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             communicationText.append("\t\t[failed]\nError external server,\n operation aborted.\n");
             updateText(communicationText.toString());
             try {
                 TimeUnit.SECONDS.sleep(TIME_TO_STAY);
-            } catch (InterruptedException interruptedException) { terminatePopup(); return;}
+            } catch (InterruptedException interruptedException) { /* Just terminate the popup and return. */ }
             terminatePopup();
-        } catch (SQLiteException e){
+        }
+        catch (SQLiteException e) {
             communicationText.append("\t\t[failed]\nError local server,\n operation aborted.\n");
             updateText(communicationText.toString());
             try {
                 TimeUnit.SECONDS.sleep(TIME_TO_STAY);
-            } catch (InterruptedException interruptedException) { terminatePopup(); return;}
+            } catch (InterruptedException interruptedException) { /* Just terminate the popup and return. */ }
             terminatePopup();
-        } finally {
+        }
+        finally {
             try {
                 if(out != null){ out.close(); }
                 if(in != null){ in.close(); }
                 if(socket != null){ socket.close(); }
             } catch (IOException e) {
-                e.printStackTrace();
+                /* Do nothing. */
             }
 
         }
@@ -328,7 +338,7 @@ public class Sync implements Runnable{
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    text.setText(newText);
+                    popupWindowsText.setText(newText);
                 }
             });
         }
@@ -340,7 +350,7 @@ public class Sync implements Runnable{
                 @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
                 public void run() {
-                    progressBar.setProgress(position, true);
+                    popupWindowsProgressBar.setProgress(position, true);
                 }
             });
         }

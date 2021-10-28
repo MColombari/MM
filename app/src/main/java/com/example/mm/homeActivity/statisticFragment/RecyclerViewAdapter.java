@@ -7,27 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.mm.R;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.DataSet;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.ViewPortHandler;
-import com.google.android.material.slider.LabelFormatter;
-
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
@@ -115,7 +102,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     if(recyclerViewRowDataArrayList.get(getAbsoluteAdapterPosition()).isExpanded == false) {
                         for (int i = 0; i < (recyclerViewRowDataArrayList.size()); i++) {
                             /* "getAbsoluteAdapterPosition()" returns the Adapter position of the item represented
-                             * by this ViewHolder */
+                             * by this ViewHolder. */
                             RecyclerViewRowData recyclerViewRowData = recyclerViewRowDataArrayList.get(i);
                             recyclerViewRowData.setExpanded(getAbsoluteAdapterPosition() == i ? (!recyclerViewRowData.isExpanded()) : false);
                             /* "notifyItemChanged()" will call "onBindViewHolder()" method so the Layout will be

@@ -3,17 +3,10 @@ package com.example.mm.homeActivity.localDatabaseInteraction;
 import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
-
 import androidx.room.Room;
-
 import com.example.mm.R;
 import com.example.mm.homeActivity.optionFragment.OptionFragment;
-import com.example.mm.optionActivity.Option;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-
 import localDatabase.LocalDatabase;
 import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.UserInformation;
@@ -45,23 +38,23 @@ public class GetUserInformation implements  Runnable {
             userInformations = localDatabaseDao.getAllUserInformation();
 
             if(userInformations.isEmpty()){
-                this.updateStatistic("No user information was found.", "", "", "", "Add User Information");
+                this.updateStatistic("No user information was found.", "");
             }
             else if(userInformations.size() > 1){
                 localDatabaseDao.deleteAllUserInformation();
-                this.updateStatistic("Multiple user were found,", "", "they all have been deleted.", "", "Add User Information");
+                this.updateStatistic("Multiple user were found,", "they all have been deleted.");
             }
             else {
                 String name = "Name: " + userInformations.get(0).getName();
                 String surname = "Surname: " + userInformations.get(0).getSurname();
                 String email = "Email: " + userInformations.get(0).getEmail();
-                String matr = "Matr.: " + Integer.toString(userInformations.get(0).getMatr());
+                String matr = "Matr.: " + userInformations.get(0).getMatr();
 
                 updateStatistic(name, surname, email, matr);
             }
         }
         catch(SQLiteException e){
-            this.updateStatistic("Errore,", "", "Lettura/Scrittura database", "", "Add User Information");
+            this.updateStatistic("Error,", "Local database");
         }
     }
 
@@ -76,13 +69,13 @@ public class GetUserInformation implements  Runnable {
             });
         }
     }
-    void updateStatistic(String name, String surname, String email, String matr, String button){
+    void updateStatistic(String name, String email){
         if (context instanceof Activity) {
             Activity mainActivity = (Activity)context;
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    optionFragment.updateInfo(name, surname, email, matr, context.getString(R.string.underline_Add_User_Information));
+                    optionFragment.updateInfo(name, "", email, "", context.getString(R.string.underline_Add_User_Information));
                 }
             });
         }

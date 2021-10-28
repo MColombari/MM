@@ -1,21 +1,17 @@
 package com.example.mm.homeActivity.statisticFragment;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.mm.R;
 import com.example.mm.homeActivity.Home;
 import com.example.mm.homeActivity.localDatabaseInteraction.GetCourseMoreStatistic;
-
 import java.util.ArrayList;
 
 public class MoreStatisticFragment extends Fragment {
@@ -34,8 +30,8 @@ public class MoreStatisticFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         this.view = view;
-        moreStatisticLessText = view.findViewById(R.id.MoreStatisticLessText);
-        moreStatisticStatus = view.findViewById(R.id.moreStatisticStatus);
+        moreStatisticLessText = (TextView) view.findViewById(R.id.MoreStatisticLessText);
+        moreStatisticStatus = (TextView) view.findViewById(R.id.moreStatisticStatus);
         moreStatisticLessText.setOnClickListener((Home) getActivity());
 
         Thread t = new Thread(new GetCourseMoreStatistic(getContext(), getActivity().getApplicationContext(), this));
@@ -48,7 +44,7 @@ public class MoreStatisticFragment extends Fragment {
     }
 
     public void updateRecycleView(ArrayList<RecyclerViewRowData> recyclerViewRowDataArrayList){
-        RecyclerView recyclerView = view.findViewById(R.id.MoreStatisticRecycleView);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.MoreStatisticRecycleView);
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(view.getContext(), recyclerViewRowDataArrayList);
         recyclerView.setAdapter(recyclerViewAdapter);
         /* I need to use LinearLayout because doesn't exits any Manager for ConstraintLayout. */

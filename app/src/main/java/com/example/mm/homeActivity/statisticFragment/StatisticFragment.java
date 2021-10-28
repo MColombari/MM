@@ -3,10 +3,8 @@ package com.example.mm.homeActivity.statisticFragment;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import com.example.mm.R;
 import com.example.mm.homeActivity.Home;
 import com.github.mikephil.charting.charts.RadarChart;
@@ -24,14 +21,11 @@ import com.github.mikephil.charting.data.RadarData;
 import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-
 import java.util.ArrayList;
-
 import com.example.mm.homeActivity.localDatabaseInteraction.GetCourseStatistic;
-
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
-/* https://www.anychart.com/technical-integrations/samples/android-charts/ */
+/* Chart library: "https://www.anychart.com/technical-integrations/samples/android-charts/". */
 
 public class StatisticFragment extends Fragment implements View.OnClickListener {
     TextView status;
@@ -48,9 +42,9 @@ public class StatisticFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        status = view.findViewById(R.id.statisticStatus);
-        radarChart = view.findViewById(R.id.StatisticGraph);
-        statisticMoreText = view.findViewById(R.id.StatisticMoreText);
+        status = (TextView) view.findViewById(R.id.statisticStatus);
+        statisticMoreText = (TextView) view.findViewById(R.id.StatisticMoreText);
+        radarChart = (RadarChart) view.findViewById(R.id.StatisticGraph);
 
         ImageView questionMark = (ImageView) view.findViewById(R.id.Statistic_Fragment_Question_Mark);
 
@@ -67,7 +61,7 @@ public class StatisticFragment extends Fragment implements View.OnClickListener 
     }
 
     public void updateGraph(ArrayList<String> courseName, ArrayList<Float> values){
-        ArrayList<RadarEntry> radarEntries = new ArrayList<RadarEntry>();
+        ArrayList<RadarEntry> radarEntries = new ArrayList<>();
         for(float f : values){
             radarEntries.add(new RadarEntry(f));
         }
@@ -86,8 +80,6 @@ public class StatisticFragment extends Fragment implements View.OnClickListener 
         radarDataSet.setValueTextSize(10f);
         radarDataSet.setHighlightCircleFillColor(R.color.cyan);
         radarDataSet.setLineWidth(3);
-
-        /* Continua da qui: https://www.programmersought.com/article/95216335605/ */
 
         radarChart.getDescription().setEnabled(false);
         radarChart.getLegend().setEnabled(false);
@@ -131,13 +123,12 @@ public class StatisticFragment extends Fragment implements View.OnClickListener 
             });
 
             title.setText("More about user statistics.");
-            text.setText(   "The radar graph shown rapresents the average points per courses, the " +
+            text.setText(   "The radar graph shown represents the average points per courses, the " +
                             "points range is [0-100].\n" +
                             "Click 'More' to see more information per course.\n" +
                             "If no data is shown it means that there aren't any record about any " +
                             "question the used has answered, this could happen when all the courses " +
-                            "were deleted, or because you never answer any question.");
-
+                            "were deleted, or because you never answered any question.");
         }
     }
 }
