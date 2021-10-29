@@ -24,7 +24,7 @@ public class Course {
         this.description = description;
     }
 
-    /* Getter */
+    /*      Getter      */
     public int getId() {
         return id;
     }
@@ -39,7 +39,7 @@ public class Course {
         return description;
     }
 
-    /* Setter */
+    /*      Setter      */
     public void setId(int id) {
         this.id = id;
     }
@@ -54,7 +54,7 @@ public class Course {
         this.description = description;
     }
 
-    /* toString */
+    /*      toString        */
     @Override
     public String toString() {
         return "Course{" +

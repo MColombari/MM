@@ -13,15 +13,14 @@ import static androidx.room.ForeignKey.CASCADE;
             onUpdate = CASCADE)
 )
 public class StatisticUser implements Comparable<StatisticUser> {
-    /* Generated id as the primary for being able to insert multiple record on the same date,
-    *  Course with the same points. */
+    /* Generated id as the primary key for being able to insert multiple record on the same date,
+    *  course and with the same points. */
     @PrimaryKey(autoGenerate = true)
     public int id;
     @NonNull
     public int qidQuestion;
-    /* Date format "yyyyMMdd". */
     @NonNull
-    public int date;
+    public int date; /* Date format "yyyyMMdd". */
     @NonNull
     public int points; /* [0 - 100] */
 

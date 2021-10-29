@@ -1,7 +1,6 @@
 package com.example.mm;
 
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 /**

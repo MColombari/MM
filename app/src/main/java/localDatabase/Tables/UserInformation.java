@@ -21,7 +21,7 @@ public class UserInformation {
         this.matr = matr;
     }
 
-    /* Getter */
+    /*      Getter      */
     @NonNull
     public String getName() {
         return name;
@@ -38,7 +38,7 @@ public class UserInformation {
         return matr;
     }
 
-    /* Setter */
+    /*      Setter      */
     public void setName(@NonNull String name) {
         this.name = name;
     }

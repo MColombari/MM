@@ -1,6 +1,5 @@
 package localDatabase.Tables;
 
-import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -13,9 +12,9 @@ public class QuickResumeDataIds {
         this.courseId = courseId;
     }
 
-    /* Getter */
+    /*      Getter      */
     public int getCourseId() { return courseId; }
 
-    /* Setter */
+    /*      Setter      */
     public void setCourseId(int courseId) { this.courseId = courseId; }
 }

@@ -2,12 +2,7 @@ package localDatabase.Tables;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
-
-import java.util.ArrayList;
-
-import static androidx.room.ForeignKey.CASCADE;
 
 @Entity()
 public class QuickResumeData {
@@ -23,11 +18,11 @@ public class QuickResumeData {
         this.sortOption = sortOption;
     }
 
-    /* Getter */
+    /*      Getter      */
     public int getNumberOfQuestion() { return numberOfQuestion; }
     public int getSortOption() { return sortOption; }
 
-    /* Setter */
+    /*      Setter      */
     public void setNumberOfQuestion(int numberOfQuestion) { this.numberOfQuestion = numberOfQuestion; }
     public void setSortOption(int sortOption) { this.sortOption = sortOption; }
 }
