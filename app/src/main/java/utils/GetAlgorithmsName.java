@@ -1,7 +1,7 @@
-package Utils;
+package utils;
 
-public class GetAlorithmsName {
-    static public String get(int algorithmOfSorting){
+public class GetAlgorithmsName {
+    public static String get(int algorithmOfSorting){
         if(algorithmOfSorting == 1){
             return "Less seen question";
         }

@@ -11,7 +11,7 @@ import androidx.room.Room;
 import com.example.mm.homeActivity.homeFragment.HomeFragment;
 import java.util.ArrayList;
 import java.util.List;
-import Utils.GetAlorithmsName;
+import utils.GetAlgorithmsName;
 import localDatabase.LocalDatabase;
 import localDatabase.LocalDatabaseDao;
 import localDatabase.Tables.Course;
@@ -78,7 +78,7 @@ public class GetQuickResumeData implements Runnable {
             stringBuilder.append("Quick Resume\nSettings:\n\t - Number of question = ");
             stringBuilder.append(numQuestion);
             stringBuilder.append("\n\t - Sorting Algorithm = \"");
-            stringBuilder.append(GetAlorithmsName.get(sortingAlgorithm));
+            stringBuilder.append(GetAlgorithmsName.get(sortingAlgorithm));
             stringBuilder.append("\"\n\t - Courses = ");
 
             boolean flag = true;

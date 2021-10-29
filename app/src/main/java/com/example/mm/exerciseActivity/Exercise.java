@@ -366,7 +366,7 @@ public class Exercise extends AppCompatActivity implements View.OnClickListener 
             numberOfQuestion = questionsDataRecurrenceArrayList.size();
         }
 
-        questionsDataRecurrenceArrayList = Utils.CutArray.cutQuestionsDataRecurrence(questionsDataRecurrenceArrayList, 0, numberOfQuestion - 1);
+        questionsDataRecurrenceArrayList = utils.CutArray.cutQuestionsDataRecurrence(questionsDataRecurrenceArrayList, 0, numberOfQuestion - 1);
 
         for(QuestionsDataAbstract i : questionsDataRecurrenceArrayList){
             List<Integer> index = Arrays.asList(0, 1, 2, 3);
