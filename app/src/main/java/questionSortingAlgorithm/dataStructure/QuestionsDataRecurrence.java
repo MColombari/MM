@@ -10,19 +10,17 @@ public class QuestionsDataRecurrence extends QuestionsDataAbstract implements Co
         this.occurrence = occurrence;
     }
 
-    public QuestionsDataRecurrence(Question question) {
-        super(question);
-        occurrence = 0;
-    }
-
+    /* Getter. */
     public int getOccurrence() {
         return occurrence;
     }
 
+    /* Setter. */
     public void setOccurrence(int occurrence) {
         this.occurrence = occurrence;
     }
 
+    /* compareTo. */
     @Override
     public int compareTo(QuestionsDataRecurrence o) {
         if(o.getOccurrence() == this.getOccurrence()){

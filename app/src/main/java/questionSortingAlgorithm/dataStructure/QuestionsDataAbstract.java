@@ -9,14 +9,15 @@ public abstract class QuestionsDataAbstract {
         this.question = question;
     }
 
+    /* Getter. */
     public Question getQuestion() {
         return question;
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
+    /* Setter. */
+    public void setQuestion(Question question) { this.question = question; }
 
+    /* toString. */
     @Override
     public String toString() {
         return "QuestionsDataAbstract{" +

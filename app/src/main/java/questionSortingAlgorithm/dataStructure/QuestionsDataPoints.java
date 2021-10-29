@@ -10,10 +10,13 @@ public class QuestionsDataPoints extends QuestionsDataAbstract implements Compar
         this.avgPoints = avgPoints;
     }
 
+    /* Getter. */
     public int getAvgPoints() { return avgPoints; }
 
+    /* Setter. */
     public void setAvgPoints(int avgPoints) { this.avgPoints = avgPoints; }
 
+    /* compareTo. */
     @Override
     public int compareTo(QuestionsDataPoints o) {
         if(o.getAvgPoints() == this.getAvgPoints()){

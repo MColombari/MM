@@ -2,7 +2,6 @@ package questionSortingAlgorithm;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
 import questionSortingAlgorithm.dataStructure.QuestionsDataPoints;
 
 public class PointsSorting {

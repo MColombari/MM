@@ -2,8 +2,6 @@ package questionSortingAlgorithm;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import questionSortingAlgorithm.dataStructure.QuestionsDataAbstract;
 import questionSortingAlgorithm.dataStructure.QuestionsDataRecurrence;
 
 public class RecurrenceSorting{

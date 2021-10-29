@@ -3,7 +3,6 @@ package questionSortingAlgorithm;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
 import questionSortingAlgorithm.dataStructure.QuestionsDataRecurrence;
 
 public class ReverseRecurrenceSorting {
