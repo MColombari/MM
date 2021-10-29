@@ -181,6 +181,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/more_about_us"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/Option_Fragment_Question_Mark_More_About_Us"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
