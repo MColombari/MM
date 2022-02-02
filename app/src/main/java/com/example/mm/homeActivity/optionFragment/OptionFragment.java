@@ -102,6 +102,11 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
         textViewUpdateInfo.setTextColor(getResources().getColor(R.color.red));
     }
 
+    public void setUserInformation(String name, String surname, String email, int matr){
+        Thread t = new Thread(new SetUserInformation(getContext(), (SetUserInfoInterface) localDatabaseDao, UserInformationPopupWindow, this, name, surname, email, matr));
+        t.start();
+    }
+
     @Override
     public void onClick(View v) {
         if(v.getId() == textViewUpdateInfo.getId()){
@@ -167,8 +172,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
                     return;
                 }
 
-                Thread t = new Thread(new SetUserInformation(getContext(), (SetUserInfoInterface) localDatabaseDao, UserInformationPopupWindow, this, name, surname, email, matr));
-                t.start();
+                this.setUserInformation(name, surname, email, matr);
             }
             catch (NumberFormatException e){
                 optionFragmentTextButton.setText("Error, check matr, and try again.");
