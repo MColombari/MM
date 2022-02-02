@@ -14,34 +14,26 @@ import localDatabase.Tables.UserInformation;
 public class GetUserInformation implements  Runnable {
     Context context;
     OptionFragment optionFragment;
-    LocalDatabase localDatabase;
-    LocalDatabaseDao localDatabaseDao;
+    GetUserInfoInterface getUserInfoInterface;
 
     List<UserInformation> userInformations;
 
-    public GetUserInformation(Context context, Context contextDatabase, OptionFragment optionFragment) {
+    public GetUserInformation(Context context, GetUserInfoInterface getUserInfoInterface, OptionFragment optionFragment) {
         this.context = context;
+        this.getUserInfoInterface = getUserInfoInterface;
         this.optionFragment = optionFragment;
-
-        localDatabase = Room.databaseBuilder(contextDatabase, LocalDatabase.class, "LocalDatabase")
-                .fallbackToDestructiveMigration()  /* Is needed to overwrite the old scheme of the
-                                                    *  local database, it will ERASE all the current
-                                                    *  data.
-                                                    * */
-                .build();
-        localDatabaseDao = localDatabase.localDatabaseDao();
     }
 
     @Override
     public void run() {
         try{
-            userInformations = localDatabaseDao.getAllUserInformation();
+            userInformations = getUserInfoInterface.getAllUserInformation();
 
             if(userInformations.isEmpty()){
                 this.updateStatistic("No user information was found.", "");
             }
             else if(userInformations.size() > 1){
-                localDatabaseDao.deleteAllUserInformation();
+                getUserInfoInterface.deleteAllUserInformation();
                 this.updateStatistic("Multiple user were found,", "they all have been deleted.");
             }
             else {

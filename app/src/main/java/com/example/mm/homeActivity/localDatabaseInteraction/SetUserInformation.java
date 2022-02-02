@@ -14,14 +14,13 @@ public class SetUserInformation implements Runnable {
     Context context;
     PopupWindow popupWindow;
     OptionFragment optionFragment;
-    LocalDatabase localDatabase;
-    LocalDatabaseDao localDatabaseDao;
+    SetUserInfoInterface setUserInfoInterface;
     String name;
     String surname;
     String email;
     int matr;
 
-    public SetUserInformation(Context context, Context contextDatabase, PopupWindow popupWindow, OptionFragment optionFragment, String name, String surname, String email, int matr) {
+    public SetUserInformation(Context context, SetUserInfoInterface setUserInfoInterface, PopupWindow popupWindow, OptionFragment optionFragment, String name, String surname, String email, int matr) {
         this.context = context;
         this.popupWindow = popupWindow;
         this.optionFragment = optionFragment;
@@ -30,20 +29,14 @@ public class SetUserInformation implements Runnable {
         this.email = email;
         this.matr = matr;
 
-        localDatabase = Room.databaseBuilder(contextDatabase, LocalDatabase.class, "LocalDatabase")
-                .fallbackToDestructiveMigration()  /* Is needed to overwrite the old scheme of the
-         *  local database, it will ERASE all the current
-         *  data.
-         * */
-                .build();
-        localDatabaseDao = localDatabase.localDatabaseDao();
+        this.setUserInfoInterface = setUserInfoInterface;
     }
 
     @Override
     public void run() {
         try{
-            localDatabaseDao.deleteAllUserInformation();
-            localDatabaseDao.insertUserInformation(new UserInformation(name, surname, email, matr));
+            setUserInfoInterface.deleteAllUserInformation();
+            setUserInfoInterface.insertUserInformation(new UserInformation(name, surname, email, matr));
             this.updateStatistic("Name: " + name, "Surname: " + surname, "Email: " + email, "Matr.: " + matr);
         }
         catch(SQLiteException e){

@@ -6,6 +6,10 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
+
+import com.example.mm.homeActivity.localDatabaseInteraction.GetUserInfoInterface;
+import com.example.mm.homeActivity.localDatabaseInteraction.SetUserInfoInterface;
+
 import java.util.List;
 import localDatabase.Tables.Course;
 import localDatabase.Tables.Question;
@@ -16,7 +20,7 @@ import localDatabase.Tables.UserInformation;
 
 /* DAO: Database Access Object. */
 @Dao
-public interface LocalDatabaseDao {
+public interface LocalDatabaseDao extends GetUserInfoInterface, SetUserInfoInterface {
     /* Question Query. */
     @Transaction
     @Query("SELECT * FROM Question")

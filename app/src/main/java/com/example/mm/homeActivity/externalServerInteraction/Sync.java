@@ -25,7 +25,7 @@ import localDatabase.Tables.Question;
 import localDatabase.Tables.UserInformation;
 
 public class Sync implements Runnable{
-    private final String SERVER_IP = "192.168.1.67";
+    private final String SERVER_IP = "192.168.77.69";
     private final int SERVER_PORT = 3000;
     private final int TIME_TO_STAY = 5;
 

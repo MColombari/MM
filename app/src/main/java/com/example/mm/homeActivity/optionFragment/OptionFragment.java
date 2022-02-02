@@ -15,10 +15,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.example.mm.R;
 import com.example.mm.homeActivity.externalServerInteraction.Sync;
+import com.example.mm.homeActivity.localDatabaseInteraction.GetUserInfoInterface;
 import com.example.mm.homeActivity.localDatabaseInteraction.GetUserInformation;
+import com.example.mm.homeActivity.localDatabaseInteraction.SetUserInfoInterface;
 import com.example.mm.homeActivity.localDatabaseInteraction.SetUserInformation;
+import com.example.mm.homeActivity.localDatabaseInteraction.SingletonDao;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+
+import localDatabase.LocalDatabaseDao;
 
 public class OptionFragment extends Fragment implements View.OnClickListener {
     TextView textViewName;
@@ -41,6 +46,8 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     View view;
     PopupWindow UserInformationPopupWindow;
     PopupWindow questionMarkPopupWindow;
+
+    LocalDatabaseDao localDatabaseDao;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,7 +77,9 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
         optionFragmentQuestionMarkSync.setOnClickListener(this);
         optionFragmentQuestionMarkMoreAboutUs.setOnClickListener(this);
 
-        Thread t = new Thread(new GetUserInformation(getContext(), getActivity().getApplicationContext(), this));
+        localDatabaseDao = SingletonDao.getDao(getActivity().getApplicationContext());
+
+        Thread t = new Thread(new GetUserInformation(getContext(), (GetUserInfoInterface) localDatabaseDao, this));
         t.start();
     }
 
@@ -158,7 +167,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
                     return;
                 }
 
-                Thread t = new Thread(new SetUserInformation(getContext(), getActivity().getApplicationContext(), UserInformationPopupWindow, this, name, surname, email, matr));
+                Thread t = new Thread(new SetUserInformation(getContext(), (SetUserInfoInterface) localDatabaseDao, UserInformationPopupWindow, this, name, surname, email, matr));
                 t.start();
             }
             catch (NumberFormatException e){
