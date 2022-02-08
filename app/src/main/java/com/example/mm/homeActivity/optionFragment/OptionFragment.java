@@ -15,15 +15,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.example.mm.R;
 import com.example.mm.homeActivity.externalServerInteraction.Sync;
+import com.example.mm.homeActivity.localDatabaseInteraction.DaoFactory;
+import com.example.mm.homeActivity.localDatabaseInteraction.DaoFactoryImplementation;
 import com.example.mm.homeActivity.localDatabaseInteraction.GetUserInfoInterface;
 import com.example.mm.homeActivity.localDatabaseInteraction.GetUserInformation;
 import com.example.mm.homeActivity.localDatabaseInteraction.SetUserInfoInterface;
 import com.example.mm.homeActivity.localDatabaseInteraction.SetUserInformation;
-import com.example.mm.homeActivity.localDatabaseInteraction.SingletonDao;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-
-import localDatabase.LocalDatabaseDao;
 
 public class OptionFragment extends Fragment implements View.OnClickListener {
     TextView textViewName;
@@ -46,6 +45,8 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     View view;
     PopupWindow UserInformationPopupWindow;
     PopupWindow questionMarkPopupWindow;
+
+    DaoFactory daoFactory;
 
     GetUserInfoInterface getUserInfoInterface;
     SetUserInfoInterface setUserInfoInterface;
@@ -78,8 +79,10 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
         optionFragmentQuestionMarkSync.setOnClickListener(this);
         optionFragmentQuestionMarkMoreAboutUs.setOnClickListener(this);
 
-        getUserInfoInterface = (GetUserInfoInterface) SingletonDao.getDao(getActivity().getApplicationContext());
-        setUserInfoInterface = (SetUserInfoInterface) SingletonDao.getDao(getActivity().getApplicationContext());
+        daoFactory = new DaoFactoryImplementation();
+
+        getUserInfoInterface = (GetUserInfoInterface) daoFactory.getDao(getActivity().getApplicationContext());
+        setUserInfoInterface = (SetUserInfoInterface) daoFactory.getDao(getActivity().getApplicationContext());
 
         Thread t = new Thread(new GetUserInformation(getContext(), getUserInfoInterface, this));
         t.start();
