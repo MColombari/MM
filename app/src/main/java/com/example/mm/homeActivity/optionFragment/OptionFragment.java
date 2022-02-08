@@ -47,7 +47,8 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     PopupWindow UserInformationPopupWindow;
     PopupWindow questionMarkPopupWindow;
 
-    LocalDatabaseDao localDatabaseDao;
+    GetUserInfoInterface getUserInfoInterface;
+    SetUserInfoInterface setUserInfoInterface;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,9 +78,10 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
         optionFragmentQuestionMarkSync.setOnClickListener(this);
         optionFragmentQuestionMarkMoreAboutUs.setOnClickListener(this);
 
-        localDatabaseDao = SingletonDao.getDao(getActivity().getApplicationContext());
+        getUserInfoInterface = (GetUserInfoInterface) SingletonDao.getDao(getActivity().getApplicationContext());
+        setUserInfoInterface = (SetUserInfoInterface) SingletonDao.getDao(getActivity().getApplicationContext());
 
-        Thread t = new Thread(new GetUserInformation(getContext(), (GetUserInfoInterface) localDatabaseDao, this));
+        Thread t = new Thread(new GetUserInformation(getContext(), getUserInfoInterface, this));
         t.start();
     }
 
@@ -103,7 +105,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     }
 
     public void setUserInformation(String name, String surname, String email, int matr){
-        Thread t = new Thread(new SetUserInformation(getContext(), (SetUserInfoInterface) localDatabaseDao, UserInformationPopupWindow, this, name, surname, email, matr));
+        Thread t = new Thread(new SetUserInformation(getContext(), setUserInfoInterface, UserInformationPopupWindow, this, name, surname, email, matr));
         t.start();
     }
 
