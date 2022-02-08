@@ -46,11 +46,6 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     PopupWindow UserInformationPopupWindow;
     PopupWindow questionMarkPopupWindow;
 
-    DaoFactory daoFactory;
-
-    GetUserInfoInterface getUserInfoInterface;
-    SetUserInfoInterface setUserInfoInterface;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,12 +74,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
         optionFragmentQuestionMarkSync.setOnClickListener(this);
         optionFragmentQuestionMarkMoreAboutUs.setOnClickListener(this);
 
-        daoFactory = new DaoFactoryImplementation();
-
-        getUserInfoInterface = (GetUserInfoInterface) daoFactory.getDao(getActivity().getApplicationContext());
-        setUserInfoInterface = (SetUserInfoInterface) daoFactory.getDao(getActivity().getApplicationContext());
-
-        Thread t = new Thread(new GetUserInformation(getContext(), getUserInfoInterface, this));
+        Thread t = new Thread(new GetUserInformation(getContext(), new DaoFactoryImplementation(getActivity().getApplicationContext()), this));
         t.start();
     }
 
@@ -108,7 +98,7 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     }
 
     public void setUserInformation(String name, String surname, String email, int matr){
-        Thread t = new Thread(new SetUserInformation(getContext(), setUserInfoInterface, UserInformationPopupWindow, this, name, surname, email, matr));
+        Thread t = new Thread(new SetUserInformation(getContext(), new DaoFactoryImplementation(getActivity().getApplicationContext()), UserInformationPopupWindow, this, name, surname, email, matr));
         t.start();
     }
 

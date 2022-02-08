@@ -20,7 +20,7 @@ public class SetUserInformation implements Runnable {
     String email;
     int matr;
 
-    public SetUserInformation(Context context, SetUserInfoInterface setUserInfoInterface, PopupWindow popupWindow, OptionFragment optionFragment, String name, String surname, String email, int matr) {
+    public SetUserInformation(Context context, DaoFactory daoFactory, PopupWindow popupWindow, OptionFragment optionFragment, String name, String surname, String email, int matr) {
         this.context = context;
         this.popupWindow = popupWindow;
         this.optionFragment = optionFragment;
@@ -29,7 +29,7 @@ public class SetUserInformation implements Runnable {
         this.email = email;
         this.matr = matr;
 
-        this.setUserInfoInterface = setUserInfoInterface;
+        this.setUserInfoInterface = daoFactory.getDao();
     }
 
     @Override

@@ -18,9 +18,9 @@ public class GetUserInformation implements  Runnable {
 
     List<UserInformation> userInformations;
 
-    public GetUserInformation(Context context, GetUserInfoInterface getUserInfoInterface, OptionFragment optionFragment) {
+    public GetUserInformation(Context context, DaoFactory daoFactory, OptionFragment optionFragment) {
         this.context = context;
-        this.getUserInfoInterface = getUserInfoInterface;
+        this.getUserInfoInterface = (GetUserInfoInterface) daoFactory.getDao();
         this.optionFragment = optionFragment;
     }
 
