@@ -29,7 +29,7 @@ public class SetUserInformation implements Runnable {
         this.email = email;
         this.matr = matr;
 
-        this.setUserInfoInterface = daoFactory.getDao();
+        this.setUserInfoInterface = (SetUserInfoInterface) daoFactory.getDao();
     }
 
     @Override
