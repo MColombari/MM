@@ -5,12 +5,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import questionSortingAlgorithm.dataStructure.QuestionsDataRecurrence;
 
-public class ReverseRecurrenceSorting {
+public class ReverseRecurrenceSorting implements SortingAlgorithm{
     ArrayList<QuestionsDataRecurrence> data;
 
     public ReverseRecurrenceSorting(ArrayList<QuestionsDataRecurrence> data) { this.data = data; }
 
-    public ArrayList<QuestionsDataRecurrence> sortQuestions(){
+    public ArrayList<? extends Comparable> sortQuestions(){
         Collections.sort(data, new Comparator<QuestionsDataRecurrence>() {
             @Override
             public int compare(QuestionsDataRecurrence o1, QuestionsDataRecurrence o2) {

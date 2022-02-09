@@ -51,7 +51,7 @@ public class GetQuestionByPoints extends GetQuestionAbstract implements Runnable
                 questionsDataPointsArrayList.add(new QuestionsDataPoints(q, avgPoints));
             }
             PointsSorting pointsSorting = new PointsSorting(questionsDataPointsArrayList);
-            questionsDataPointsArrayList = pointsSorting.sortQuestions();
+            questionsDataPointsArrayList = (ArrayList<QuestionsDataPoints>) pointsSorting.sortQuestions();
             this.updateQuestion();
         }
         catch (SQLiteException e){

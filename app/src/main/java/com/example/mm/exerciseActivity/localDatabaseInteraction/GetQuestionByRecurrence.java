@@ -53,7 +53,7 @@ public class GetQuestionByRecurrence extends GetQuestionAbstract implements Runn
                 questionsDataRecurrenceArrayList.add(new QuestionsDataRecurrence(q, occurrence));
             }
             RecurrenceSorting recurrenceSorting = new RecurrenceSorting(questionsDataRecurrenceArrayList);
-            questionsDataRecurrenceArrayList = recurrenceSorting.sortQuestions();
+            questionsDataRecurrenceArrayList = (ArrayList<QuestionsDataRecurrence>) recurrenceSorting.sortQuestions();
             this.updateQuestion();
         }
         catch(SQLiteException e){

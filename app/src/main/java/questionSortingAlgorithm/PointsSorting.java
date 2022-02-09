@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import questionSortingAlgorithm.dataStructure.QuestionsDataPoints;
 
-public class PointsSorting {
+public class PointsSorting implements SortingAlgorithm{
     ArrayList<QuestionsDataPoints> data;
 
     public PointsSorting(ArrayList<QuestionsDataPoints> data) { this.data = data; }
 
-    public ArrayList<QuestionsDataPoints> sortQuestions(){
+    public ArrayList<? extends Comparable> sortQuestions(){
         Collections.sort(data);
         return data;
     }
